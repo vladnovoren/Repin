@@ -3,7 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 #include "primitives.hpp"
-#include "graphics.hpp"
 
 
 namespace glib {
@@ -19,6 +18,8 @@ namespace glib {
     void RenderLine(const Line& line);
     void RenderRect(const Rect& rect);
     void RenderCircle(const Circle& circle);
+
+    void Render
   };
 }
 
