@@ -14,3 +14,8 @@ glib::RenderTexture::RenderTexture(const tls::Vector2f& size):
 void glib::RenderTexture::Resize(const tls::Vector2f& size) {
   sf_render_texture.create(size.x, size.y);
 }
+
+
+const sf::RenderTexture& glib::RenderTexture::GetSFMLRenderTexture() const {
+  return sf_render_texture;
+}

@@ -2,25 +2,31 @@
 #define PRIMITIVES_HPP
 
 #include "color.hpp"
+#include "vector2.hpp"
+#include "utils.hpp"
 
 
 namespace glib {
-  struct Primitive {
-    ColorRGB color;
-  };
-
-  struct Rect: Primitive {
-    tls::Vector2f position;
-    tls::Vector2f size;
+  template<typename RectType>
+  struct Rect {
+    tls::Vector2<RectType> position;
+    tls::Vector2<RectType> size;
 
     Rect();
-    Rect(const tls::Vector2f& position, const tls::Vector2f& size);
+    Rect(const tls::Vector2<RectType>& position, const tls::Vector2<RectType>& size);
 
-    bool IsPointInRect(const tls::Vector2f& point);
+    bool IsPointInRect(const tls::Vector2<RectType>& point);
   };
 
+  template<typename RectType>
+  sf::Rect<RectType> ToSFMLRect(const Rect<RectType>& rect);
 
-  struct Circle: Primitive {
+  typedef Rect<float> FloatRect;
+  typedef Rect<unsigned int> UIntRect;
+  typedef Rect<int> IntRect;
+
+
+  struct Circle {
     tls::Vector2f center;
     double radius;
 
@@ -29,7 +35,7 @@ namespace glib {
   };
 
 
-  struct Line: Primitive {
+  struct Line {
     tls::Vector2f begin;
     tls::Vector2f end;
 

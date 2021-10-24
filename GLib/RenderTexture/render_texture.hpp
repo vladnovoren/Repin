@@ -13,6 +13,7 @@ namespace glib {
       RenderTexture(const tls::Vector2f& size);
 
       void Resize(const tls::Vector2f& size);
+      const sf::RenderTexture& GetSFMLRenderTexture() const;
   };
 }
 

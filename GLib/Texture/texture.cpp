@@ -4,6 +4,9 @@
 glib::Texture::Texture() {}
 
 
+glib::Texture::Texture(const sf::Texture& sf_texture): sf_texture(sf_texture) {}
+
+
 glib::Texture::~Texture() {}
 
 
@@ -13,4 +16,9 @@ bool glib::Texture::LoadFromFile(const char* file_name) {
     return false;
   }
   return true;
+}
+
+
+const sf::Texture& glib::Texture::GetSFMLTexture() const {
+  return sf_texture;
 }

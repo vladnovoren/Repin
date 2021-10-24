@@ -26,7 +26,8 @@ namespace glib {
 
   sf::Color ToSFMLColor(const ColorRGB& color);
 
-  sf::Vector2f ToSFMLVector(const tls::Vector2f& vector);
+  template<typename VectorType>
+  sf::Vector2<VectorType> ToSFMLVector(const tls::Vector2<VectorType>& vector);
   tls::Vector2f ToMyVector(const sf::Vector2f& vector);
 }
 

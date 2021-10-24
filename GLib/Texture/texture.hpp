@@ -9,9 +9,11 @@ namespace glib {
     sf::Texture sf_texture;
   public:
     Texture();
+    Texture(const sf::Texture& sf_texture);
     ~Texture();
 
     bool LoadFromFile(const char* file_name);
+    const sf::Texture& GetSFMLTexture() const;
   };
 }
 

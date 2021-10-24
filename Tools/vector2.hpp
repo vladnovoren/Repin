@@ -135,9 +135,9 @@ namespace tls {
     return sqrt(1 - cos * cos);
   }
 
-  typedef Vector2<double> Vector2d;
-  typedef Vector2<float> Vector2f;
-  typedef Vector2<int> Vector2i;
+  typedef Vector2<int>          Vector2i;
+  typedef Vector2<unsigned int> Vector2u;
+  typedef Vector2<float>        Vector2f;
 }
 
 #endif /* vector2.hpp */

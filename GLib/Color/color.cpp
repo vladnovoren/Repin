@@ -76,8 +76,9 @@ tls::Vector2f glib::ToMyVector(const sf::Vector2f& vector) {
 }
 
 
-sf::Vector2f glib::ToSFMLVector(const tls::Vector2f& vector) {
-  return sf::Vector2f(vector.x, vector.y);
+template<typename VectorType>
+sf::Vector2<VectorType> glib::ToSFMLVector(const tls::Vector2<VectorType>& vector) {
+  return sf::Vector2<VectorType>(vector.x, vector.y);
 }
 
 

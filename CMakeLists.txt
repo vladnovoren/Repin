@@ -15,7 +15,6 @@ set(GLIB_SOURCE GLib/Clock/clock.cpp
                     GLib/RenderTarget/render_target.cpp
                     GLib/RenderTexture/render_texture.cpp
                     GLib/RenderWindow/render_window.cpp
-                    GLib/Image/image.cpp
                     GLib/Texture/texture.cpp
                     )
 
