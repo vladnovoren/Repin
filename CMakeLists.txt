@@ -5,18 +5,20 @@ project(Repin VERSION 1.0)
 set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
 
 
-set(TOOLS_SOURCE Tools/utils.cpp Tools/vector2.cpp)
-add_library(Tools STATIC ${TOOLS_SOURCE})
+set(GLIB_SOURCE glib/glib_clock/glib_clock.cpp
+                glib/glib_color/glib_color.cpp
+                glib/glib_events/glib_events.cpp
+                glib/glib_primitives/glib_primitives.cpp
+                glib/glib_render_target/glib_render_target.cpp
+                glib/glib_render_texture/glib_render_texture.cpp
+                glib/glib_render_window/glib_render_window.cpp
+                glib/glib_texture/glib_texture.cpp
+                glib/glib_tools/glib_tools.cpp
+)
 
-set(GLIB_SOURCE GLib/Clock/clock.cpp
-                    GLib/Color/color.cpp
-                    GLib/Events/events.cpp
-                    GLib/Primitives/primitives.cpp
-                    GLib/RenderTarget/render_target.cpp
-                    GLib/RenderTexture/render_texture.cpp
-                    GLib/RenderWindow/render_window.cpp
-                    GLib/Texture/texture.cpp
-                    )
+set(GUI_SOURCE gui/gui_events/gui_events.cpp
+               gui/gui_view/gui_view.cpp
+)
 
 
 find_package(SFML 2.5 COMPONENTS graphics REQUIRED)
@@ -39,6 +41,7 @@ list(LENGTH header_dir_list header_dir_list_count)
 message(STATUS "[INFO] Found ${header_dir_list_count} header directories: ${header_dir_list}.")
 include_directories(${header_dir_list})
 
-add_library(GLib STATIC ${GLIB_SOURCE})
+add_library(glib STATIC ${GLIB_SOURCE})
+add_library(gui STATIC ${GUI_SOURCE})
 
-target_link_libraries(GLib PUBLIC Tools)
+target_link_libraries(gui PUBLIC glib)
