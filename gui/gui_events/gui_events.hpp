@@ -1,55 +1,89 @@
-#ifndef GUI_EVENTS
-#define GUI_EVENTS
+#ifndef GUI_EVENTS_HPP
+#define GUI_EVENTS_HPP
 
 
-#include "glib_events.hpp"
-#include "gui_view.hpp"
+#include <list>
 
 
-namespace gui {
-  class Event {
-   public:
-    virtual ~Event() = 0;
-
-    virtual void Process(View* view) = 0;
-  };
+template<class ...TParams>
+class AbstractEventHandler {
+ public:
+  virtual void Process(TParams... params) = 0;
+};
 
 
-  class CloseEvent: public Event {
-   public:
-    ~CloseEvent() override = default;
+template<class ...TParams>
+class TEvent {
+ protected:
+  using TEventHandler = AbstractEventHandler<TParams...>;
+  std::list<TEventHandler*> handlers_list;
+ public:
+ TEvent() = default;
+  ~TEvent() {
+    for (auto handler_ptr: handlers_list) {
+      delete handler_ptr;
+    }
+  }
 
-    void Process(View* view) override;
-  };
+  void operator()(TParams... params) {
+    for (auto handler_ptr: handlers_list) {
+      handler_ptr->Process(params...);
+    }
+  }
+
+  typename std::list<TEventHandler*>::iterator FindHandler(TEventHandler* event_handler) {
+    for (auto it = handlers_list.begin(); it != handlers_list.end(); ++it) {
+      if (**it == *event_handler) {
+        return it;
+      }
+    }
+    return handlers_list->end();
+  }
+
+  typename std::list<TEventHandler*>::iterator AddHandler(TEventHandler* event_handler) {
+    auto found = FindHandler(event_handler);
+    if (found != handlers_list.end()) {
+      return handlers_list.insert(event_handler);
+    } else {
+      return found;
+    }
+  }
+
+  bool EraseHandler(TEventHandler* event_handler) {
+    auto found = FindHandler(event_handler);
+    if (found == handlers_list.end()) {
+      return false;
+    } else {
+      handlers_list.erase(found);
+      return true;
+    }
+  }
+};
 
 
-  class MouseButtonEvent: public Event {
-   protected:
-    glib::MouseButtonEvent* m_sf_mouse_button_event;
-   public:
-    MouseButtonEvent(glib::MouseButtonEvent* sf_mouse_button_event);
-    ~MouseButtonEvent() override = default;
-  };
+template<class TObject, class ...TParams>
+class TEventHandler: public AbstractEventHandler<TParams...> {
+ protected:
+  using TMethod = void(TObject::*)(TParams...);
+  TObject* m_object;
+  TMethod m_method;
+ public:
+   TEventHandler(TObject* object, TMethod method):
+   m_object(object), m_method(method) {}
 
+  void Process(TParams... params) {
+    (m_object->*m_method)(params...);
+  }
 
-  class MouseButtonPressedEvent: public MouseButtonEvent {
-   public:
-    MouseButtonPressedEvent(glib::MouseButtonPressedEvent* sf_mouse_button_pressed_event);
-    ~MouseButtonPressedEvent() override = default;
+  bool operator==(const TEventHandler<TObject, TParams...>& other) {
+    return this->m_object == other->m_object &&
+           this->m_method == other->m_method;
+  }
 
-    void Process(View* view) override;
-  };
-
-
-  class MouseButtonReleasedEvent: public MouseButtonEvent {
-   public:
-    MouseButtonReleasedEvent(glib::MouseButtonReleasedEvent* sf_mouse_button_released_event);
-    ~MouseButtonReleasedEvent() override = default;
-
-    void Process(View* view) override;
-  };
-}
-
+  bool operator!=(const TEventHandler<TObject, TParams...>& other) {
+    return !(*this == other);
+  }
+};
 
 
 #endif /* gui_events.hpp */

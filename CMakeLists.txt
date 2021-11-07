@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16.3 FATAL_ERROR)
 project(Repin VERSION 1.0)
 
 set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 set(GLIB_SOURCE glib/glib_clock/glib_clock.cpp
@@ -17,7 +18,6 @@ set(GLIB_SOURCE glib/glib_clock/glib_clock.cpp
 )
 
 set(GUI_SOURCE gui/gui_events/gui_events.cpp
-               gui/gui_view/gui_view.cpp
 )
 
 

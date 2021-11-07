@@ -2,11 +2,11 @@
 #define GUI_WINDOW_HPP
 
 
-#include "gui_elem.hpp"
+#include "gui_view.hpp"
 
 
 namespace gui {
-  class Window: public Elem {
+  class Window: public View {
    protected:
     glib::RenderTexture m_render_texture;
    public:
