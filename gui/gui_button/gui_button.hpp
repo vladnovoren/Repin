@@ -3,7 +3,7 @@
 
 
 #include "glib.hpp"
-#include "gui_view.hpp"
+#include "gui_abstract_view.hpp"
 
 
 namespace gui {
@@ -15,8 +15,6 @@ namespace gui {
 
   class Button: public View {
    protected:
-    ButtonPressState m_press_state = ButtonPressState::RELEASED;
-    ButtonDelegate*  m_button_delegate = nullptr;
    public:
     Button() = default;
     Button(const glib::FloatRect& location);

@@ -29,7 +29,7 @@ namespace glib {
     friend class Graphics;
     VectorType x = 0;
     VectorType y = 0;
-    Vector2() {}
+    Vector2() = default;
 
     Vector2(VectorType x, VectorType y) {
       this->x = x;

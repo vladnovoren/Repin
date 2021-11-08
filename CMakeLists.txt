@@ -18,6 +18,9 @@ set(GLIB_SOURCE glib/glib_clock/glib_clock.cpp
 )
 
 set(GUI_SOURCE gui/gui_events/gui_events.cpp
+               gui/gui_events/gui_event_keeper.cpp
+               gui/gui_events/gui_event_types.cpp
+               gui/gui_abstract_view/gui_abstract_view.cpp
 )
 
 

@@ -2,13 +2,14 @@
 #define GUI_WINDOW_HPP
 
 
-#include "gui_view.hpp"
+#include "gui_abstract_view.hpp"
+#include "gui_title_bar.hpp"
 
 
 namespace gui {
-  class Window: public View {
+  class Window: public AbstractView {
    protected:
-    glib::RenderTexture m_render_texture;
+    TitleBar* title_bar;    
    public:
     Window() = default;
     Window(const glib::FloatRect& location,
