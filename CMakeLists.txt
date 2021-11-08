@@ -6,21 +6,20 @@ set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
-set(GLIB_SOURCE glib/glib_clock/glib_clock.cpp
-                glib/glib_color/glib_color.cpp
-                glib/glib_events/glib_events.cpp
-                glib/glib_primitives/glib_primitives.cpp
-                glib/glib_render_target/glib_render_target.cpp
-                glib/glib_render_texture/glib_render_texture.cpp
-                glib/glib_render_window/glib_render_window.cpp
-                glib/glib_texture/glib_texture.cpp
-                glib/glib_tools/glib_tools.cpp
+set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
+                src/glib/glib_color/glib_color.cpp
+                src/glib/glib_events/glib_events.cpp
+                src/glib/glib_primitives/glib_primitives.cpp
+                src/glib/glib_render_target/glib_render_target.cpp
+                src/glib/glib_render_texture/glib_render_texture.cpp
+                src/glib/glib_render_window/glib_render_window.cpp
+                src/glib/glib_texture/glib_texture.cpp
+                src/glib/glib_tools/glib_tools.cpp
 )
 
-set(GUI_SOURCE gui/gui_events/gui_events.cpp
-               gui/gui_events/gui_event_keeper.cpp
-               gui/gui_events/gui_event_types.cpp
-               gui/gui_abstract_view/gui_abstract_view.cpp
+set(GUI_SOURCE src/gui/gui_events/gui_events.cpp
+               src/gui/gui_abstract_view/gui_abstract_view.cpp
+               src/gui/gui_button/gui_button.cpp
 )
 
 

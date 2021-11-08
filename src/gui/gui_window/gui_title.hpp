@@ -3,7 +3,10 @@
 
 
 namespace gui {
-  
+  class Title {
+   protected:
+   public:
+  };
 }
 
 

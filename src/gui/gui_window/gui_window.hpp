@@ -12,8 +12,7 @@ namespace gui {
     TitleBar* title_bar;    
    public:
     Window() = default;
-    Window(const glib::FloatRect& location,
-           const glib::RenderTexture& render_texture);
+    Window(const glib::FloatRect& location);
     ~Window() = default;
   };
 }

@@ -1,6 +1,7 @@
 #ifndef GLIB_TEXTURE_HPP
 #define GLIB_TEXTURE_HPP
 
+
 #include "SFML/Graphics.hpp"
 
 

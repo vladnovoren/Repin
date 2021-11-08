@@ -18,10 +18,10 @@ glib::FloatRect gui::AbstractView::Location() const {
 }
 
 
-gui::EventResult gui::AbstractView::OnClose(const CloseEvent& close_event) {
+gui::EventResult gui::AbstractView::OnClose() {
   MatchForClose();
   for (auto child_ptr: m_children) {
-    child_ptr->OnClose(close_event);
+    child_ptr->OnClose();
   }
   return EventResult::PROCESSED_ALL;
 }

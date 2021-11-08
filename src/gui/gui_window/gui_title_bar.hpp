@@ -13,7 +13,6 @@ namespace gui {
     Button* m_close_button = nullptr;
     Title* m_title = nullptr;
    public:
-    TitleBar() = default;
     TitleBar(Button* close_button, Title* title);
     ~TitleBar() = default;
   };
