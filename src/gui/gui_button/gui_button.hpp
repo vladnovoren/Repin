@@ -1,3 +1,6 @@
+/**
+ * \file
+*/
 #ifndef GUI_BUTTON_HPP
 #define GUI_BUTTON_HPP
 
@@ -34,8 +37,8 @@ namespace gui {
     AbstractButton() = default;
     /**
      * Constructor initialising main members
-     * \param location Relative location to parent view
-     * \param idle_texture Texture of idle state
+     * \param location        Relative location to parent view
+     * \param idle_texture    Texture of idle state
      * \param hovered_texture Texture of hovered state
      * \param pressed_texture Texture of pressed state
     */
@@ -49,7 +52,7 @@ namespace gui {
 
     /**
      * Sets textures
-     * \param idle_texture Texture of idle state
+     * \param idle_texture    Texture of idle state
      * \param hovered_texture Texture of hovered state
      * \param pressed_texture Texture of pressed state
     */
@@ -69,8 +72,8 @@ namespace gui {
     RectButton() = default;
     /**
      * Constructor initialising main members
-     * \param location Relative location to parent view
-     * \param idle_texture Texture of idle state
+     * \param location        Relative location to parent view
+     * \param idle_texture    Texture of idle state
      * \param hovered_texture Texture of hovered state
      * \param pressed_texture Texture of pressed state
     */
@@ -102,9 +105,9 @@ namespace gui {
     CircleButton() = default;
     /**
      * Constructor initialising main members
-     * \param location Relative location to parent view
-     * \param circle Active circle zone
-     * \param idle_texture Texture of idle state
+     * \param location        Relative location to parent view
+     * \param circle          Active circle zone
+     * \param idle_texture    Texture of idle state
      * \param hovered_texture Texture of hovered state
      * \param pressed_texture Texture of pressed state
     */
@@ -118,20 +121,20 @@ namespace gui {
 
     /**
      * Sets textures and button circle
-     * \param circle Button circle
-     * \param idle_texture Texture of idle state
+     * \param circle          Button circle
+     * \param idle_texture    Texture of idle state
      * \param hovered_texture Texture of hovered state
      * \param pressed_texture Texture of pressed state
     */
-    void SetSkin(const glib::Circle& circle, const glib::Texture* idle_texture,
-                 const glib::Texture* hovered_texture,
-                 const glib::Texture* pressed_texture);
+    void SetSkin(const glib::Circle& circle, glib::Texture* idle_texture,
+                 glib::Texture* hovered_texture,
+                 glib::Texture* pressed_texture);
 
     /**
      * Checks if point inside the button
-     * \param point_position 
+     * \param point Point
     */
-    bool IsPointInside(const glib::Vector2f& point_position) override;
+    bool IsPointInside(const glib::Vector2f& point) override;
   };
 }
 

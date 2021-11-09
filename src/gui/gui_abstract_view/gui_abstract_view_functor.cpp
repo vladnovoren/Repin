@@ -1,0 +1,1 @@
+#include "gui_abstract_view.hpp"

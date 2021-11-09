@@ -48,7 +48,7 @@ namespace gui {
     /**
      * Checks if point inside the view
     */
-    virtual bool IsPointInside(const glib::Vector2f& point_position);
+    virtual bool IsPointInside(const glib::Vector2f& point);
 
     /**
      * Handler of left mouse button pressed event

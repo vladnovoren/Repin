@@ -20,6 +20,7 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
 set(GUI_SOURCE src/gui/gui_events/gui_events.cpp
                src/gui/gui_abstract_view/gui_abstract_view.cpp
                src/gui/gui_button/gui_button.cpp
+               src/gui/gui_abstract_view/gui_abstract_view_functor.cpp
 )
 
 

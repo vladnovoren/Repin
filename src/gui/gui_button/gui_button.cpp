@@ -33,7 +33,7 @@ gui::RectButton::RectButton(const glib::FloatRect& location,
                                 pressed_texture) {}
 
 
-gui::RectButton::
+// gui::RectButton::Rect
 //==============================================================================
 
 
@@ -46,4 +46,20 @@ gui::CircleButton::CircleButton(const glib::FloatRect& location,
                                 glib::Texture* pressed_texture):
                    AbstractButton(location, idle_texture, hovered_texture,
                                   pressed_texture), m_circle(circle) {}
+
+
+void gui::CircleButton::SetSkin(const glib::Circle& circle,
+                                glib::Texture* idle_texture,
+                                glib::Texture* hovered_texture,
+                                glib::Texture* pressed_texture) {
+  m_circle = circle;
+  m_idle_texture = idle_texture;
+  m_hovered_texture = hovered_texture;
+  m_pressed_texture = pressed_texture;
+}
+
+
+bool gui::CircleButton::IsPointInside(const glib::Vector2f& point) {
+  return m_circle.IsPointInside(point);
+}
 //==============================================================================

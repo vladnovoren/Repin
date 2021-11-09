@@ -14,7 +14,7 @@ namespace glib {
     Rect() = default;
     Rect(const Vector2<RectType>& position, const Vector2<RectType>& size);
 
-    bool IsPointInRect(const Vector2<RectType>& point);
+    bool IsPointInRect(const Vector2<RectType>& point) const;
   };
 
   template<typename RectType>
@@ -31,6 +31,8 @@ namespace glib {
 
     Circle() = default;
     Circle(const Vector2f& center, const double radius);
+
+    bool IsPointInside(const Vector2f& point) const;
   };
 
 
