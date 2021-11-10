@@ -13,8 +13,7 @@ namespace gui {
     Button* m_close_button = nullptr;
     Title* m_title = nullptr;
    public:
-    TitleBar(const glib::Vector2f& location, Button* close_button, Title* title,
-             );
+    TitleBar();
     ~TitleBar() = default;
   };
 }

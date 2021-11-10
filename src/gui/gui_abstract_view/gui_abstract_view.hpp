@@ -6,6 +6,7 @@
 
 
 #include "glib.hpp"
+#include "gui_abstract_view_skin.hpp"
 #include <list>
 
 
@@ -21,8 +22,8 @@ namespace gui {
   */
   class AbstractView {
    protected:
-    glib::FloatRect m_location; ///< Relative location to parent view
     std::list<AbstractView*> m_children; ///< List of children views
+    AbstractViewSkin* m_skin;
 
     bool m_should_close = false; ///< If view needs to be closed
    public:
@@ -33,7 +34,7 @@ namespace gui {
     /**
      * Constructor initialising location
     */
-    AbstractView(const glib::FloatRect& location);
+    AbstractView(AbstractViewSkin* skin);
     /**
      * Pure virtual default destructor
     */
@@ -81,6 +82,10 @@ namespace gui {
      * Matches view for close
     */
     void MatchForClose();
+
+
+    virtual void Draw(glib::RenderTarget* render_target,
+                      const glib::Vector2f& position) = 0;
   };
 }
 

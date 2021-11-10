@@ -24,10 +24,10 @@ namespace glib {
     void RenderCircle(const Circle& circle, const ColorRGB& color);
 
     void CopyTexture(const Texture& texture, const Vector2f& position,
-                     const IntRect& texture_rect);
+                     const FloatRect& texture_rect = FloatRect());
     void CopyRenderTexture(const RenderTexture& render_texture,
                            const Vector2f& position,
-                           const IntRect& texture_rect);
+                           const FloatRect& texture_rect = FloatRect());
   };
 }
 

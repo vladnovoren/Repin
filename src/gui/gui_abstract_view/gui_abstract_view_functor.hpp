@@ -6,20 +6,27 @@
 
 
 namespace gui {
-  template<typename ...TParams>
-  class AbstractViewFunctor {
-    using TMethod = EventResult(AbstractView::*)(TParams...);
-    AbstractView* m_view = nullptr;
-    TMethod m_method = nullptr;
+  class AbstractFunctor {
    public:
-    AbstractViewFunctor(AbstractView* view, TMethod method):
-    m_view(view), m_method(method) {
+    AbstractFunctor() = default;
+    virtual ~AbstractFunctor() = 0;
+
+    virtual EventResult operator()() = 0;
+  };
+
+  AbstractFunctor::~AbstractFunctor() = default;
+
+
+  class CloseViewFunctor: public AbstractFunctor {
+   protected:
+    AbstractView* m_view;
+   public:
+    CloseViewFunctor(AbstractView* view): m_view(view) {
       assert(m_view);
-      assert(m_method);
     }
 
-    EventResult operator()(TParams... params) {
-      return (m_view->*m_method)(params);
+    EventResult operator()() override {
+      return m_view->OnClose();
     }
   };
 }

@@ -1,20 +1,20 @@
 #include "gui_abstract_view.hpp"
 
 
-gui::AbstractView::AbstractView(const glib::FloatRect& location):
-                   m_location(location) {}
+gui::AbstractView::AbstractView(AbstractViewSkin* skin):
+                   m_skin(skin) {}
 
 
 gui::AbstractView::~AbstractView() = default;
 
 
 void gui::AbstractView::SetLocation(const glib::FloatRect& location) {
-  m_location = location;
+  m_skin->m_location = location;
 }
 
 
 glib::FloatRect gui::AbstractView::Location() const {
-  return m_location;
+  return m_skin->m_location;
 }
 
 

@@ -1,6 +1,7 @@
 #ifndef GLIB_PRIMITIVES_HPP
 #define GLIB_PRIMITIVES_HPP
 
+
 #include "glib_color.hpp"
 #include "glib_tools.hpp"
 
@@ -13,8 +14,15 @@ namespace glib {
 
     Rect() = default;
     Rect(const Vector2<RectType>& position, const Vector2<RectType>& size);
+    Rect(const Rect& other) = default;
 
     bool IsPointInRect(const Vector2<RectType>& point) const;
+
+    Rect& operator=(const Rect& other) {
+      m_position = other.m_position;
+      m_size = other.m_size;
+      return *this;
+    }
   };
 
   template<typename RectType>

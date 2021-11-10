@@ -38,18 +38,20 @@ void glib::RenderTarget::RenderCircle(const glib::Circle& circle,
 
 void glib::RenderTarget::CopyTexture(const Texture& texture,
                                      const Vector2f& position,
-                                     const IntRect& texture_rect) {
+                                     const FloatRect& texture_rect) {
   sf::Sprite sprite(texture.GetSFMLTexture());
   sprite.setPosition(GLibToSFMLVector2(position));
-  sprite.setTextureRect(sf::IntRect(GLibToSFMLVector2(texture_rect.m_position),
-                                    GLibToSFMLVector2(texture_rect.m_size)));
+  if (texture_rect.m_size.x > 0 && texture_rect.m_size.y > 0) {
+    sprite.setTextureRect(sf::IntRect(texture_rect.m_position.x, texture_rect.m_position.y,
+                                      texture_rect.m_size.x, texture_rect.m_size.y));
+  }
   m_sf_render_target->draw(sprite);
 }
 
 
 void glib::RenderTarget::CopyRenderTexture(const RenderTexture& render_texture,
                                            const Vector2f& position,
-                                           const IntRect& render_texture_rect) {
+                                           const FloatRect& render_texture_rect) {
   Texture texture(render_texture.GetSFMLRenderTexture().getTexture());
   CopyTexture(texture, position, render_texture_rect);
 }

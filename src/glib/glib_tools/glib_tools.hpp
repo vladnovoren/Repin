@@ -31,6 +31,11 @@ namespace glib {
     VectorType y = 0;
     Vector2() = default;
 
+    Vector2(const Vector2& other) {
+      x = other.x;
+      y = other.y;
+    }
+
     Vector2(VectorType x, VectorType y) {
       this->x = x;
       this->y = y;
@@ -72,6 +77,18 @@ namespace glib {
       double angle = Angle() + d_phi;
       x = cos(angle) * length;
       y = sin(angle) * length;
+    }
+
+    Vector2& operator=(const Vector2& other) {
+      x = other.x;
+      y = other.y;
+      return *this;
+    }
+
+    Vector2& operator=(Vector2& other) {
+      x = other.x;
+      y = other.y;
+      return *this;
     }
 
     Vector2& operator += (const Vector2& right) {
