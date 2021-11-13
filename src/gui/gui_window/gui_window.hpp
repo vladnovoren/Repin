@@ -9,7 +9,7 @@
 namespace gui {
   class Window: public AbstractView {
    protected:
-    TitleBar* title_bar;    
+    TitleBar* title_bar;
    public:
     Window() = default;
     Window(const glib::FloatRect& location);

@@ -30,5 +30,4 @@ void gui::TitleBarSkin::Draw(glib::RenderTarget* render_target,
   }
   glib::Vector2f right_position = glib::Vector2f(m_location.m_size.x - m_right_texture->GetSize().x);
   render_target->CopyTexture(*m_right_texture, right_position);
-  
 }
