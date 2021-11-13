@@ -3,6 +3,7 @@
 
 
 #include "SFML/Graphics.hpp"
+#include "glib_tools.hpp"
 
 
 namespace glib {
@@ -15,6 +16,8 @@ namespace glib {
 
     bool LoadFromFile(const char* file_name);
     const sf::Texture& GetSFMLTexture() const;
+
+    glib::Vector2f GetSize() const;
   };
 }
 

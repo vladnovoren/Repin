@@ -17,3 +17,8 @@ bool glib::Texture::LoadFromFile(const char* file_name) {
 const sf::Texture& glib::Texture::GetSFMLTexture() const {
   return m_sf_texture;
 }
+
+
+glib::Vector2f glib::Texture::GetSize() const {
+  return glib::SFMLToGLibVector2(m_sf_texture.getSize());
+}
