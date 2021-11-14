@@ -6,7 +6,7 @@ glib::RenderTarget::RenderTarget(sf::RenderTarget* sf_render_target):
                     m_sf_render_target(sf_render_target) {}
 
 
-void glib::RenderTarget::RenderLine(const glib::Line& line,
+void glib::RenderTarget::RenderLine(const glib::FloatLine& line,
                                     const ColorRGB& color) {
   sf::Vertex sf_line[] = {
     sf::Vertex(glib::GLibToSFMLVector2(line.m_begin), glib::GLibToSFMLColor(color)),
@@ -25,7 +25,7 @@ void glib::RenderTarget::RenderRect(const glib::FloatRect& rect,
 }
 
 
-void glib::RenderTarget::RenderCircle(const glib::Circle& circle,
+void glib::RenderTarget::RenderCircle(const glib::FloatCircle& circle,
                                       const ColorRGB& color) {
   sf::CircleShape sf_circle;
   sf_circle.setOrigin(sf::Vector2f(circle.m_radius, circle.m_radius));

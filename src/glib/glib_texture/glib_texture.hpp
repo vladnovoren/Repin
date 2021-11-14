@@ -17,7 +17,7 @@ namespace glib {
     bool LoadFromFile(const char* file_name);
     const sf::Texture& GetSFMLTexture() const;
 
-    glib::Vector2f GetSize() const;
+    glib::Vector2u GetSize() const;
   };
 }
 

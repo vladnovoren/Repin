@@ -19,9 +19,9 @@ namespace glib {
 
     void Clear(const ColorRGB& color);
 
-    void RenderLine(const Line& line, const ColorRGB& color);
+    void RenderLine(const FloatLine& line, const ColorRGB& color);
     void RenderRect(const FloatRect& rect, const ColorRGB& color);
-    void RenderCircle(const Circle& circle, const ColorRGB& color);
+    void RenderCircle(const FloatCircle& circle, const ColorRGB& color);
 
     void CopyTexture(const Texture& texture, const Vector2f& position,
                      const FloatRect& texture_rect = FloatRect());

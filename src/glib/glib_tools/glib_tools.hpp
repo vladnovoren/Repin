@@ -31,10 +31,24 @@ namespace glib {
     VectorType y = 0;
     Vector2() = default;
 
-    Vector2(const Vector2& other) {
+
+    Vector2(const Vector2<float>& other) {
       x = other.x;
       y = other.y;
     }
+
+
+    Vector2(const Vector2<unsigned int>& other) {
+      x = other.x;
+      y = other.y;
+    }
+
+
+    Vector2(const Vector2<int>& other) {
+      x = other.x;
+      y = other.y;
+    }
+
 
     Vector2(VectorType x, VectorType y) {
       this->x = x;
@@ -178,6 +192,7 @@ namespace glib {
   Vector2<VectorType> SFMLToGLibVector2(const sf::Vector2<VectorType>& sf_vector2) {
     return Vector2<VectorType>(sf_vector2.x, sf_vector2.y);
   }
+
 
   typedef Vector2<int>          Vector2i;
   typedef Vector2<unsigned int> Vector2u;

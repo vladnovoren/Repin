@@ -13,10 +13,16 @@ namespace glib {
     Vector2<RectType> m_size;
 
     Rect() = default;
-    Rect(const Vector2<RectType>& position, const Vector2<RectType>& size);
+    Rect(const glib::Vector2<RectType>& position,
+         const glib::Vector2<RectType>& size):
+    m_position(position), m_size(size) {}
+
     Rect(const Rect& other) = default;
 
-    bool IsPointInRect(const Vector2<RectType>& point) const;
+    bool IsPointInRect(const glib::Vector2<RectType>& point) const {
+      return m_position.x < point.x && point.x < m_position.x + m_size.x &&
+             m_position.y < point.y && point.y < m_position.y + m_size.y;
+    }
 
     Rect& operator=(const Rect& other) {
       m_position = other.m_position;
@@ -25,32 +31,53 @@ namespace glib {
     }
   };
 
+
   template<typename RectType>
-  sf::Rect<RectType> ToSFMLRect(const Rect<RectType>& rect);
+  sf::Rect<RectType> ToSFMLRect(const Rect<RectType>& rect) {
+    return sf::Rect<RectType>(GLibToSFMLVector2(rect.m_position),
+                              GLibToSFMLVector2(rect.m_size));
+  }
 
-  typedef Rect<float> FloatRect;
-  typedef Rect<unsigned int> UIntRect;
-  typedef Rect<int> IntRect;
 
-
+  template<typename CircleType>
   struct Circle {
-    Vector2f m_center;
-    double   m_radius;
+    Vector2<CircleType> m_center;
+    CircleType m_radius;
 
     Circle() = default;
-    Circle(const Vector2f& center, const double radius);
+    Circle(const Vector2<CircleType>& center, const CircleType radius):
+    m_center(center), m_radius(radius) {}
 
-    bool IsPointInside(const Vector2f& point) const;
+    bool IsPointInside(const Vector2<CircleType>& point)  {
+      return (m_center.x - point.x) * (m_center.x - point.x) +
+             (m_center.y - point.y) * (m_center.y - point.y) <=
+             m_radius * m_radius;
+    }
   };
 
 
+  template<typename LineType>
   struct Line {
-    Vector2f m_begin;
-    Vector2f m_end;
+    Vector2<LineType> m_begin;
+    Vector2<LineType> m_end;
 
     Line() = default;
-    Line(const Vector2f& begin, const Vector2f& end);
+    Line(const Vector2<LineType>& begin, const Vector2<LineType>& end):
+    m_begin(begin), m_end(end) {}
   };
+
+
+  using IntRect   = Rect<int>;
+  using UIntRect  = Rect<unsigned int>;
+  using FloatRect = Rect<float>;
+
+  using IntLine   = Line<int>;
+  using UIntLine  = Line<unsigned int>;
+  using FloatLine = Line<float>;
+
+  using IntCircle   = Circle<int>;
+  using UIntCircle  = Circle<unsigned int>;
+  using FloatCircle = Circle<float>;
 }
 
 

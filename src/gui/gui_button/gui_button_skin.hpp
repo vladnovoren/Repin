@@ -13,7 +13,7 @@ namespace gui {
     glib::Texture* m_pressed_texture = nullptr; ///< Texture of pressed state
 
     AbstractButtonSkin() = default;
-    AbstractButtonSkin(const glib::Vector2f& location,
+    AbstractButtonSkin(const glib::UIntRect& location,
                        glib::Texture* idle_texture,
                        glib::Texture* hovered_texture,
                        glib::Texture* pressed_texture);
@@ -22,37 +22,34 @@ namespace gui {
 
 
   struct RectButtonSkin: AbstractButtonSkin {
-    glib::FloatRect m_rect;
-
     RectButtonSkin() = default;
-    RectButtonSkin(const glib::Vector2f& location,
+    RectButtonSkin(const glib::UIntRect& location,
                    glib::Texture* idle_texture,
                    glib::Texture* hovered_texture,
-                   glib::Texture* pressed_texture,
-                   const glib::FloatRect& rect);
+                   glib::Texture* pressed_texture);
     ~RectButtonSkin() override = default;
 
-    bool IsPointInside(const glib::Vector2f& point) override;
+    bool IsPointInside(glib::Vector2u& point) override;
 
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2f& position) override;
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2u& position) override;
   };
 
 
   struct CircleButtonSkin: AbstractButtonSkin {
-    glib::Circle m_circle;
+    glib::UIntCircle m_circle;
 
     CircleButtonSkin() = default;
-    CircleButtonSkin(const glib::Vector2f& location,
+    CircleButtonSkin(const glib::UIntRect& location,
                      glib::Texture* idle_texture,
                      glib::Texture* hovered_texture,
                      glib::Texture* pressed_texture,
-                     const glib::FloatRect& circle);
+                     const glib::UIntCircle& circle);
     ~CircleButtonSkin() override = default;
 
-    bool IsPointInside(const glib::Vector2f& point) override;
+    bool IsPointInside(glib::Vector2u& point) override;
 
     void Draw(glib::RenderTarget* render_target,
-              const glib::Vector2f& position) override;
+              const glib::Vector2u& position) override;
   };
 }
 

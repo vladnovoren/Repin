@@ -13,14 +13,14 @@ namespace gui {
   };
 
 
-  class AbstractEvent {
-  public:
-    AbstractEvent() = default;
-    virtual ~AbstractEvent() = 0;
-  };
+  // class AbstractEvent {
+  // public:
+  //   AbstractEvent() = default;
+  //   virtual ~AbstractEvent() = 0;
+  // };
 
 
-  AbstractEvent::~AbstractEvent() = default;
+  // AbstractEvent::~AbstractEvent() = default;
 }
 
 

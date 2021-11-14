@@ -8,13 +8,18 @@ gui::AbstractView::AbstractView(AbstractViewSkin* skin):
 gui::AbstractView::~AbstractView() = default;
 
 
-void gui::AbstractView::SetLocation(const glib::FloatRect& location) {
+void gui::AbstractView::SetLocation(const glib::UIntRect& location) {
   m_skin->m_location = location;
 }
 
 
-glib::FloatRect gui::AbstractView::Location() const {
+glib::UIntRect gui::AbstractView::Location() const {
   return m_skin->m_location;
+}
+
+
+bool gui::AbstractView::IsPointInside(const glib::Vector2u& point) {
+  return m_skin->m_location.IsPointInRect(point);
 }
 
 

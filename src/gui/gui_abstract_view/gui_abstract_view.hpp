@@ -43,35 +43,35 @@ namespace gui {
     /**
      * Sets location
     */
-    void SetLocation(const glib::FloatRect& location);
-    glib::FloatRect Location() const;
+    void SetLocation(const glib::UIntRect& location);
+    glib::UIntRect Location() const;
 
     /**
      * Checks if point inside the view
     */
-    virtual bool IsPointInside(const glib::Vector2f& point);
+    virtual bool IsPointInside(const glib::Vector2u& point);
 
     /**
      * Handler of left mouse button pressed event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnLeftMouseButtonPressed(const glib::Vector2f& mouse_position);
+    virtual EventResult OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position);
     /**
      * Handler of right mouse button pressed event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnRightMouseButtonPressed(const glib::Vector2f& mouse_position);
+    virtual EventResult OnRightMouseButtonPressed(const glib::Vector2u& mouse_position);
 
     /**
      * Handler of left mouse button released event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnLeftMouseButtonReleased(const glib::Vector2f& mouse_position);
+    virtual EventResult OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position);
     /**
      * Handler of right mouse button released event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnRightMouseButtonReleased(const glib::Vector2f& mouse_position);
+    virtual EventResult OnRightMouseButtonReleased(const glib::Vector2u& mouse_position);
 
     /**
      * Handler of close event
@@ -85,7 +85,7 @@ namespace gui {
 
 
     virtual void Draw(glib::RenderTarget* render_target,
-                      const glib::Vector2f& position) = 0;
+                      const glib::Vector2u& position) = 0;
   };
 }
 
