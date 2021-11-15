@@ -7,16 +7,16 @@
 
 namespace gui {
   struct AbstractButtonSkin: AbstractViewSkin {
-    glib::Texture* m_curr_texture = nullptr; ///< Pointer to current texture
-    glib::Texture* m_idle_texture = nullptr; ///< Texture of idle state
-    glib::Texture* m_hovered_texture = nullptr; ///< Texture of hovered state
-    glib::Texture* m_pressed_texture = nullptr; ///< Texture of pressed state
+    const glib::Texture* m_curr_texture    = nullptr; ///< Pointer to current texture
+    const glib::Texture* m_idle_texture    = nullptr; ///< Texture of idle state
+    const glib::Texture* m_hovered_texture = nullptr; ///< Texture of hovered state
+    const glib::Texture* m_pressed_texture = nullptr; ///< Texture of pressed state
 
     AbstractButtonSkin() = default;
     AbstractButtonSkin(const glib::UIntRect& location,
-                       glib::Texture* idle_texture,
-                       glib::Texture* hovered_texture,
-                       glib::Texture* pressed_texture);
+                       const glib::Texture* idle_texture,
+                       const glib::Texture* hovered_texture,
+                       const glib::Texture* pressed_texture);
     ~AbstractButtonSkin() override = 0;
   };
 
@@ -24,9 +24,9 @@ namespace gui {
   struct RectButtonSkin: AbstractButtonSkin {
     RectButtonSkin() = default;
     RectButtonSkin(const glib::UIntRect& location,
-                   glib::Texture* idle_texture,
-                   glib::Texture* hovered_texture,
-                   glib::Texture* pressed_texture);
+                   const glib::Texture* idle_texture,
+                   const glib::Texture* hovered_texture,
+                   const glib::Texture* pressed_texture);
     ~RectButtonSkin() override = default;
 
     bool IsPointInside(glib::Vector2u& point) override;
@@ -40,9 +40,9 @@ namespace gui {
 
     CircleButtonSkin() = default;
     CircleButtonSkin(const glib::UIntRect& location,
-                     glib::Texture* idle_texture,
-                     glib::Texture* hovered_texture,
-                     glib::Texture* pressed_texture,
+                     const glib::Texture* idle_texture,
+                     const glib::Texture* hovered_texture,
+                     const glib::Texture* pressed_texture,
                      const glib::UIntCircle& circle);
     ~CircleButtonSkin() override = default;
 

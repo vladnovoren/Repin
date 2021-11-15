@@ -2,9 +2,9 @@
 
 
 gui::AbstractButtonSkin::AbstractButtonSkin(const glib::UIntRect& location,
-                                            glib::Texture* idle_texture,
-                                            glib::Texture* hovered_texture,
-                                            glib::Texture* pressed_texture):
+                                            const glib::Texture* idle_texture,
+                                            const glib::Texture* hovered_texture,
+                                            const glib::Texture* pressed_texture):
                          AbstractViewSkin(location),
                          m_curr_texture(idle_texture),
                          m_idle_texture(idle_texture),
@@ -17,9 +17,9 @@ gui::AbstractButtonSkin::AbstractButtonSkin(const glib::UIntRect& location,
 
 
 gui::RectButtonSkin::RectButtonSkin(const glib::UIntRect& location,
-                                    glib::Texture* idle_texture,
-                                    glib::Texture* hovered_texture,
-                                    glib::Texture* pressed_texture):
+                                    const glib::Texture* idle_texture,
+                                    const glib::Texture* hovered_texture,
+                                    const glib::Texture* pressed_texture):
                      AbstractButtonSkin(location, idle_texture,
                                         hovered_texture, pressed_texture) {}
 
@@ -40,9 +40,9 @@ bool gui::RectButtonSkin::IsPointInside(glib::Vector2u& point) {
 
 
 gui::CircleButtonSkin::CircleButtonSkin(const glib::UIntRect& location,
-                                        glib::Texture* idle_texture,
-                                        glib::Texture* hovered_texture,
-                                        glib::Texture* pressed_texture,
+                                        const glib::Texture* idle_texture,
+                                        const glib::Texture* hovered_texture,
+                                        const glib::Texture* pressed_texture,
                                         const glib::UIntCircle& circle):
                        AbstractButtonSkin(location, idle_texture,
                                           hovered_texture, pressed_texture),
