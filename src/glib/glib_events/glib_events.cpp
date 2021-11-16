@@ -1,45 +1,63 @@
 #include "glib_events.hpp"
 
 
-glib::Event::~Event() {}
+glib::Event::Event(EventType type): m_type(type) {}
 
 
-glib::MouseButtonEvent::MouseButtonEvent(const glib::MouseButton button,
-                                         const glib::Vector2f& position):
-                        m_button(button), m_position(position) {}
+glib::MouseButtonEvent::MouseButtonEvent(EventType type): m_type(type) {}
 
 
-glib::MouseButtonEvent::~MouseButtonEvent() {}
+glib::MouseButtonEvent::MouseButtonEvent(EventType type, const Vector2f& position):
+                        m_type(type), m_position(position) {}
 
 
-void glib::MouseButtonEvent::SetType(const glib::MouseButton button) {
-  m_button = button;
-}
+glib::Event::~Event() = default;
 
 
-void glib::MouseButtonEvent::SetPosition(const glib::Vector2f& position) {
-  m_position = position;
-}
+glib::MouseButtonEvent::MouseButtonEvent(EventType type): m_type(type) {}
 
 
-glib::MouseButton glib::MouseButtonEvent::Button() const {
-  return m_button;
-}
+glib::MouseButtonEvent::MouseButtonEvent(glib::EventType type, const glib::Vector2f& position):
+                        Event(type), m_position(position) {}
 
 
-glib::Vector2f glib::MouseButtonEvent::Position() const {
-  return m_position;
-}
+glib::MouseButtonEvent::~MouseButtonEvent() = default;
 
 
-glib::MouseButtonPressedEvent::MouseButtonPressedEvent(const MouseButton button,
-                                                       const glib::Vector2f& position):
-                               MouseButtonEvent(button, position) {}
+glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent():
+                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_PRESSED) {}
 
 
-glib::MouseButtonReleasedEvent::MouseButtonReleasedEvent(const MouseButton button,
-                                                         const glib::Vector2f& position):
-                                MouseButtonEvent(button, position) {}
+glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent(const glib::Vector2f& position):
+                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_PRESSED, position) {}
+
+
+glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent():
+                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_PRESSED) {}
+
+
+glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent(const glib::Vector2f& position):
+                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_PRESSED, position) {}
+
+
+glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent():
+                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_RELEASED) {}
+
+
+glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent(const glib::Vector2f& position):
+                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_RELEASED, position) {}
+
+
+glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent():
+                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_RELEASED) {}
+
+
+glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent(const glib::Vector2f& position):
+                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_RELEASED, position) {}
+
+
+glib::CloseSysWindowEvent::CloseSysWindowEvent():
+                           Event(glib::EventType::CLOSE_SYS_WINDOW) {}
 
 
 glib::MouseButton glib::SFMLToGLibMouseButton(const sf::Mouse::Button sf_button) {
@@ -51,32 +69,4 @@ glib::MouseButton glib::SFMLToGLibMouseButton(const sf::Mouse::Button sf_button)
     default:
       return MouseButton::LEFT;
   }
-}
-
-
-glib::MouseButtonEvent* glib::SFMLToGLibMouseButtonEvent(const sf::Event& sf_event) {
-  MouseButton button = SFMLToGLibMouseButton(sf_event.mouseButton.button);
-  Vector2f position(sf_event.mouseButton.x, sf_event.mouseButton.y);
-  switch (sf_event.type) {
-    case sf::Event::MouseButtonPressed:
-    case sf::Event::MouseButtonReleased:
-      return new MouseButtonPressedEvent(button, position);
-    default:
-      return nullptr;
-  }
-  return nullptr;
-}
-
-
-glib::Event* glib::SFMLToGLibEvent(const sf::Event& sf_event) {
-  switch (sf_event.type) {
-    case sf::Event::EventType::Closed:
-      return new CloseSysWindowEvent();
-    case sf::Event::EventType::MouseButtonPressed:
-    case sf::Event::EventType::MouseButtonReleased:
-      return SFMLToGLibMouseButtonEvent(sf_event);
-    default:
-      return nullptr;
-  }
-  return nullptr;
 }

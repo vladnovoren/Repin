@@ -15,7 +15,6 @@ namespace glib {
 
     void Resize(const Vector2f& size);
 
-    bool ShouldClose();
     void Display();
     double ResetTime();
 

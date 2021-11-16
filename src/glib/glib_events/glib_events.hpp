@@ -7,61 +7,76 @@
 
 
 namespace glib {
-  enum class MouseButton {
-    LEFT,
-    RIGHT
+  enum class EventType {
+    UNDEFINED,
+    LEFT_MOUSE_BUTTON_PRESSED,
+    LEFT_MOUSE_BUTTON_RELEASED,
+    RIGHT_MOUSE_BUTTON_PRESSED,
+    RIGHT_MOUSE_BUTTON_RELEASED,
+    CLOSE_SYS_WINDOW
   };
 
 
   class Event {
+   protected:
+    EventType m_type = EventType::UNDEFINED;
    public:
+    Event() = default;
+    Event(EventType type);
     virtual ~Event() = 0;
+
+    EventType Type() const;
   };
 
 
   class MouseButtonEvent: public Event {
-   protected:
-    MouseButton m_button;
+   public:
     Vector2f m_position;
-   public:
+
     MouseButtonEvent() = default;
-    MouseButtonEvent(const MouseButton button, const Vector2f& position);
+    MouseButtonEvent(EventType type);
+    MouseButtonEvent(EventType type, const Vector2f& position);
     virtual ~MouseButtonEvent() = 0;
-
-    void SetType(const MouseButton button);
-    void SetPosition(const Vector2f& position);
-
-    MouseButton Button() const;
-    Vector2f Position() const;
   };
 
 
-  class MouseButtonPressedEvent: public MouseButtonEvent {
+  class LeftMouseButtonPressedEvent: public MouseButtonEvent {
    public:
-    MouseButtonPressedEvent() = default;
-    MouseButtonPressedEvent(const MouseButton button,
-                            const Vector2f& position);
-    ~MouseButtonPressedEvent() override = default;
+    LeftMouseButtonPressedEvent();
+    LeftMouseButtonPressedEvent(const Vector2f& position);
+    ~LeftMouseButtonPressedEvent() override = default;
   };
 
 
-  class MouseButtonReleasedEvent: public MouseButtonEvent {
+  class RightMouseButtonPressedEvent: public MouseButtonEvent {
    public:
-    MouseButtonReleasedEvent() = default;
-    MouseButtonReleasedEvent(const MouseButton button,
-                             const Vector2f& position);
-    ~MouseButtonReleasedEvent() override = default;
+    RightMouseButtonPressedEvent();
+    RightMouseButtonPressedEvent(const Vector2f& position);
+    ~RightMouseButtonPressedEvent() override = default;
+  };
+
+
+  class LeftMouseButtonReleasedEvent: public MouseButtonEvent {
+   public:
+    LeftMouseButtonReleasedEvent();
+    LeftMouseButtonReleasedEvent(const Vector2f& position);
+    ~LeftMouseButtonReleasedEvent() override = default;
+  };
+
+
+  class RightMouseButtonReleasedEvent: public MouseButtonEvent {
+   public:
+    RightMouseButtonReleasedEvent();
+    RightMouseButtonReleasedEvent(const Vector2f& position);
+    ~RightMouseButtonReleasedEvent() override = default;
   };
 
 
   class CloseSysWindowEvent: public Event {
    public:
+    CloseSysWindowEvent();
     ~CloseSysWindowEvent() override = default;
   };
-
-  MouseButton SFMLToGLibMouseButton(const sf::Mouse::Button sf_button);
-  MouseButtonEvent* SFMLToGLibMouseButtonEvent(const sf::Event& sf_event);
-  Event* SFMLToGLibEvent(const sf::Event& sf_event);
 }
 
 

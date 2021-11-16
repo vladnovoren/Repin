@@ -76,3 +76,33 @@ void gui::TitleBarSkinKeeper::LoadToSkin(TitleBarSkin* title_bar_skin) {
   title_bar_skin->m_middle_texture = &m_middle_texture;
   title_bar_skin->m_right_texture  = &m_right_texture;
 }
+
+
+gui::SkinManager::SkinManager(const char* folder_path) {
+  LoadFromFile(folder_path);
+}
+
+
+void gui::SkinManager::LoadFromFile(const char* folder_path) {
+  assert(folder_path != nullptr);
+
+  char* minimize_button_path = strdup(folder_path);
+  char* maximize_button_path = strdup(folder_path);
+  char* close_button_path    = strdup(folder_path);
+  char* title_bar_path       = strdup(folder_path);
+
+  minimize_button_path = strcat(minimize_button_path, "/MinimizeButton");
+  maximize_button_path = strcat(maximize_button_path, "/MaximizeButton");
+  close_button_path    = strcat(close_button_path, "/CloseButton");
+  title_bar_path       = strcat(title_bar_path, "/TitleBar");
+
+  m_minimize_button.LoadFromFolder(minimize_button_path);
+  m_maximize_button.LoadFromFolder(maximize_button_path);
+  m_close_button.LoadFromFolder(close_button_path);
+  m_title_bar.LoadFromFolder(title_bar_path);
+
+  free(minimize_button_path);
+  free(maximize_button_path);
+  free(close_button_path);
+  free(title_bar_path);
+}

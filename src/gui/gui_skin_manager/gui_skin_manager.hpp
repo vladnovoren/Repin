@@ -45,6 +45,21 @@ namespace gui {
     void LoadFromFolder(const char* folder_path) override;
     void LoadToSkin(TitleBarSkin* title_bar_skin);
   };
+
+
+  class SkinManager {
+   protected:
+    ButtonSkinKeeper   m_minimize_button;
+    ButtonSkinKeeper   m_maximize_button;
+    ButtonSkinKeeper   m_close_button;
+    TitleBarSkinKeeper m_title_bar;
+   public:
+    SkinManager() = default;
+    SkinManager(const char* folder_path);
+    ~SkinManager() = default;
+
+    void LoadFromFile(const char* folder_path);
+  };
 }
 
 
