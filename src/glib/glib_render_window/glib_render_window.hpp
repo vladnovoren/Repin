@@ -1,13 +1,14 @@
 #ifndef GLIB_RENDER_WINDOW_HPP
 #define GLIB_RENDER_WINDOW_HPP
 
-#include "glib_events.hpp"
+#include "glib_convert_events.hpp"
 #include "glib_render_target.hpp"
 
 
 namespace glib {
   class RenderWindow: public RenderTarget {
     sf::RenderWindow m_sf_render_window;
+    sf::Clock m_sf_clock;
   public:
     RenderWindow() = default;
     RenderWindow(const Vector2f& size, const char* title);

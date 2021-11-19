@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.16.3 FATAL_ERROR)
 
 project(Repin VERSION 1.0)
 
-set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
+# set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
+set(CMAKE_CXX_FLAGS "-g -fsanitize=address -Wall -Wextra -Werror -O2")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_color/glib_color.cpp
+                src/glib/glib_events/glib_convert_events.cpp
                 src/glib/glib_events/glib_events.cpp
                 src/glib/glib_primitives/glib_primitives.cpp
                 src/glib/glib_render_target/glib_render_target.cpp
@@ -21,8 +23,9 @@ set(GUI_SOURCE src/gui/gui_abstract_view/gui_abstract_view.cpp
                src/gui/gui_abstract_view/gui_abstract_view_functor.cpp
                src/gui/gui_button/gui_button.cpp
                src/gui/gui_button/gui_button_skin.cpp
-               src/gui/gui_events/gui_events.cpp
+               src/gui/gui_event_emitter/gui_event_emitter.cpp
                src/gui/gui_skin_manager/gui_skin_manager.cpp
+               src/gui/gui_view_manager/gui_view_manager.cpp
 )
 
 
@@ -49,4 +52,8 @@ include_directories(${header_dir_list})
 add_library(glib STATIC ${GLIB_SOURCE})
 add_library(gui STATIC ${GUI_SOURCE})
 
+add_executable(Repin src/app.cpp)
+
+target_link_libraries(glib PUBLIC sfml-graphics)
 target_link_libraries(gui PUBLIC glib)
+target_link_libraries(Repin PUBLIC gui)

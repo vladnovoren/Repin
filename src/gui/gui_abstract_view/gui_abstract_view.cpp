@@ -23,6 +23,31 @@ bool gui::AbstractView::IsPointInside(const glib::Vector2u& point) {
 }
 
 
+gui::EventResult gui::AbstractView::OnLeftMouseButtonPressed(const glib::Vector2u&) {
+  return gui::EventResult::REJECTED;
+}
+
+
+gui::EventResult gui::AbstractView::OnRightMouseButtonPressed(const glib::Vector2u&) {
+  return gui::EventResult::REJECTED;
+}
+
+
+gui::EventResult gui::AbstractView::OnLeftMouseButtonReleased(const glib::Vector2u&) {
+  return gui::EventResult::REJECTED;
+}
+
+
+gui::EventResult gui::AbstractView::OnRightMouseButtonReleased(const glib::Vector2u&) {
+  return gui::EventResult::REJECTED;
+}
+
+
+gui::EventResult gui::AbstractView::OnMouseMove(const glib::Vector2u&, const glib::Vector2u&) {
+  return gui::EventResult::REJECTED;
+}
+
+
 gui::EventResult gui::AbstractView::OnClose() {
   MatchForClose();
   for (auto child_ptr: m_children) {
@@ -35,3 +60,6 @@ gui::EventResult gui::AbstractView::OnClose() {
 void gui::AbstractView::MatchForClose() {
   m_should_close = true;
 }
+
+
+void gui::AbstractView::Draw(glib::RenderTarget*, const glib::Vector2u&) {}

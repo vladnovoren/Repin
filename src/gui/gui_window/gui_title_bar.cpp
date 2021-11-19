@@ -17,17 +17,17 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
 
   m_skin->Draw(render_target, position);
 
-  glib::Vector2f curr_position = position - glib::Vector2f(m_skin->m_right_texture->GetSize().x, 0);
-  if (m_minimize_button != nullptr) {
-    m_minimize_button->Draw(render_target, curr_position);
+  glib::Vector2f curr_position = position + glib::Vector2f(m_skin->m_right_texture->GetSize().x, 0);
+  if (m_close_button != nullptr) {
+    m_close_button->Draw(render_target, curr_position);
     curr_position += DELTA_BUTTON;
   }
   if (m_maximize_button != nullptr) {
     m_maximize_button->Draw(render_target, curr_position);
     curr_position += DELTA_BUTTON;
   }
-  if (m_close_button != nullptr) {
-    m_close_button->Draw(render_target, curr_position);
+  if (m_minimize_button != nullptr) {
+    m_minimize_button->Draw(render_target, curr_position);
     curr_position += DELTA_BUTTON;
   }
   if (m_title != nullptr) {

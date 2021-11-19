@@ -6,6 +6,11 @@ glib::RenderTarget::RenderTarget(sf::RenderTarget* sf_render_target):
                     m_sf_render_target(sf_render_target) {}
 
 
+void glib::RenderTarget::Clear(const ColorRGB& color) {
+  m_sf_render_target->clear(GLibToSFMLColor(color));
+}
+
+
 void glib::RenderTarget::RenderLine(const glib::FloatLine& line,
                                     const ColorRGB& color) {
   sf::Vertex sf_line[] = {

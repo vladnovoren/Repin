@@ -1,3 +1,0 @@
-glib event -> events with type field like in balls for easy converting
-converting functions from glib event to gui event depend on type
-converter from glib event

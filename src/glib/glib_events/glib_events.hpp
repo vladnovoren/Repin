@@ -8,12 +8,13 @@
 
 namespace glib {
   enum class EventType {
-    UNDEFINED,
+    CLOSE_SYS_WINDOW,
     LEFT_MOUSE_BUTTON_PRESSED,
     LEFT_MOUSE_BUTTON_RELEASED,
     RIGHT_MOUSE_BUTTON_PRESSED,
     RIGHT_MOUSE_BUTTON_RELEASED,
-    CLOSE_SYS_WINDOW
+    N_EVENT_TYPES,
+    UNDEFINED
   };
 
 
@@ -31,11 +32,11 @@ namespace glib {
 
   class MouseButtonEvent: public Event {
    public:
-    Vector2f m_position;
+    Vector2u m_position;
 
     MouseButtonEvent() = default;
     MouseButtonEvent(EventType type);
-    MouseButtonEvent(EventType type, const Vector2f& position);
+    MouseButtonEvent(EventType type, const Vector2u& position);
     virtual ~MouseButtonEvent() = 0;
   };
 
@@ -43,7 +44,7 @@ namespace glib {
   class LeftMouseButtonPressedEvent: public MouseButtonEvent {
    public:
     LeftMouseButtonPressedEvent();
-    LeftMouseButtonPressedEvent(const Vector2f& position);
+    LeftMouseButtonPressedEvent(const Vector2u& position);
     ~LeftMouseButtonPressedEvent() override = default;
   };
 
@@ -51,7 +52,7 @@ namespace glib {
   class RightMouseButtonPressedEvent: public MouseButtonEvent {
    public:
     RightMouseButtonPressedEvent();
-    RightMouseButtonPressedEvent(const Vector2f& position);
+    RightMouseButtonPressedEvent(const Vector2u& position);
     ~RightMouseButtonPressedEvent() override = default;
   };
 
@@ -59,7 +60,7 @@ namespace glib {
   class LeftMouseButtonReleasedEvent: public MouseButtonEvent {
    public:
     LeftMouseButtonReleasedEvent();
-    LeftMouseButtonReleasedEvent(const Vector2f& position);
+    LeftMouseButtonReleasedEvent(const Vector2u& position);
     ~LeftMouseButtonReleasedEvent() override = default;
   };
 
@@ -67,7 +68,7 @@ namespace glib {
   class RightMouseButtonReleasedEvent: public MouseButtonEvent {
    public:
     RightMouseButtonReleasedEvent();
-    RightMouseButtonReleasedEvent(const Vector2f& position);
+    RightMouseButtonReleasedEvent(const Vector2u& position);
     ~RightMouseButtonReleasedEvent() override = default;
   };
 

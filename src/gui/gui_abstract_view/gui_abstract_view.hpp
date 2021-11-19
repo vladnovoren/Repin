@@ -44,6 +44,7 @@ namespace gui {
      * Sets location
     */
     void SetLocation(const glib::UIntRect& location);
+
     glib::UIntRect Location() const;
 
     /**
@@ -73,6 +74,9 @@ namespace gui {
     */
     virtual EventResult OnRightMouseButtonReleased(const glib::Vector2u& mouse_position);
 
+    virtual EventResult OnMouseMove(const glib::Vector2u& mouse_position,
+                                    const glib::Vector2u& delta_mouse_position);
+
     /**
      * Handler of close event
     */
@@ -85,7 +89,7 @@ namespace gui {
 
 
     virtual void Draw(glib::RenderTarget* render_target,
-                      const glib::Vector2u& position) = 0;
+                      const glib::Vector2u& position);
   };
 }
 

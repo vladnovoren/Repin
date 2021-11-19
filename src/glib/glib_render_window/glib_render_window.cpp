@@ -26,3 +26,13 @@ glib::Event* glib::RenderWindow::PollEvent() {
     return nullptr;
   }
 }
+
+
+void glib::RenderWindow::Display() {
+  m_sf_render_window.display();
+}
+
+
+double glib::RenderWindow::ResetTime() {
+  return m_sf_clock.restart().asSeconds();
+}
