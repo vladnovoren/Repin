@@ -11,6 +11,7 @@ namespace glib {
     CLOSE_SYS_WINDOW,
     LEFT_MOUSE_BUTTON_PRESSED,
     LEFT_MOUSE_BUTTON_RELEASED,
+    MOUSE_MOVE_EVENT,
     RIGHT_MOUSE_BUTTON_PRESSED,
     RIGHT_MOUSE_BUTTON_RELEASED,
     N_EVENT_TYPES,
@@ -77,6 +78,16 @@ namespace glib {
    public:
     CloseSysWindowEvent();
     ~CloseSysWindowEvent() override = default;
+  };
+
+
+  class MouseMoveEvent: public Event {
+   public:
+    Vector2u m_new_position;
+
+    MouseMoveEvent();
+    MouseMoveEvent(const Vector2u& new_position);
+    ~MouseMoveEvent() override = default;
   };
 }
 

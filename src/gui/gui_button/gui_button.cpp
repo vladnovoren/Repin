@@ -27,17 +27,16 @@ void gui::Button::SetFunctor(AbstractFunctor* functor) {
 }
 
 
-gui::EventResult gui::Button::OnLeftMouseButtonPressed(const glib::Vector2u&) {
+void gui::Button::OnLeftMouseButtonPressed(const glib::Vector2u&) {
   m_press_state = gui::ButtonPressState::PRESSED;
   m_skin->m_curr_texture = m_skin->m_pressed_texture;
   return m_functor->operator()();
 }
 
 
-gui::EventResult gui::Button::OnLeftMouseButtonReleased(const glib::Vector2u&) {
+void gui::Button::OnLeftMouseButtonReleased(const glib::Vector2u&) {
   m_press_state = gui::ButtonPressState::IDLE;
   m_skin->m_curr_texture = m_skin->m_idle_texture;
-  return gui::EventResult::PROCESSED_ALL;
 }
 
 

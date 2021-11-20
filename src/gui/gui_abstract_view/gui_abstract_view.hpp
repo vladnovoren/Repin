@@ -11,12 +11,6 @@
 
 
 namespace gui {
-  enum class EventResult {
-    PROCESSED_ALL,
-    PROCESSED_NOT_ALL,
-    REJECTED
-  };
-
   /**
    * Abstract view with common details
   */
@@ -24,6 +18,8 @@ namespace gui {
    protected:
     std::list<AbstractView*> m_children; ///< List of children views
     AbstractViewSkin* m_skin;
+
+    AbstractView* m_child_under_mouse = nullptr;
 
     bool m_should_close = false; ///< If view needs to be closed
    public:
@@ -56,31 +52,35 @@ namespace gui {
      * Handler of left mouse button pressed event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position);
+    virtual void OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position);
+
+    virtual void OnMouseHoverBegin(const glib::Vector2u& mouse_position);
+
+    virtual void OnMouseHoverEnd(const glib::Vector2u& mouse_position);
+
     /**
      * Handler of right mouse button pressed event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnRightMouseButtonPressed(const glib::Vector2u& mouse_position);
+    virtual void OnRightMouseButtonPressed(const glib::Vector2u& mouse_position);
 
     /**
      * Handler of left mouse button released event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position);
+    virtual void OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position);
     /**
      * Handler of right mouse button released event
      * \param mouse_position Mouse position
     */
-    virtual EventResult OnRightMouseButtonReleased(const glib::Vector2u& mouse_position);
+    virtual void OnRightMouseButtonReleased(const glib::Vector2u& mouse_position);
 
-    virtual EventResult OnMouseMove(const glib::Vector2u& mouse_position,
-                                    const glib::Vector2u& delta_mouse_position);
+    virtual void OnMouseMove(const glib::Vector2u& new_mouse_position);
 
     /**
      * Handler of close event
     */
-    EventResult OnClose();
+    void OnClose();
 
     /**
      * Matches view for close

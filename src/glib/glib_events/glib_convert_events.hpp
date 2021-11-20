@@ -9,6 +9,7 @@ namespace glib {
   glib::Event* SFMLToGLibEvent(const sf::Event& sf_event);
 
   glib::MouseButtonEvent* SFMLToGLibMouseButtonEvent(const sf::Event& sf_mouse_button_event);
+  glib::MouseMoveEvent* SFMLToGLibMouseMoveEvent(const sf::Event& sf_mouse_move_event);
 }
 
 

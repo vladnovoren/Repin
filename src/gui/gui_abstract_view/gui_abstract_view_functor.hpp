@@ -11,7 +11,7 @@ namespace gui {
     AbstractFunctor() = default;
     virtual ~AbstractFunctor() = 0;
 
-    virtual EventResult operator()() = 0;
+    virtual void operator()() = 0;
   };
 
   AbstractFunctor::~AbstractFunctor() = default;
@@ -25,7 +25,7 @@ namespace gui {
       assert(m_view);
     }
 
-    EventResult operator()() override {
+    void operator()() override {
       return m_view->OnClose();
     }
   };

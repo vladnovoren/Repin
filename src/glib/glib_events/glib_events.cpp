@@ -56,3 +56,11 @@ glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent(const glib::V
 
 glib::CloseSysWindowEvent::CloseSysWindowEvent():
                            Event(glib::EventType::CLOSE_SYS_WINDOW) {}
+
+
+glib::MouseMoveEvent::MouseMoveEvent(): Event(glib::EventType::MOUSE_MOVE_EVENT) {}
+
+
+glib::MouseMoveEvent::MouseMoveEvent(const Vector2u& new_position):
+                      Event(glib::EventType::CLOSE_SYS_WINDOW),
+                      m_new_position(new_position) {}

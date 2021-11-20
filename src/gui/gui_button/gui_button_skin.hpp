@@ -29,7 +29,7 @@ namespace gui {
                    const glib::Texture* pressed_texture);
     ~RectButtonSkin() override = default;
 
-    bool IsPointInside(glib::Vector2u& point) override;
+    bool IsPointInside(glib::Vector2u point) override;
 
     void Draw(glib::RenderTarget* render_target, const glib::Vector2u& position) override;
   };
@@ -46,7 +46,7 @@ namespace gui {
                      const glib::UIntCircle& circle);
     ~CircleButtonSkin() override = default;
 
-    bool IsPointInside(glib::Vector2u& point) override;
+    bool IsPointInside(glib::Vector2u point) override;
 
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2u& position) override;

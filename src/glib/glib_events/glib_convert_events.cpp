@@ -8,6 +8,8 @@ glib::Event* glib::SFMLToGLibEvent(const sf::Event& sf_event) {
     case sf::Event::MouseButtonPressed:
     case sf::Event::MouseButtonReleased:
       return glib::SFMLToGLibMouseButtonEvent(sf_event);
+    case sf::Event::MouseMoved:
+      return glib::SFMLToGLibMouseMoveEvent(sf_event);
     default:
       return nullptr;
   }
@@ -39,4 +41,12 @@ glib::MouseButtonEvent* glib::SFMLToGLibMouseButtonEvent(const sf::Event& sf_mou
     default:
       return nullptr;
   }
+}
+
+
+glib::MouseMoveEvent* glib::SFMLToGLibMouseMoveEvent(const sf::Event& sf_mouse_move_event) {
+  const sf::Event::MouseMoveEvent& sf_selected_mouse_move_event = sf_mouse_move_event.mouseMove;
+  glib::Vector2u glib_new_position(sf_selected_mouse_move_event.x,
+                                   sf_selected_mouse_move_event.y);
+  return new glib::MouseMoveEvent(glib_new_position);
 }

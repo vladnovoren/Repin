@@ -36,8 +36,8 @@ namespace gui {
     void SetSkin(AbstractButtonSkin* skin);
     void SetFunctor(AbstractFunctor* functor);
 
-    EventResult OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position) override;
-    EventResult OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position) override;
+    void OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position) override;
+    void OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position) override;
 
     void Draw(glib::RenderTarget* render_target, const glib::Vector2u& position) override;
   };

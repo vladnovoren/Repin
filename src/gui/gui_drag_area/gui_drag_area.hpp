@@ -13,7 +13,7 @@ namespace gui {
     DragArea(const glib::UIntRect& location);
     ~DragArea() = default;
 
-    EventResult OnMouseMove();
+    void OnMouseMove(const glib::Vector2u& new_mouse_position);
   };
 }
 

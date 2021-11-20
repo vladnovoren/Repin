@@ -33,7 +33,7 @@ void gui::RectButtonSkin::Draw(glib::RenderTarget* render_target,
 }
 
 
-bool gui::RectButtonSkin::IsPointInside(glib::Vector2u& point) {
+bool gui::RectButtonSkin::IsPointInside(glib::Vector2u point) {
   point -= m_location.m_position;
   return m_location.IsPointInRect(point);
 }
@@ -49,7 +49,7 @@ gui::CircleButtonSkin::CircleButtonSkin(const glib::UIntRect& location,
                        m_circle(circle) {}
 
 
-bool gui::CircleButtonSkin::IsPointInside(glib::Vector2u& point) {
+bool gui::CircleButtonSkin::IsPointInside(glib::Vector2u point) {
   point -= m_location.m_position;
   return m_circle.IsPointInside(point);
 }

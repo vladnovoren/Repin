@@ -23,37 +23,72 @@ bool gui::AbstractView::IsPointInside(const glib::Vector2u& point) {
 }
 
 
-gui::EventResult gui::AbstractView::OnLeftMouseButtonPressed(const glib::Vector2u&) {
-  return gui::EventResult::REJECTED;
+void gui::AbstractView::OnLeftMouseButtonPressed(const glib::Vector2u&) {
 }
 
 
-gui::EventResult gui::AbstractView::OnRightMouseButtonPressed(const glib::Vector2u&) {
-  return gui::EventResult::REJECTED;
+void gui::AbstractView::OnRightMouseButtonPressed(const glib::Vector2u&) {
 }
 
 
-gui::EventResult gui::AbstractView::OnLeftMouseButtonReleased(const glib::Vector2u&) {
-  return gui::EventResult::REJECTED;
+void gui::AbstractView::OnLeftMouseButtonReleased(const glib::Vector2u&) {
 }
 
 
-gui::EventResult gui::AbstractView::OnRightMouseButtonReleased(const glib::Vector2u&) {
-  return gui::EventResult::REJECTED;
+void gui::AbstractView::OnRightMouseButtonReleased(const glib::Vector2u&) {
 }
 
 
-gui::EventResult gui::AbstractView::OnMouseMove(const glib::Vector2u&, const glib::Vector2u&) {
-  return gui::EventResult::REJECTED;
+void gui::AbstractView::OnMouseHoverBegin(const glib::Vector2u& mouse_position) {
+  const glib::Vector2u mouse_position_inside = mouse_position - m_skin->m_location.m_position;
+  for (auto child = m_children.begin(); child != m_children.end(); ++child) {
+    if ((*child)->IsPointInside(mouse_position_inside)) {
+      m_child_under_mouse = *child;
+      (*child)->OnMouseHoverBegin(mouse_position_inside);
+      break;
+    }
+  }
 }
 
 
-gui::EventResult gui::AbstractView::OnClose() {
+void gui::AbstractView::OnMouseHoverEnd(const glib::Vector2u& mouse_position) {
+  const glib::Vector2u mouse_position_inside = mouse_position - m_skin->m_location.m_position;
+  if (m_child_under_mouse != nullptr) {
+    m_child_under_mouse->OnMouseHoverEnd(mouse_position_inside);
+  }
+}
+
+
+void gui::AbstractView::OnMouseMove(const glib::Vector2u& new_mouse_position) {
+  const glib::Vector2f new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
+  if (m_child_under_mouse != nullptr) {
+    for (auto child: m_children) {
+      if (!child->m_skin->IsPointInside(new_mouse_position_inside) &&
+          child == m_child_under_mouse) {
+        child->OnMouseHoverEnd(new_mouse_position_inside);
+        m_child_under_mouse = nullptr;
+        break;
+      }
+    }
+  }
+
+  for (auto child: m_children) {
+    if (child->m_skin->IsPointInside(new_mouse_position_inside)) {
+      child->OnMouseMove(new_mouse_position_inside);
+    }
+  }
+
+  if (m_child_under_mouse == nullptr) {
+    OnMouseHoverBegin(new_mouse_position);
+  }
+}
+
+
+void gui::AbstractView::OnClose() {
   MatchForClose();
   for (auto child_ptr: m_children) {
     child_ptr->OnClose();
   }
-  return EventResult::PROCESSED_ALL;
 }
 
 
