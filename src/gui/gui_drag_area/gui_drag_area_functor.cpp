@@ -7,6 +7,17 @@ gui::DragAreaFunctor::DragAreaFunctor(Window* owner): m_owner(owner) {
 }
 
 
+void gui::DragAreaFunctor::SetDeltaPosition(const glib::Vector2i& delta_position) {
+  m_delta_position = delta_position;
+}
+
+
 void gui::DragAreaFunctor::operator()() {
-  // m_owner.
+  m_owner->Move(m_delta_position);
+}
+
+
+void gui::DragAreaFunctor::operator()(const glib::Vector2i& delta_position) {
+  SetDeltaPosition(delta_position);
+  this->operator()();
 }

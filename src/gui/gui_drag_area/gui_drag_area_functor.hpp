@@ -11,12 +11,16 @@ namespace gui {
   class DragAreaFunctor: public AbstractViewFunctor {
    protected:
     Window* m_owner = nullptr;
+    glib::Vector2i m_delta_position;
    public:
     DragAreaFunctor() = default;
     DragAreaFunctor(Window* owner);
     ~DragAreaFunctor() = default;
 
+    void SetDeltaPosition(const glib::Vector2i& delta_position);
+
     void operator()() override;
+    void operator()(const glib::Vector2i& delta_position);
   };
 }
 

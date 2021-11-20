@@ -11,3 +11,8 @@ bool gui::DefaultViewSkin::IsPointInside(glib::Vector2i point) {
 
 
 void gui::DefaultViewSkin::Draw(glib::RenderTarget*, const glib::Vector2i&) {}
+
+
+void gui::DefaultViewSkin::Move(const glib::Vector2i& delta_position) {
+  m_location.m_position += delta_position;
+}

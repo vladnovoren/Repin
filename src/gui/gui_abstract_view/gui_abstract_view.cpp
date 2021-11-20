@@ -98,3 +98,8 @@ void gui::AbstractView::MatchForClose() {
 
 
 void gui::AbstractView::Draw(glib::RenderTarget*, const glib::Vector2i&) {}
+
+
+void gui::AbstractView::Move(const glib::Vector2i& delta_position) {
+  m_skin->Move(delta_position);
+}

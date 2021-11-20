@@ -26,5 +26,4 @@ namespace gui {
 }
 
 
-
 #endif /* gui_abstract_view_functor.hpp */
