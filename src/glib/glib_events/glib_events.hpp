@@ -33,11 +33,11 @@ namespace glib {
 
   class MouseButtonEvent: public Event {
    public:
-    Vector2u m_position;
+    Vector2i m_position;
 
     MouseButtonEvent() = default;
     MouseButtonEvent(EventType type);
-    MouseButtonEvent(EventType type, const Vector2u& position);
+    MouseButtonEvent(EventType type, const Vector2i& position);
     virtual ~MouseButtonEvent() = 0;
   };
 
@@ -45,7 +45,7 @@ namespace glib {
   class LeftMouseButtonPressedEvent: public MouseButtonEvent {
    public:
     LeftMouseButtonPressedEvent();
-    LeftMouseButtonPressedEvent(const Vector2u& position);
+    LeftMouseButtonPressedEvent(const Vector2i& position);
     ~LeftMouseButtonPressedEvent() override = default;
   };
 
@@ -53,7 +53,7 @@ namespace glib {
   class RightMouseButtonPressedEvent: public MouseButtonEvent {
    public:
     RightMouseButtonPressedEvent();
-    RightMouseButtonPressedEvent(const Vector2u& position);
+    RightMouseButtonPressedEvent(const Vector2i& position);
     ~RightMouseButtonPressedEvent() override = default;
   };
 
@@ -61,7 +61,7 @@ namespace glib {
   class LeftMouseButtonReleasedEvent: public MouseButtonEvent {
    public:
     LeftMouseButtonReleasedEvent();
-    LeftMouseButtonReleasedEvent(const Vector2u& position);
+    LeftMouseButtonReleasedEvent(const Vector2i& position);
     ~LeftMouseButtonReleasedEvent() override = default;
   };
 
@@ -69,7 +69,7 @@ namespace glib {
   class RightMouseButtonReleasedEvent: public MouseButtonEvent {
    public:
     RightMouseButtonReleasedEvent();
-    RightMouseButtonReleasedEvent(const Vector2u& position);
+    RightMouseButtonReleasedEvent(const Vector2i& position);
     ~RightMouseButtonReleasedEvent() override = default;
   };
 
@@ -83,10 +83,10 @@ namespace glib {
 
   class MouseMoveEvent: public Event {
    public:
-    Vector2u m_new_position;
+    Vector2i m_new_position;
 
     MouseMoveEvent();
-    MouseMoveEvent(const Vector2u& new_position);
+    MouseMoveEvent(const Vector2i& new_position);
     ~MouseMoveEvent() override = default;
   };
 }

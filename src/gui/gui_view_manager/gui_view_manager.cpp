@@ -21,5 +21,5 @@ void gui::ViewManager::Emit(glib::Event* event) {
 void gui::ViewManager::Draw(glib::RenderWindow* render_window) {
   assert(render_window != nullptr);
 
-  m_root->Draw(render_window, glib::Vector2u(0, 0));
+  m_root->Draw(render_window, glib::Vector2i(0, 0));
 }

@@ -6,7 +6,7 @@
 
 
 #include "glib.hpp"
-#include "gui_abstract_view_skin.hpp"
+#include "gui_default_view_skin.hpp"
 #include <list>
 
 
@@ -17,9 +17,10 @@ namespace gui {
   class AbstractView {
    protected:
     std::list<AbstractView*> m_children; ///< List of children views
-    AbstractViewSkin* m_skin;
+    DefaultViewSkin* m_skin;
 
     AbstractView* m_child_under_mouse = nullptr;
+    bool m_is_under_press = false;
 
     bool m_should_close = false; ///< If view needs to be closed
    public:
@@ -30,7 +31,7 @@ namespace gui {
     /**
      * Constructor initialising location
     */
-    AbstractView(AbstractViewSkin* skin);
+    AbstractView(DefaultViewSkin* skin);
     /**
      * Pure virtual default destructor
     */
@@ -39,43 +40,43 @@ namespace gui {
     /**
      * Sets location
     */
-    void SetLocation(const glib::UIntRect& location);
+    void SetLocation(const glib::IntRect& location);
 
-    glib::UIntRect Location() const;
+    glib::IntRect Location() const;
 
     /**
      * Checks if point inside the view
     */
-    virtual bool IsPointInside(const glib::Vector2u& point);
+    virtual bool IsPointInside(const glib::Vector2i& point);
 
     /**
      * Handler of left mouse button pressed event
      * \param mouse_position Mouse position
     */
-    virtual void OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position);
+    virtual void OnLeftMouseButtonPressed(glib::Vector2i mouse_position);
 
-    virtual void OnMouseHoverBegin(const glib::Vector2u& mouse_position);
+    virtual void OnMouseHoverBegin(glib::Vector2i mouse_position);
 
-    virtual void OnMouseHoverEnd(const glib::Vector2u& mouse_position);
+    virtual void OnMouseHoverEnd(glib::Vector2i mouse_position);
 
     /**
      * Handler of right mouse button pressed event
      * \param mouse_position Mouse position
     */
-    virtual void OnRightMouseButtonPressed(const glib::Vector2u& mouse_position);
+    virtual void OnRightMouseButtonPressed(glib::Vector2i mouse_position);
 
     /**
      * Handler of left mouse button released event
      * \param mouse_position Mouse position
     */
-    virtual void OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position);
+    virtual void OnLeftMouseButtonReleased(glib::Vector2i mouse_position);
     /**
      * Handler of right mouse button released event
      * \param mouse_position Mouse position
     */
-    virtual void OnRightMouseButtonReleased(const glib::Vector2u& mouse_position);
+    virtual void OnRightMouseButtonReleased(glib::Vector2i mouse_position);
 
-    virtual void OnMouseMove(const glib::Vector2u& new_mouse_position);
+    virtual void OnMouseMove(glib::Vector2i new_mouse_position);
 
     /**
      * Handler of close event
@@ -88,8 +89,11 @@ namespace gui {
     void MatchForClose();
 
 
+    void Move(const glib::Vector2i& delta_position);
+
+
     virtual void Draw(glib::RenderTarget* render_target,
-                      const glib::Vector2u& position);
+                      const glib::Vector2i& position);
   };
 }
 

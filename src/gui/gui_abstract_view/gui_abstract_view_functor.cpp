@@ -1,7 +1,7 @@
 #include "gui_abstract_view_functor.hpp"
 
 
-gui::AbstractFunctor::~AbstractFunctor() = default;
+gui::AbstractViewFunctor::~AbstractViewFunctor() = default;
 
 
 gui::CloseViewFunctor::CloseViewFunctor(AbstractView* view): m_view(view) {

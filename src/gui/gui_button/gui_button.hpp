@@ -26,20 +26,20 @@ namespace gui {
    protected:
     ButtonPressState m_press_state = ButtonPressState::IDLE; ///< Button press state
 
-    AbstractFunctor* m_functor = nullptr;
+    AbstractViewFunctor* m_functor = nullptr;
     AbstractButtonSkin* m_skin = nullptr;
    public:
     Button() = default;
-    Button(AbstractFunctor* functor, AbstractButtonSkin* skin);
+    Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin);
     ~Button() override = 0;
 
     void SetSkin(AbstractButtonSkin* skin);
-    void SetFunctor(AbstractFunctor* functor);
+    void SetFunctor(AbstractViewFunctor* functor);
 
-    void OnLeftMouseButtonPressed(const glib::Vector2u& mouse_position) override;
-    void OnLeftMouseButtonReleased(const glib::Vector2u& mouse_position) override;
+    void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
+    void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
 
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2u& position) override;
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position) override;
   };
 }
 

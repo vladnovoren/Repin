@@ -2,11 +2,11 @@
 #define GUI_TITLE_BAR_SKIN_HPP
 
 
-#include "gui_abstract_view_skin.hpp"
+#include "gui_default_view_skin.hpp"
 
 
 namespace gui {
-  struct TitleBarSkin: AbstractViewSkin {
+  struct TitleBarSkin: DefaultViewSkin {
     glib::Texture* m_left_texture = nullptr;
     glib::Texture* m_middle_texture = nullptr;
     glib::Texture* m_right_texture = nullptr;

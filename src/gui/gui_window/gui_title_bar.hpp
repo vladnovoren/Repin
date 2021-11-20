@@ -11,14 +11,13 @@
 namespace gui {
   class TitleBar: public AbstractView {
    protected:
-    static const glib::Vector2f DELTA_BUTTON(0, -5);
+    static constexpr glib::Vector2f DELTA_BUTTON = glib::Vector2f(0, -5);
 
     TitleBarSkin* m_skin      = nullptr;
     Button* m_minimize_button = nullptr;
     Button* m_maximize_button = nullptr;
     Button* m_close_button    = nullptr;
     Title* m_title            = nullptr;
-    
    public:
     TitleBar() = default;
     TitleBar(TitleBarSkin* skin, Button* minimize_button,
@@ -26,7 +25,8 @@ namespace gui {
              Title* title);
     ~TitleBar() = default;
 
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2f& position) override;
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2i
+    & position) override;
   };
 }
 

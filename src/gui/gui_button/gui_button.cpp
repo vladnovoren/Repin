@@ -3,7 +3,7 @@
 
 // Button
 //==============================================================================
-gui::Button::Button(AbstractFunctor* functor, AbstractButtonSkin* skin):
+gui::Button::Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin):
              m_functor(functor), m_skin(skin) {
   assert(functor);
   assert(skin);
@@ -20,28 +20,28 @@ void gui::Button::SetSkin(AbstractButtonSkin* skin) {
 }
 
 
-void gui::Button::SetFunctor(AbstractFunctor* functor) {
+void gui::Button::SetFunctor(AbstractViewFunctor* functor) {
   assert(functor);
 
   m_functor = functor;
 }
 
 
-void gui::Button::OnLeftMouseButtonPressed(const glib::Vector2u&) {
+void gui::Button::OnLeftMouseButtonPressed(glib::Vector2i) {
   m_press_state = gui::ButtonPressState::PRESSED;
   m_skin->m_curr_texture = m_skin->m_pressed_texture;
   return m_functor->operator()();
 }
 
 
-void gui::Button::OnLeftMouseButtonReleased(const glib::Vector2u&) {
+void gui::Button::OnLeftMouseButtonReleased(glib::Vector2i) {
   m_press_state = gui::ButtonPressState::IDLE;
   m_skin->m_curr_texture = m_skin->m_idle_texture;
 }
 
 
 void gui::Button::Draw(glib::RenderTarget* render_target,
-                       const glib::Vector2u& position) {
+                       const glib::Vector2i& position) {
   assert(render_target);
 
   m_skin->Draw(render_target, position);

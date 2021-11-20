@@ -50,7 +50,7 @@ namespace glib {
     }
 
 
-    Vector2(VectorType x, VectorType y) {
+    constexpr Vector2(VectorType x, VectorType y) {
       this->x = x;
       this->y = y;
     }
@@ -194,9 +194,9 @@ namespace glib {
   }
 
 
-  typedef Vector2<int>          Vector2i;
-  typedef Vector2<unsigned int> Vector2u;
-  typedef Vector2<float>        Vector2f;
+  using Vector2i = Vector2<int>;
+  using Vector2u = Vector2<unsigned int>;
+  using Vector2f = Vector2<float>;
 }
 
 

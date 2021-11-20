@@ -21,11 +21,14 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
 
 set(GUI_SOURCE src/gui/gui_abstract_view/gui_abstract_view.cpp
                src/gui/gui_abstract_view/gui_abstract_view_functor.cpp
+               src/gui/gui_abstract_view/gui_default_view_skin.cpp
                src/gui/gui_button/gui_button.cpp
                src/gui/gui_button/gui_button_skin.cpp
                src/gui/gui_event_emitter/gui_event_emitter.cpp
                src/gui/gui_skin_manager/gui_skin_manager.cpp
                src/gui/gui_view_manager/gui_view_manager.cpp
+               src/gui/gui_drag_area/gui_drag_area.cpp
+               src/gui/gui_drag_area/gui_drag_area_functor.cpp
 )
 
 

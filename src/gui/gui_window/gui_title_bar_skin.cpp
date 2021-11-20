@@ -5,7 +5,7 @@ gui::TitleBarSkin::TitleBarSkin(const glib::FloatRect& location,
                                 glib::Texture* left_texture,
                                 glib::Texture* middle_texture,
                                 glib::Texture* right_texture):
-                   AbstractViewSkin(location), m_left_texture(left_texture),
+                   DefaultViewSkin(location), m_left_texture(left_texture),
                    m_middle_texture(middle_texture),
                    m_right_texture(right_texture) {
   assert(left_texture != nullptr);

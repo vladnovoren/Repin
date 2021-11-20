@@ -6,16 +6,16 @@
 
 
 namespace gui {
-  class AbstractFunctor {
+  class AbstractViewFunctor {
    public:
-    AbstractFunctor() = default;
-    virtual ~AbstractFunctor() = 0;
+    AbstractViewFunctor() = default;
+    virtual ~AbstractViewFunctor() = 0;
 
     virtual void operator()() = 0;
   };
 
 
-  class CloseViewFunctor: public AbstractFunctor {
+  class CloseViewFunctor: public AbstractViewFunctor {
    protected:
     AbstractView* m_view;
    public:

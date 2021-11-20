@@ -17,7 +17,7 @@ glib::Event* glib::SFMLToGLibEvent(const sf::Event& sf_event) {
 
 
 glib::MouseButtonEvent* glib::SFMLToGLibMouseButtonEvent(const sf::Event& sf_mouse_button_event) {
-  glib::Vector2u position(sf_mouse_button_event.mouseButton.x,
+  glib::Vector2i position(sf_mouse_button_event.mouseButton.x,
                           sf_mouse_button_event.mouseButton.y);
   switch (sf_mouse_button_event.type) {
     case sf::Event::MouseButtonPressed:
@@ -46,7 +46,7 @@ glib::MouseButtonEvent* glib::SFMLToGLibMouseButtonEvent(const sf::Event& sf_mou
 
 glib::MouseMoveEvent* glib::SFMLToGLibMouseMoveEvent(const sf::Event& sf_mouse_move_event) {
   const sf::Event::MouseMoveEvent& sf_selected_mouse_move_event = sf_mouse_move_event.mouseMove;
-  glib::Vector2u glib_new_position(sf_selected_mouse_move_event.x,
+  glib::Vector2i glib_new_position(sf_selected_mouse_move_event.x,
                                    sf_selected_mouse_move_event.y);
   return new glib::MouseMoveEvent(glib_new_position);
 }
