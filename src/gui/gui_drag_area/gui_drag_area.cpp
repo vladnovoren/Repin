@@ -2,4 +2,4 @@
 
 
 gui::DragArea::DragArea(const glib::UIntRect& location):
-               
+               AbstractView(location) {}

@@ -7,7 +7,7 @@
 
 
 namespace gui {
-  class DragArea: {
+  class DragArea: public AbstractView {
    public:
     DragArea() = default;
     DragArea(const glib::UIntRect& location);

@@ -14,20 +14,14 @@ namespace gui {
     virtual void operator()() = 0;
   };
 
-  AbstractFunctor::~AbstractFunctor() = default;
-
 
   class CloseViewFunctor: public AbstractFunctor {
    protected:
     AbstractView* m_view;
    public:
-    CloseViewFunctor(AbstractView* view): m_view(view) {
-      assert(m_view);
-    }
+    CloseViewFunctor(AbstractView* view);
 
-    void operator()() override {
-      return m_view->OnClose();
-    }
+    void operator()() override;
   };
 }
 
