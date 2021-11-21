@@ -11,16 +11,22 @@
 
 
 namespace gui {
+  enum class MousePressState {
+    IDLE,
+    HOVERED,
+    PRESSED
+  };
+
   /**
    * Abstract view with common details
   */
   class AbstractView {
    protected:
     std::list<AbstractView*> m_children; ///< List of children views
-    DefaultViewSkin* m_skin;
+    DefaultViewSkin* m_skin = nullptr;
 
     AbstractView* m_child_under_mouse = nullptr;
-    bool m_is_mouse_pressed = false;
+    MousePressState m_mouse_press_state = MousePressState::IDLE;
 
     bool m_should_close = false; ///< If view needs to be closed
    public:

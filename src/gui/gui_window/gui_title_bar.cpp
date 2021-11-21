@@ -52,12 +52,13 @@ void gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
       m_child_under_mouse = nullptr;
     }
   } else {
-    if (m_is_mouse_pressed) {
+    if (m_mouse_press_state == MousePressState::PRESSED) {
       m_move_functor(new_mouse_position_inside - m_curr_mouse_position);
     } else {
       for (auto child_ptr: m_children) {
         if (child_ptr->IsPointInside(new_mouse_position_inside)) {
           child_ptr->OnMouseHoverBegin(new_mouse_position_inside);
+          m_child_under_mouse = child_ptr;
         }
       }
     }
@@ -67,7 +68,7 @@ void gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
 
 
 void gui::TitleBar::OnLeftMouseButtonPressed(glib::Vector2i mouse_position) {
-  m_is_mouse_pressed = true;
+  m_mouse_press_state = MousePressState::PRESSED;
   glib::Vector2i new_mouse_position_inside = mouse_position - m_skin->m_location.m_position;
   for (auto child_it = m_children.begin(); child_it != m_children.end(); ++child_it) {
     auto child_ptr = *child_it;
@@ -85,5 +86,5 @@ void gui::TitleBar::OnLeftMouseButtonReleased(glib::Vector2i mouse_position) {
     m_child_under_mouse->OnLeftMouseButtonReleased(new_mouse_position_inside);
     m_child_under_mouse = nullptr;
   }
-  m_is_mouse_pressed = false;
+  m_mouse_press_state = MousePressState::HOVERED;
 }

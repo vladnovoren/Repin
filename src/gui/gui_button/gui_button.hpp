@@ -12,19 +12,9 @@
 
 
 namespace gui {
-  /**
-   * Button press state
-  */
-  enum class ButtonPressState {
-    IDLE, ///< When button is idle
-    HOVERED, ///< When button is hovered
-    PRESSED ///< When button is pressed
-  };
-
-
   class Button: public AbstractView {
    protected:
-    ButtonPressState m_press_state = ButtonPressState::IDLE; ///< Button press state
+    glib::Vector2i m_curr_mouse_position;
 
     AbstractViewFunctor* m_functor = nullptr;
     AbstractButtonSkin* m_skin = nullptr;
@@ -36,6 +26,10 @@ namespace gui {
     void SetSkin(AbstractButtonSkin* skin);
     void SetFunctor(AbstractViewFunctor* functor);
 
+    void OnMouseHoverBegin(glib::Vector2i mouse_position) override;
+    void OnMouseHoverEnd(glib::Vector2i mouse_position) override;
+
+    void OnMouseMove(glib::Vector2i new_mouse_position) override;
     void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
     void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
 
