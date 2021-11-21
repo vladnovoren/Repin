@@ -1,5 +1,5 @@
-#ifndef GUI_DRAG_AREA_FUNCTOR_HPP
-#define GUI_DRAG_AREA_FUNCTOR_HPP
+#ifndef GUI_MOVE_FUNCTOR_HPP
+#define GUI_MOVE_FUNCTOR_HPP
 
 
 #include "gui_abstract_view_functor.hpp"
@@ -8,14 +8,14 @@
 namespace gui {
   class Window;
 
-  class DragAreaFunctor: public AbstractViewFunctor {
+  class MoveFunctor: public AbstractViewFunctor {
    protected:
     Window* m_owner = nullptr;
     glib::Vector2i m_delta_position;
    public:
-    DragAreaFunctor() = default;
-    DragAreaFunctor(Window* owner);
-    ~DragAreaFunctor() = default;
+    MoveFunctor() = default;
+    MoveFunctor(Window* owner);
+    ~MoveFunctor() = default;
 
     void SetDeltaPosition(const glib::Vector2i& delta_position);
 
@@ -25,5 +25,4 @@ namespace gui {
 }
 
 
-
-#endif /* gui_drag_area_functor.hpp */
+#endif /* gui_move_functor.hpp */

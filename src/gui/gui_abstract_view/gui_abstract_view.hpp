@@ -20,7 +20,7 @@ namespace gui {
     DefaultViewSkin* m_skin;
 
     AbstractView* m_child_under_mouse = nullptr;
-    bool m_is_under_press = false;
+    bool m_is_mouse_pressed = false;
 
     bool m_should_close = false; ///< If view needs to be closed
    public:
