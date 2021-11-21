@@ -100,6 +100,8 @@ namespace gui {
 
     virtual void Draw(glib::RenderTarget* render_target,
                       const glib::Vector2i& position);
+
+    void MoveChildUp(std::list<AbstractView*>::iterator child_it);
   };
 }
 
