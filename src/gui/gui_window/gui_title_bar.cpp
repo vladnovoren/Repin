@@ -40,6 +40,46 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
 
 
 void gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
+  glib::Vector2i new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
+  if (!IsPointInside(new_mouse_position)) {
+    OnMouseHoverEnd(new_mouse_position_inside);
+  } else {
+    if (m_child_under_mouse_hovered != nullptr) {
+      m_child_under_mouse_hovered->OnMouseMove(new_mouse_position_inside);
+      if (m_child_under_mouse_hovered->m_mouse_press_state == MousePressState::IDLE) {
+        m_child_under_mouse_hovered = nullptr;
+      }
+    }
+    for (auto child_it = m_children.begin(); child_it != m_children.end(); ++child_it) {
+      auto child_ptr = *child_it;
+      if (child_ptr->IsPointInside(new_mouse_position_inside)) {
+        child_ptr->OnMouseHoverBegin(new_mouse_position_inside);
+        m_child_under_mouse_hovered = child_ptr;
+      }
+    }
+  }
+  m_curr_mouse_position = new_mouse_position_inside;
+}
+
+
+void gui::TitleBar::OnLeftMouseDrag(glib::Vector2i new_mouse_position) {
+  glib::Vector2i new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
+  if (m_child_under_mouse_pressed != nullptr) {
+    m_child_under_mouse_pressed->OnLeftMouseDrag(new_mouse_position_inside);
+    if (m_child_under_mouse_pressed->m_mouse_press_state == MousePressState::IDLE) {
+      m_child_under_mouse_pressed = nullptr;
+      for (auto child_it = m_children.begin(); child_it != m_children.end(); ++child_it) {
+        auto child_ptr = *child_it;
+        if (child_ptr->IsPointInside(new_mouse_position_inside)) {
+          child_ptr->OnMouseHoverBegin(new_mouse_position_inside);
+          m_child_under_mouse_hovered = child_ptr;
+        }
+      }
+    }
+  } else {
+    m_move_functor(new_mouse_position_inside - m_curr_mouse_position);
+  }
+  m_curr_mouse_position = new_mouse_position_inside;
 }
 
 

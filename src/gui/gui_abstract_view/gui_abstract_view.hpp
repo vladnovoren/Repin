@@ -25,7 +25,8 @@ namespace gui {
     std::list<AbstractView*> m_children; ///< List of children views
     DefaultViewSkin* m_skin = nullptr;
 
-    AbstractView* m_child_under_mouse = nullptr;
+    AbstractView* m_child_under_mouse_hovered = nullptr;
+    AbstractView* m_child_under_mouse_pressed = nullptr;
     MousePressState m_mouse_press_state = MousePressState::IDLE;
 
     bool m_should_close = false; ///< If view needs to be closed

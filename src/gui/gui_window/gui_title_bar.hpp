@@ -34,6 +34,9 @@ namespace gui {
               const glib::Vector2i& position) override;
 
     void OnMouseMove(glib::Vector2i new_mouse_position) override;
+    void OnLeftMouseDrag(glib::Vector2i new_mouse_position) override;
+    void OnRightMouseDrag(glib::Vector2i new_mouse_position) override;
+
     void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
     void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
   };

@@ -54,14 +54,24 @@ void gui::Button::OnMouseHoverEnd(glib::Vector2i) {
 
 
 void gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
-  if (IsPointInside(new_mouse_position)) {
-    if (m_mouse_press_state != MousePressState::PRESSED) {
-      m_mouse_press_state = MousePressState::HOVERED;
-    }
-  } else {
-    m_mouse_press_state = MousePressState::IDLE;
+  glib::Vector2i new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
+  if (!IsPointInside(new_mouse_position)) {
+    OnMouseHoverEnd(new_mouse_position_inside);
   }
+  m_curr_mouse_position = new_mouse_position_inside;
 }
+
+
+void gui::Button::OnLeftMouseDrag(glib::Vector2i new_mouse_position) {
+  glib::Vector2i new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
+  if (!IsPointInside(new_mouse_position)) {
+    OnMouseHoverEnd(new_mouse_position_inside);
+  }
+  m_curr_mouse_position = new_mouse_position_inside;
+}
+
+
+void gui::Button::OnRightMouseDrag(glib::Vector2i new_mouse_position) {}
 
 
 void gui::Button::OnLeftMouseButtonPressed(glib::Vector2i) {
