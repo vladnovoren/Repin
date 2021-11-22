@@ -26,7 +26,8 @@ namespace gui {
    public:
     TitleBar() = default;
     TitleBar(TitleBarSkin* skin, Button* minimize_button,
-             Button* maximize_button, Button* close_button, Title* title, const MoveFunctor& move_functor);
+             Button* maximize_button, Button* close_button, Title* title,
+             const MoveFunctor& move_functor);
     ~TitleBar() = default;
 
     void Draw(glib::RenderTarget* render_target,

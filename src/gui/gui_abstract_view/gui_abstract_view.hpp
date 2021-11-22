@@ -84,6 +84,10 @@ namespace gui {
 
     virtual void OnMouseMove(glib::Vector2i new_mouse_position);
 
+    virtual void OnLeftMouseDrag(glib::Vector2i new_mouse_position);
+
+    virtual void OnRightMouseDrag(glib::Vector2i new_mouse_position);
+
     /**
      * Handler of close event
     */

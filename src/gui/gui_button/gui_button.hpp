@@ -25,6 +25,7 @@ namespace gui {
 
     void SetSkin(AbstractButtonSkin* skin);
     void SetFunctor(AbstractViewFunctor* functor);
+    void SetMousePressState(MousePressState mouse_press_state);
 
     void OnMouseHoverBegin(glib::Vector2i mouse_position) override;
     void OnMouseHoverEnd(glib::Vector2i mouse_position) override;

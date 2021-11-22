@@ -27,33 +27,51 @@ void gui::Button::SetFunctor(AbstractViewFunctor* functor) {
 }
 
 
+void gui::Button::SetMousePressState(MousePressState mouse_press_state) {
+  m_mouse_press_state = mouse_press_state;
+  switch (mouse_press_state) {
+    case MousePressState::IDLE:
+      m_skin->m_curr_texture = m_skin->m_idle_texture;
+      break;
+    case MousePressState::HOVERED:
+      m_skin->m_curr_texture = m_skin->m_hovered_texture;
+      break;
+    case MousePressState::PRESSED:
+      m_skin->m_curr_texture = m_skin->m_pressed_texture;
+      break;
+  }
+}
+
+
 void gui::Button::OnMouseHoverBegin(glib::Vector2i) {
-  m_skin->m_curr_texture = m_skin->m_hovered_texture;
-  m_mouse_press_state = MousePressState::HOVERED;
+  SetMousePressState(MousePressState::HOVERED);
 }
 
 
 void gui::Button::OnMouseHoverEnd(glib::Vector2i) {
-  m_skin->m_curr_texture = m_skin->m_idle_texture;
-  m_mouse_press_state = MousePressState::IDLE;
+  SetMousePressState(MousePressState::IDLE);
 }
 
 
 void gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
-  m_curr_mouse_position = new_mouse_position - m_skin->m_location.m_position;
+  if (IsPointInside(new_mouse_position)) {
+    if (m_mouse_press_state != MousePressState::PRESSED) {
+      m_mouse_press_state = MousePressState::HOVERED;
+    }
+  } else {
+    m_mouse_press_state = MousePressState::IDLE;
+  }
 }
 
 
 void gui::Button::OnLeftMouseButtonPressed(glib::Vector2i) {
-  m_skin->m_curr_texture = m_skin->m_pressed_texture;
-  m_mouse_press_state = MousePressState::PRESSED;
+  SetMousePressState(MousePressState::PRESSED);
 }
 
 
 void gui::Button::OnLeftMouseButtonReleased(glib::Vector2i) {
-  m_skin->m_curr_texture = m_skin->m_idle_texture;
   m_functor->operator()();
-  m_mouse_press_state = MousePressState::HOVERED;
+  SetMousePressState(MousePressState::IDLE);
 }
 
 

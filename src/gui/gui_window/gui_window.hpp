@@ -21,9 +21,6 @@ namespace gui {
 
     void OnMouseHoverBegin(glib::Vector2i mouse_position) override;
     void OnMouseHoverEnd(glib::Vector2i mouse_position) override;
-
-    void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
-    void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
   };
 }
 

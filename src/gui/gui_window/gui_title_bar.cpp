@@ -40,30 +40,6 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
 
 
 void gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
-  glib::Vector2i new_mouse_position_inside = new_mouse_position -
-                                             m_skin->m_location.m_position;
-
-  if (m_child_under_mouse != nullptr) {
-    bool is_mouse_in = m_child_under_mouse->IsPointInside(new_mouse_position_inside);
-    if (is_mouse_in) {
-      m_child_under_mouse->OnMouseMove(new_mouse_position_inside);
-    } else {
-      m_child_under_mouse->OnMouseHoverEnd(new_mouse_position_inside);
-      m_child_under_mouse = nullptr;
-    }
-  } else {
-    if (m_mouse_press_state == MousePressState::PRESSED) {
-      m_move_functor(new_mouse_position_inside - m_curr_mouse_position);
-    } else {
-      for (auto child_ptr: m_children) {
-        if (child_ptr->IsPointInside(new_mouse_position_inside)) {
-          child_ptr->OnMouseHoverBegin(new_mouse_position_inside);
-          m_child_under_mouse = child_ptr;
-        }
-      }
-    }
-  }
-  m_curr_mouse_position = new_mouse_position_inside;
 }
 
 
@@ -74,7 +50,7 @@ void gui::TitleBar::OnLeftMouseButtonPressed(glib::Vector2i mouse_position) {
     auto child_ptr = *child_it;
     if (child_ptr->IsPointInside(new_mouse_position_inside)) {
       child_ptr->OnLeftMouseButtonPressed(new_mouse_position_inside);
-      m_child_under_mouse = child_ptr;
+      m_child_under_mouse_press = child_ptr;
     }
   }
 }
@@ -82,9 +58,9 @@ void gui::TitleBar::OnLeftMouseButtonPressed(glib::Vector2i mouse_position) {
 
 void gui::TitleBar::OnLeftMouseButtonReleased(glib::Vector2i mouse_position) {
   glib::Vector2i new_mouse_position_inside = mouse_position - m_skin->m_location.m_position;
-  if (m_child_under_mouse != nullptr) {
-    m_child_under_mouse->OnLeftMouseButtonReleased(new_mouse_position_inside);
-    m_child_under_mouse = nullptr;
+  if (m_child_under_mouse_press != nullptr) {
+    m_child_under_mouse_press->OnLeftMouseButtonReleased(new_mouse_position_inside);
+    m_child_under_mouse_press = nullptr;
   }
   m_mouse_press_state = MousePressState::HOVERED;
 }
