@@ -17,7 +17,8 @@ namespace gui {
     Window(DefaultViewSkin* skin, TitleBar* title_bar);
     ~Window() = default;
 
-    void OnMouseMove(glib::Vector2i new_mouse_position) override;
+    void OnLeftMouseDrag(glib::Vector2i new_mouse_position) override;
+    void OnRightMouseDrag(glib::Vector2i new_mouse_position) override;
 
     void OnMouseHoverBegin(glib::Vector2i mouse_position) override;
     void OnMouseHoverEnd(glib::Vector2i mouse_position) override;

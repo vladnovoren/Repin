@@ -20,9 +20,7 @@ namespace gui {
     Button* m_close_button    = nullptr;
     Title* m_title            = nullptr;
 
-    glib::Vector2i m_curr_mouse_position;
     MoveFunctor m_move_functor;
-
    public:
     TitleBar() = default;
     TitleBar(TitleBarSkin* skin, Button* minimize_button,
@@ -33,9 +31,7 @@ namespace gui {
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;
 
-    void OnMouseMove(glib::Vector2i new_mouse_position) override;
     void OnLeftMouseDrag(glib::Vector2i new_mouse_position) override;
-    void OnRightMouseDrag(glib::Vector2i new_mouse_position) override;
 
     void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
     void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;

@@ -71,7 +71,7 @@ void gui::Button::OnLeftMouseDrag(glib::Vector2i new_mouse_position) {
 }
 
 
-void gui::Button::OnRightMouseDrag(glib::Vector2i new_mouse_position) {}
+void gui::Button::OnRightMouseDrag(glib::Vector2i) {}
 
 
 void gui::Button::OnLeftMouseButtonPressed(glib::Vector2i) {

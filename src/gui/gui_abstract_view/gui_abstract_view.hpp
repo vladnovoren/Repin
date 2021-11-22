@@ -21,6 +21,7 @@ namespace gui {
    * Abstract view with common details
   */
   class AbstractView {
+   friend class TitleBar;
    protected:
     std::list<AbstractView*> m_children; ///< List of children views
     DefaultViewSkin* m_skin = nullptr;
@@ -28,6 +29,7 @@ namespace gui {
     AbstractView* m_child_under_mouse_hovered = nullptr;
     AbstractView* m_child_under_mouse_pressed = nullptr;
     MousePressState m_mouse_press_state = MousePressState::IDLE;
+    glib::Vector2i m_curr_mouse_position;
 
     bool m_should_close = false; ///< If view needs to be closed
    public:

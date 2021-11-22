@@ -39,29 +39,6 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
 }
 
 
-void gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
-  glib::Vector2i new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
-  if (!IsPointInside(new_mouse_position)) {
-    OnMouseHoverEnd(new_mouse_position_inside);
-  } else {
-    if (m_child_under_mouse_hovered != nullptr) {
-      m_child_under_mouse_hovered->OnMouseMove(new_mouse_position_inside);
-      if (m_child_under_mouse_hovered->m_mouse_press_state == MousePressState::IDLE) {
-        m_child_under_mouse_hovered = nullptr;
-      }
-    }
-    for (auto child_it = m_children.begin(); child_it != m_children.end(); ++child_it) {
-      auto child_ptr = *child_it;
-      if (child_ptr->IsPointInside(new_mouse_position_inside)) {
-        child_ptr->OnMouseHoverBegin(new_mouse_position_inside);
-        m_child_under_mouse_hovered = child_ptr;
-      }
-    }
-  }
-  m_curr_mouse_position = new_mouse_position_inside;
-}
-
-
 void gui::TitleBar::OnLeftMouseDrag(glib::Vector2i new_mouse_position) {
   glib::Vector2i new_mouse_position_inside = new_mouse_position - m_skin->m_location.m_position;
   if (m_child_under_mouse_pressed != nullptr) {
@@ -90,7 +67,7 @@ void gui::TitleBar::OnLeftMouseButtonPressed(glib::Vector2i mouse_position) {
     auto child_ptr = *child_it;
     if (child_ptr->IsPointInside(new_mouse_position_inside)) {
       child_ptr->OnLeftMouseButtonPressed(new_mouse_position_inside);
-      m_child_under_mouse_press = child_ptr;
+      m_child_under_mouse_pressed = child_ptr;
     }
   }
 }
@@ -98,9 +75,9 @@ void gui::TitleBar::OnLeftMouseButtonPressed(glib::Vector2i mouse_position) {
 
 void gui::TitleBar::OnLeftMouseButtonReleased(glib::Vector2i mouse_position) {
   glib::Vector2i new_mouse_position_inside = mouse_position - m_skin->m_location.m_position;
-  if (m_child_under_mouse_press != nullptr) {
-    m_child_under_mouse_press->OnLeftMouseButtonReleased(new_mouse_position_inside);
-    m_child_under_mouse_press = nullptr;
+  if (m_child_under_mouse_pressed != nullptr) {
+    m_child_under_mouse_pressed->OnLeftMouseButtonReleased(new_mouse_position_inside);
+    m_child_under_mouse_pressed = nullptr;
   }
   m_mouse_press_state = MousePressState::HOVERED;
 }
