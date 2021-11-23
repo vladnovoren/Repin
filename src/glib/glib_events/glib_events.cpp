@@ -19,64 +19,83 @@ glib::MouseButtonEvent::MouseButtonEvent(const Vector2i& position):
 glib::MouseButtonEvent::~MouseButtonEvent() = default;
 
 
-glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent():
-                                   Event(EventType::LEFT_MOUSE_BUTTON_PRESSED) {}
+glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent() {
+  m_type = EventType::LEFT_MOUSE_BUTTON_PRESSED;
+}
 
 
 glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent(const glib::Vector2i& position):
-                                   Event(EventType::LEFT_MOUSE_BUTTON_PRESSED), MouseButtonEvent(position) {}
+                                   MouseButtonEvent(position) {
+  m_type = EventType::LEFT_MOUSE_BUTTON_PRESSED;
+}
 
 
-glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent():
-                                    Event(EventType::RIGHT_MOUSE_BUTTON_PRESSED) {}
+glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent() {
+  m_type = EventType::RIGHT_MOUSE_BUTTON_PRESSED;
+}
 
 
 glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent(const glib::Vector2i& position):
-                                    Event(EventType::RIGHT_MOUSE_BUTTON_PRESSED), MouseButtonEvent(position) {}
+                                    MouseButtonEvent(position) {
+  m_type = EventType::RIGHT_MOUSE_BUTTON_PRESSED;
+}
 
 
-glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent():
-                                    Event(EventType::LEFT_MOUSE_BUTTON_RELEASED) {}
+glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent() {
+  m_type = EventType::LEFT_MOUSE_BUTTON_RELEASED;
+}
 
 
 glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent(const glib::Vector2i& position):
-                                    Event(EventType::LEFT_MOUSE_BUTTON_RELEASED), MouseButtonEvent(position) {}
+                                    MouseButtonEvent(position) {
+  m_type = EventType::LEFT_MOUSE_BUTTON_RELEASED;
+}
 
 
-glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent():
-                                     Event(EventType::RIGHT_MOUSE_BUTTON_RELEASED) {}
+glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent() {
+  m_type = EventType::RIGHT_MOUSE_BUTTON_RELEASED;
+}
 
 
 glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent(const glib::Vector2i& position):
-                                     Event(EventType::RIGHT_MOUSE_BUTTON_RELEASED), MouseButtonEvent(position) {}
+                                     MouseButtonEvent(position) {
+  m_type = EventType::RIGHT_MOUSE_BUTTON_RELEASED;
+}
 
 
-glib::CloseSysWindowEvent::CloseSysWindowEvent():
-                           Event(EventType::CLOSE_SYS_WINDOW) {}
+glib::CloseSysWindowEvent::CloseSysWindowEvent() {
+  m_type = EventType::CLOSE_SYS_WINDOW;
+}
 
 
-glib::MouseMoveEvent::MouseMoveEvent():
-                      Event(EventType::MOUSE_MOVE) {}
+glib::MouseMoveEvent::MouseMoveEvent() {
+  m_type = EventType::MOUSE_MOVE;
+}
 
 
 glib::MouseMoveEvent::MouseMoveEvent(const Vector2i& new_position):
-                      Event(EventType::MOUSE_MOVE),
-                      m_new_position(new_position) {}
+                      m_new_position(new_position) {
+  m_type = EventType::MOUSE_MOVE;
+}
 
 
-glib::LeftMouseDragEvent::LeftMouseDragEvent():
-                          Event(EventType::LEFT_MOUSE_DRAG) {}
+glib::LeftMouseDragEvent::LeftMouseDragEvent() {
+  m_type = EventType::LEFT_MOUSE_DRAG;
+}
 
 
 glib::LeftMouseDragEvent::LeftMouseDragEvent(const Vector2i& new_position):
-                          Event(EventType::LEFT_MOUSE_DRAG),
-                          MouseMoveEvent(new_position) {}
+                          MouseMoveEvent(new_position) {
+  m_type = EventType::LEFT_MOUSE_DRAG;
+}
 
 
-glib::RightMouseDragEvent::RightMouseDragEvent():
-                          Event(EventType::RIGHT_MOUSE_DRAG) {}
+glib::RightMouseDragEvent::RightMouseDragEvent() {
+  m_type = EventType::RIGHT_MOUSE_DRAG;
+}
 
 
 glib::RightMouseDragEvent::RightMouseDragEvent(const Vector2i& new_position):
-                          Event(EventType::RIGHT_MOUSE_DRAG),
-                          MouseMoveEvent(new_position) {}
+                          MouseMoveEvent(new_position) {
+  m_type = EventType::RIGHT_MOUSE_DRAG;
+}

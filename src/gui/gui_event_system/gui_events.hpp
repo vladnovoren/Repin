@@ -1,14 +1,13 @@
-#ifndef GLIB_EVENTS_HPP
-#define GLIB_EVENTS_HPP
+#ifndef GUI_EVENTS_HPP
+#define GUI_EVENTS_HPP
 
 
-#include "SFML/Graphics.hpp"
-#include "glib_tools.hpp"
+#include "glib.hpp"
 
 
-namespace glib {
+namespace gui {
   enum class EventType {
-    CLOSE_SYS_WINDOW,
+    CLOSE,
     LEFT_MOUSE_BUTTON_PRESSED,
     LEFT_MOUSE_BUTTON_RELEASED,
     MOUSE_MOVE,
@@ -21,24 +20,24 @@ namespace glib {
   };
 
 
-  class Event {
+  class AbstractEvent {
    protected:
     EventType m_type = EventType::UNDEFINED;
    public:
-    Event() = default;
-    Event(EventType type);
-    virtual ~Event() = 0;
+    AbstractEvent() = default;
+    AbstractEvent(EventType event_type);
+    virtual ~AbstractEvent() = 0;
 
     EventType Type() const;
   };
 
 
-  class MouseButtonEvent: public Event {
+  class MouseButtonEvent: public AbstractEvent {
    public:
-    Vector2i m_position;
+    glib::Vector2i m_position;
 
     MouseButtonEvent() = default;
-    MouseButtonEvent(const Vector2i& position);
+    MouseButtonEvent(const glib::Vector2i& position);
     virtual ~MouseButtonEvent() = 0;
   };
 
@@ -46,7 +45,7 @@ namespace glib {
   class LeftMouseButtonPressedEvent: public MouseButtonEvent {
    public:
     LeftMouseButtonPressedEvent();
-    LeftMouseButtonPressedEvent(const Vector2i& position);
+    LeftMouseButtonPressedEvent(const glib::Vector2i& position);
     ~LeftMouseButtonPressedEvent() override = default;
   };
 
@@ -54,7 +53,7 @@ namespace glib {
   class RightMouseButtonPressedEvent: public MouseButtonEvent {
    public:
     RightMouseButtonPressedEvent();
-    RightMouseButtonPressedEvent(const Vector2i& position);
+    RightMouseButtonPressedEvent(const glib::Vector2i& position);
     ~RightMouseButtonPressedEvent() override = default;
   };
 
@@ -62,7 +61,7 @@ namespace glib {
   class LeftMouseButtonReleasedEvent: public MouseButtonEvent {
    public:
     LeftMouseButtonReleasedEvent();
-    LeftMouseButtonReleasedEvent(const Vector2i& position);
+    LeftMouseButtonReleasedEvent(const glib::Vector2i& position);
     ~LeftMouseButtonReleasedEvent() override = default;
   };
 
@@ -70,24 +69,24 @@ namespace glib {
   class RightMouseButtonReleasedEvent: public MouseButtonEvent {
    public:
     RightMouseButtonReleasedEvent();
-    RightMouseButtonReleasedEvent(const Vector2i& position);
+    RightMouseButtonReleasedEvent(const glib::Vector2i& position);
     ~RightMouseButtonReleasedEvent() override = default;
   };
 
 
-  class CloseSysWindowEvent: public Event {
+  class CloseEvent: public AbstractEvent {
    public:
-    CloseSysWindowEvent();
-    ~CloseSysWindowEvent() override = default;
+    CloseEvent();
+    ~CloseEvent() override = default;
   };
 
 
-  class MouseMoveEvent: virtual public Event {
+  class MouseMoveEvent: virtual public AbstractEvent {
    public:
-    Vector2i m_new_position;
+    glib::Vector2i m_new_position;
 
     MouseMoveEvent();
-    MouseMoveEvent(const Vector2i& new_position);
+    MouseMoveEvent(const glib::Vector2i& new_position);
     ~MouseMoveEvent() override = default;
   };
 
@@ -95,7 +94,7 @@ namespace glib {
   class LeftMouseDragEvent: public MouseMoveEvent {
    public:
     LeftMouseDragEvent();
-    LeftMouseDragEvent(const Vector2i& new_position);
+    LeftMouseDragEvent(const glib::Vector2i& new_position);
     ~LeftMouseDragEvent() = default;
   };
 
@@ -103,10 +102,10 @@ namespace glib {
   class RightMouseDragEvent: public MouseMoveEvent {
    public:
     RightMouseDragEvent();
-    RightMouseDragEvent(const Vector2i& new_position);
+    RightMouseDragEvent(const glib::Vector2i& new_position);
     ~RightMouseDragEvent() = default;
   };
 }
 
 
-#endif /* glib_events.hpp */
+#endif /* gui_events.hpp */

@@ -31,6 +31,8 @@ set(GUI_SOURCE src/gui/gui_abstract_view/gui_abstract_view.cpp
                src/gui/gui_window/gui_title_bar.cpp
                src/gui/gui_window/gui_title_bar_skin.cpp
                src/gui/gui_window/gui_window.cpp
+               src/gui/gui_event_system/gui_events.cpp
+               src/gui/gui_event_system/gui_convert_events_from_glib.cpp
 )
 
 
