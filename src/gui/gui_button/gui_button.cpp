@@ -10,9 +10,6 @@ gui::Button::Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin):
 }
 
 
-gui::Button::~Button() = default;
-
-
 void gui::Button::SetSkin(AbstractButtonSkin* skin) {
   assert(skin);
 

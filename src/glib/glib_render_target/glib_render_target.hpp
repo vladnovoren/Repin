@@ -17,7 +17,7 @@ namespace glib {
     RenderTarget(sf::RenderTarget* sf_render_target);
     virtual ~RenderTarget() = default;
 
-    void Clear(const ColorRGB& color);
+    void Clear(const ColorRGB& color = ColorRGB());
 
     void RenderLine(const FloatLine& line, const ColorRGB& color);
     void RenderRect(const FloatRect& rect, const ColorRGB& color);

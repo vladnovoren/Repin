@@ -48,5 +48,11 @@ glib::MouseMoveEvent* glib::SFMLToGLibMouseMoveEvent(const sf::Event& sf_mouse_m
   const sf::Event::MouseMoveEvent& sf_selected_mouse_move_event = sf_mouse_move_event.mouseMove;
   glib::Vector2i glib_new_position(sf_selected_mouse_move_event.x,
                                    sf_selected_mouse_move_event.y);
-  return new glib::MouseMoveEvent(glib_new_position);
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+    return new glib::LeftMouseDragEvent(glib_new_position);
+  } else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
+    return new glib::RightMouseDragEvent(glib_new_position);
+  } else {
+    return new glib::MouseMoveEvent(glib_new_position);
+  }
 }

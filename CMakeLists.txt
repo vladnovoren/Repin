@@ -29,6 +29,8 @@ set(GUI_SOURCE src/gui/gui_abstract_view/gui_abstract_view.cpp
                src/gui/gui_view_manager/gui_view_manager.cpp
                src/gui/gui_drag/gui_move_functor.cpp
                src/gui/gui_window/gui_title_bar.cpp
+               src/gui/gui_window/gui_title_bar_skin.cpp
+               src/gui/gui_window/gui_window.cpp
 )
 
 

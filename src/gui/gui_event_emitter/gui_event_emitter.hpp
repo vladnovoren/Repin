@@ -21,6 +21,9 @@ namespace gui {
     void EmitRightMouseButtonPressed (glib::Event* event, AbstractView* view);
     void EmitLeftMouseButtonReleased (glib::Event* event, AbstractView* view);
     void EmitRightMouseButtonReleased(glib::Event* event, AbstractView* view);
+    void EmitMouseMove               (glib::Event* event, AbstractView* view);
+    void EmitLeftMouseDrag           (glib::Event* event, AbstractView* view);
+    void EmitRightMouseDrag          (glib::Event* event, AbstractView* view);
   };
 }
 

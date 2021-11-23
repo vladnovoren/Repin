@@ -21,7 +21,7 @@ namespace gui {
    public:
     Button() = default;
     Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin);
-    ~Button() override = 0;
+    ~Button() override = default;
 
     void SetSkin(AbstractButtonSkin* skin);
     void SetFunctor(AbstractViewFunctor* functor);

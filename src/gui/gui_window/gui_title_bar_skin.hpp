@@ -12,11 +12,11 @@ namespace gui {
     glib::Texture* m_right_texture = nullptr;
 
     TitleBarSkin() = default;
-    TitleBarSkin(const glib::FloatRect& location, glib::Texture* left_texture,
+    TitleBarSkin(const glib::IntRect& location, glib::Texture* left_texture,
                  glib::Texture* middle_texture, glib::Texture* right_texture);
     ~TitleBarSkin() override = default;
 
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2f& position);
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position);
   };
 }
 

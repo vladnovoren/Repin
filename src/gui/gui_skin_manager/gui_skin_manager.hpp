@@ -58,7 +58,12 @@ namespace gui {
     SkinManager(const char* folder_path);
     ~SkinManager() = default;
 
-    void LoadFromFile(const char* folder_path);
+    ButtonSkinKeeper   GetMinimizeButtonSkinKeeper() const;
+    ButtonSkinKeeper   GetMaximizeButtonSkinKeeper() const;
+    ButtonSkinKeeper   GetCloseButtonSkinKeeper() const;
+    TitleBarSkinKeeper GetTitleBarSkinKeeper() const;
+
+    void LoadFromFolder(const char* folder_path);
   };
 }
 

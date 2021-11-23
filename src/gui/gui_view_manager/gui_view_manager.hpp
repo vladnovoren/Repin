@@ -4,6 +4,10 @@
 
 #include "gui_abstract_view.hpp"
 #include "gui_event_emitter.hpp"
+#include "gui_skin_manager.hpp"
+#include "gui_button.hpp"
+#include "gui_title.hpp"
+#include "gui_window.hpp"
 
 
 namespace gui {
@@ -11,6 +15,7 @@ namespace gui {
    protected:
     AbstractView* m_root = nullptr;
     EventEmitter m_event_emitter;
+    SkinManager m_skin_manager;
    public:
     ViewManager();
     ~ViewManager();

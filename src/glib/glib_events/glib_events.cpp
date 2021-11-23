@@ -12,55 +12,71 @@ glib::EventType glib::Event::Type() const {
 glib::Event::~Event() = default;
 
 
-glib::MouseButtonEvent::MouseButtonEvent(EventType type): Event(type) {}
-
-
-glib::MouseButtonEvent::MouseButtonEvent(EventType type, const Vector2i& position):
-                        Event(type), m_position(position) {}
+glib::MouseButtonEvent::MouseButtonEvent(const Vector2i& position):
+                        m_position(position) {}
 
 
 glib::MouseButtonEvent::~MouseButtonEvent() = default;
 
 
 glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent():
-                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_PRESSED) {}
+                                   Event(EventType::LEFT_MOUSE_BUTTON_PRESSED) {}
 
 
 glib::LeftMouseButtonPressedEvent::LeftMouseButtonPressedEvent(const glib::Vector2i& position):
-                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_PRESSED, position) {}
+                                   Event(EventType::LEFT_MOUSE_BUTTON_PRESSED), MouseButtonEvent(position) {}
 
 
 glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent():
-                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_PRESSED) {}
+                                    Event(EventType::RIGHT_MOUSE_BUTTON_PRESSED) {}
 
 
 glib::RightMouseButtonPressedEvent::RightMouseButtonPressedEvent(const glib::Vector2i& position):
-                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_PRESSED, position) {}
+                                    Event(EventType::RIGHT_MOUSE_BUTTON_PRESSED), MouseButtonEvent(position) {}
 
 
 glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent():
-                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_RELEASED) {}
+                                    Event(EventType::LEFT_MOUSE_BUTTON_RELEASED) {}
 
 
 glib::LeftMouseButtonReleasedEvent::LeftMouseButtonReleasedEvent(const glib::Vector2i& position):
-                                   MouseButtonEvent(EventType::LEFT_MOUSE_BUTTON_RELEASED, position) {}
+                                    Event(EventType::LEFT_MOUSE_BUTTON_RELEASED), MouseButtonEvent(position) {}
 
 
 glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent():
-                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_RELEASED) {}
+                                     Event(EventType::RIGHT_MOUSE_BUTTON_RELEASED) {}
 
 
 glib::RightMouseButtonReleasedEvent::RightMouseButtonReleasedEvent(const glib::Vector2i& position):
-                                   MouseButtonEvent(EventType::RIGHT_MOUSE_BUTTON_RELEASED, position) {}
+                                     Event(EventType::RIGHT_MOUSE_BUTTON_RELEASED), MouseButtonEvent(position) {}
 
 
 glib::CloseSysWindowEvent::CloseSysWindowEvent():
-                           Event(glib::EventType::CLOSE_SYS_WINDOW) {}
+                           Event(EventType::CLOSE_SYS_WINDOW) {}
 
 
-glib::MouseMoveEvent::MouseMoveEvent(): Event(glib::EventType::MOUSE_MOVE_EVENT) {}
+glib::MouseMoveEvent::MouseMoveEvent():
+                      Event(EventType::MOUSE_MOVE) {}
 
 
 glib::MouseMoveEvent::MouseMoveEvent(const Vector2i& new_position):
-                      Event(glib::EventType::CLOSE_SYS_WINDOW),
+                      Event(EventType::MOUSE_MOVE),
                       m_new_position(new_position) {}
+
+
+glib::LeftMouseDragEvent::LeftMouseDragEvent():
+                          Event(EventType::LEFT_MOUSE_DRAG) {}
+
+
+glib::LeftMouseDragEvent::LeftMouseDragEvent(const Vector2i& new_position):
+                          Event(EventType::LEFT_MOUSE_DRAG),
+                          MouseMoveEvent(new_position) {}
+
+
+glib::RightMouseDragEvent::RightMouseDragEvent():
+                          Event(EventType::RIGHT_MOUSE_DRAG) {}
+
+
+glib::RightMouseDragEvent::RightMouseDragEvent(const Vector2i& new_position):
+                          Event(EventType::RIGHT_MOUSE_DRAG),
+                          MouseMoveEvent(new_position) {}

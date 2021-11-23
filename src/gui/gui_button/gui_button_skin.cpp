@@ -16,6 +16,9 @@ gui::AbstractButtonSkin::AbstractButtonSkin(const glib::IntRect& location,
 }
 
 
+gui::AbstractButtonSkin::~AbstractButtonSkin() = default;
+
+
 gui::RectButtonSkin::RectButtonSkin(const glib::IntRect& location,
                                     const glib::Texture* idle_texture,
                                     const glib::Texture* hovered_texture,
@@ -43,7 +46,7 @@ gui::CircleButtonSkin::CircleButtonSkin(const glib::IntRect& location,
                                         const glib::Texture* idle_texture,
                                         const glib::Texture* hovered_texture,
                                         const glib::Texture* pressed_texture,
-                                        const glib::UIntCircle& circle):
+                                        const glib::IntCircle& circle):
                        AbstractButtonSkin(location, idle_texture,
                                           hovered_texture, pressed_texture),
                        m_circle(circle) {}

@@ -21,8 +21,10 @@ namespace gui {
    * Abstract view with common details
   */
   class AbstractView {
-   friend class TitleBar;
    protected:
+    friend class TitleBar;
+    friend class Window;
+
     std::list<AbstractView*> m_children; ///< List of children views
     DefaultViewSkin* m_skin = nullptr;
 

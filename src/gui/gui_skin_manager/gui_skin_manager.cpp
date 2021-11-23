@@ -1,7 +1,7 @@
 #include "gui_skin_manager.hpp"
 
 
-gui::AbstractButtonSkin::~AbstractButtonSkin() = default;
+gui::AbstractSkinKeeper::~AbstractSkinKeeper() = default;
 
 
 gui::ButtonSkinKeeper::ButtonSkinKeeper(const char* folder_path) {
@@ -79,11 +79,11 @@ void gui::TitleBarSkinKeeper::LoadToSkin(TitleBarSkin* title_bar_skin) {
 
 
 gui::SkinManager::SkinManager(const char* folder_path) {
-  LoadFromFile(folder_path);
+  LoadFromFolder(folder_path);
 }
 
 
-void gui::SkinManager::LoadFromFile(const char* folder_path) {
+void gui::SkinManager::LoadFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
   char* minimize_button_path = strdup(folder_path);
@@ -105,4 +105,24 @@ void gui::SkinManager::LoadFromFile(const char* folder_path) {
   free(maximize_button_path);
   free(close_button_path);
   free(title_bar_path);
+}
+
+
+gui::ButtonSkinKeeper gui::SkinManager::GetMinimizeButtonSkinKeeper() const {
+  return m_minimize_button;
+}
+
+
+gui::ButtonSkinKeeper gui::SkinManager::GetMaximizeButtonSkinKeeper() const {
+  return m_maximize_button;
+}
+
+
+gui::ButtonSkinKeeper gui::SkinManager::GetCloseButtonSkinKeeper() const {
+  return m_close_button;
+}
+
+
+gui::TitleBarSkinKeeper gui::SkinManager::GetTitleBarSkinKeeper() const {
+  return m_title_bar;
 }

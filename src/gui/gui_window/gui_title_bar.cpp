@@ -1,6 +1,12 @@
 #include "gui_title_bar.hpp"
 
 
+gui::TitleBar::TitleBar(TitleBarSkin* skin):
+               m_skin(skin) {
+  assert(skin);
+}
+
+
 gui::TitleBar::TitleBar(TitleBarSkin* skin, Button* minimize_button,
                         Button* maximize_button, Button* close_button,
                         Title* title, const MoveFunctor& move_functor):
@@ -80,4 +86,43 @@ void gui::TitleBar::OnLeftMouseButtonReleased(glib::Vector2i mouse_position) {
     m_child_under_mouse_pressed = nullptr;
   }
   m_mouse_press_state = MousePressState::HOVERED;
+}
+
+
+void gui::TitleBar::AddSkin(TitleBarSkin* skin) {
+  assert(skin != nullptr);
+
+  m_skin = skin;
+}
+
+
+void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
+  assert(minimize_button != nullptr);
+
+  m_minimize_button = minimize_button;
+  m_children.push_front(minimize_button);
+}
+
+
+void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
+  assert(maximize_button != nullptr);
+
+  m_maximize_button = maximize_button;
+  m_children.push_front(maximize_button);
+}
+
+
+void gui::TitleBar::AddCloseButton(Button* close_button) {
+  assert(close_button != nullptr);
+
+  m_close_button = close_button;
+  m_children.push_front(close_button);
+}
+
+
+void gui::TitleBar::AddTitle(Title* title) {
+  assert(title != nullptr);
+
+  m_title = title;
+  m_children.push_front(title);
 }

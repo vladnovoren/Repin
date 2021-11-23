@@ -5,7 +5,12 @@ gui::AbstractView::AbstractView(DefaultViewSkin* skin):
                    m_skin(skin) {}
 
 
-gui::AbstractView::~AbstractView() = default;
+gui::AbstractView::~AbstractView() {
+  for (auto child_it = m_children.begin(); child_it != m_children.end(); ++child_it) {
+    auto child_ptr = *child_it;
+    delete child_ptr;
+  }
+}
 
 
 void gui::AbstractView::SetLocation(const glib::IntRect& location) {

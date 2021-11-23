@@ -12,7 +12,7 @@
 namespace gui {
   class TitleBar: public AbstractView {
    protected:
-    static constexpr glib::Vector2f DELTA_BUTTON = glib::Vector2f(0, -5);
+    glib::Vector2i DELTA_BUTTON = glib::Vector2i(-5, 0);
 
     TitleBarSkin* m_skin      = nullptr;
     Button* m_minimize_button = nullptr;
@@ -23,6 +23,7 @@ namespace gui {
     MoveFunctor m_move_functor;
    public:
     TitleBar() = default;
+    TitleBar(TitleBarSkin* skin);
     TitleBar(TitleBarSkin* skin, Button* minimize_button,
              Button* maximize_button, Button* close_button, Title* title,
              const MoveFunctor& move_functor);
@@ -35,6 +36,15 @@ namespace gui {
 
     void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
     void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
+
+    void AddSkin(TitleBarSkin* skin);
+
+    void AddMinimizeButton(Button* minimize_button);
+    void AddMaximizeButton(Button* maximize_button);
+    void AddCloseButton(Button* close_button);
+    void AddTitle(Title* title);
+
+    void AddMoveFunctor(const MoveFunctor& move_functor);
   };
 }
 

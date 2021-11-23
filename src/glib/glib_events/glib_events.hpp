@@ -11,7 +11,9 @@ namespace glib {
     CLOSE_SYS_WINDOW,
     LEFT_MOUSE_BUTTON_PRESSED,
     LEFT_MOUSE_BUTTON_RELEASED,
-    MOUSE_MOVE_EVENT,
+    MOUSE_MOVE,
+    LEFT_MOUSE_DRAG,
+    RIGHT_MOUSE_DRAG,
     RIGHT_MOUSE_BUTTON_PRESSED,
     RIGHT_MOUSE_BUTTON_RELEASED,
     N_EVENT_TYPES,
@@ -31,13 +33,12 @@ namespace glib {
   };
 
 
-  class MouseButtonEvent: public Event {
+  class MouseButtonEvent: virtual public Event {
    public:
     Vector2i m_position;
 
     MouseButtonEvent() = default;
-    MouseButtonEvent(EventType type);
-    MouseButtonEvent(EventType type, const Vector2i& position);
+    MouseButtonEvent(const Vector2i& position);
     virtual ~MouseButtonEvent() = 0;
   };
 
@@ -81,13 +82,29 @@ namespace glib {
   };
 
 
-  class MouseMoveEvent: public Event {
+  class MouseMoveEvent: virtual public Event {
    public:
     Vector2i m_new_position;
 
     MouseMoveEvent();
     MouseMoveEvent(const Vector2i& new_position);
     ~MouseMoveEvent() override = default;
+  };
+
+
+  class LeftMouseDragEvent: public MouseMoveEvent {
+   public:
+    LeftMouseDragEvent();
+    LeftMouseDragEvent(const Vector2i& new_position);
+    ~LeftMouseDragEvent() = default;
+  };
+
+
+  class RightMouseDragEvent: public MouseMoveEvent {
+   public:
+    RightMouseDragEvent();
+    RightMouseDragEvent(const Vector2i& new_position);
+    ~RightMouseDragEvent() = default;
   };
 }
 

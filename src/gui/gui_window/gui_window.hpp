@@ -14,14 +14,13 @@ namespace gui {
     TitleBar* m_title_bar = nullptr;
    public:
     Window() = default;
+    Window(DefaultViewSkin* skin);
     Window(DefaultViewSkin* skin, TitleBar* title_bar);
     ~Window() = default;
 
     void OnLeftMouseDrag(glib::Vector2i new_mouse_position) override;
-    void OnRightMouseDrag(glib::Vector2i new_mouse_position) override;
 
-    void OnMouseHoverBegin(glib::Vector2i mouse_position) override;
-    void OnMouseHoverEnd(glib::Vector2i mouse_position) override;
+    void AddTitleBar(TitleBar* title_bar);
   };
 }
 

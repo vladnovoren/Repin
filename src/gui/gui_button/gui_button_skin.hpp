@@ -36,14 +36,14 @@ namespace gui {
 
 
   struct CircleButtonSkin: AbstractButtonSkin {
-    glib::UIntCircle m_circle;
+    glib::IntCircle m_circle;
 
     CircleButtonSkin() = default;
     CircleButtonSkin(const glib::IntRect& location,
                      const glib::Texture* idle_texture,
                      const glib::Texture* hovered_texture,
                      const glib::Texture* pressed_texture,
-                     const glib::UIntCircle& circle);
+                     const glib::IntCircle& circle);
     ~CircleButtonSkin() override = default;
 
     bool IsPointInside(glib::Vector2i point) override;
