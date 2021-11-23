@@ -11,11 +11,11 @@ gui::AbstractEvent* GLibToGUIEvent(const glib::Event* glib_event) {
     case glib::EventType::LEFT_MOUSE_BUTTON_RELEASED:
     case glib::EventType::RIGHT_MOUSE_BUTTON_PRESSED:
     case glib::EventType::RIGHT_MOUSE_BUTTON_RELEASED:
-      return GLibToGUIMouseButtonEvent(glib_event);
+      return gui::GLibToGUIMouseButtonEvent(glib_event);
     case glib::EventType::MOUSE_MOVE:
     case glib::EventType::LEFT_MOUSE_DRAG:
     case glib::EventType::RIGHT_MOUSE_DRAG:
-      return GLibToGUIMouseMoveEvent(glib_event);
+      return gui::GLibToGUIMouseMoveEvent(glib_event);
     default:
       return nullptr;
   }
@@ -25,7 +25,7 @@ gui::AbstractEvent* GLibToGUIEvent(const glib::Event* glib_event) {
 gui::MouseButtonEvent* gui::GLibToGUIMouseButtonEvent(const glib::Event* glib_event) {
   assert(glib_event != nullptr);
 
-  const glib::MouseButtonEvent* mouse_button_event = reinterpret_cast<glib::MouseButtonEvent*>(glib_event);
+  const glib::MouseButtonEvent* mouse_button_event = reinterpret_cast<const glib::MouseButtonEvent*>(glib_event);
   const glib::Vector2i mouse_position = mouse_button_event->m_position;
   switch (glib_event->Type()) {
     case glib::EventType::LEFT_MOUSE_BUTTON_PRESSED:
@@ -45,5 +45,16 @@ gui::MouseButtonEvent* gui::GLibToGUIMouseButtonEvent(const glib::Event* glib_ev
 gui::MouseMoveEvent* gui::GLibToGUIMouseMoveEvent(const glib::Event* glib_event) {
   assert(glib_event != nullptr);
 
-  const glib::MouseMoveEvent* mouse_move_event = reinterpret_cast<glib::Mouse>
+  const glib::MouseMoveEvent* mouse_move_event = reinterpret_cast<const glib::MouseMoveEvent*>(glib_event);
+  const glib::Vector2i new_position = mouse_move_event->m_new_position;
+  switch (glib_event->Type()) {
+    case glib::EventType::MOUSE_MOVE:
+      return new MouseMoveEvent(new_position);
+    case glib::EventType::LEFT_MOUSE_DRAG:
+      return new LeftMouseDragEvent(new_position);
+    case glib::EventType::RIGHT_MOUSE_DRAG:
+      return new RightMouseDragEvent(new_position);
+    default:
+      return nullptr;
+  }
 }
