@@ -1,7 +1,7 @@
 #include "gui_convert_events_from_glib.hpp"
 
 
-gui::AbstractEvent* GLibToGUIEvent(const glib::Event* glib_event) {
+gui::AbstractEvent* gui::GLibToGUIEvent(const glib::Event* glib_event) {
   assert(glib_event != nullptr);
 
   switch (glib_event->Type()) {

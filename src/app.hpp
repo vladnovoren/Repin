@@ -12,9 +12,9 @@ class App {
   ~App();
 
   glib::RenderWindow m_render_window;
-  gui::ViewManager   m_view_manager;
+  gui::ViewManager& m_view_manager = gui::ViewManager::GetInstance();
  public:
-  App& GetInstance();
+  static App& GetInstance();
 
   void Exec();
 };

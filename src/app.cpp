@@ -2,8 +2,7 @@
 
 
 App::App():
-m_render_window(glib::Vector2f(1200, 800), "Repin"),
-m_view_manager() {}
+     m_render_window(glib::Vector2f(800, 600), "Repin") {}
 
 App::App(const App&) {};
 App::~App() = default;
@@ -16,25 +15,15 @@ App& App::GetInstance() {
 
 
 void App::Exec() {
-  bool is_open = true;
-  glib::Event* event = nullptr;
-  while (is_open) {
-    while ((event = m_render_window.PollEvent()) != nullptr) {
-      if (event->Type() == glib::EventType::CLOSE_SYS_WINDOW) {
-        is_open = false;
-      } else {
-        m_view_manager.Emit(event);
-      }
-      delete event;
-    }
+  while (m_view_manager.IsOpen()) {
+    m_view_manager.ProcessEvent(&m_render_window, m_view_manager.GetRoot());
     m_view_manager.Draw(&m_render_window);
   }
 }
 
 
 int main() {
-  App* invalid_app_ptr = nullptr;
-  App& app = invalid_app_ptr->GetInstance();
+  App& app = App::GetInstance();
   app.Exec();
   return 0;
 }

@@ -3,25 +3,40 @@
 
 
 #include "gui_abstract_view.hpp"
-#include "gui_event_emitter.hpp"
 #include "gui_skin_manager.hpp"
 #include "gui_button.hpp"
-#include "gui_title.hpp"
-#include "gui_window.hpp"
+#include "gui_events.hpp"
+#include "gui_title_bar.hpp"
 
 
 namespace gui {
   class ViewManager {
    protected:
-    AbstractView* m_root = nullptr;
-    EventEmitter m_event_emitter;
-    SkinManager m_skin_manager;
-   public:
     ViewManager();
+
+    AbstractView* m_root = nullptr;
+    SkinManager   m_skin_manager;
+
+    bool is_open = true;
+
+    std::list<AbstractView*> m_mouse_active_views;
+   public:
     ~ViewManager();
 
     void Draw(glib::RenderWindow* render_window);
-    void Emit(glib::Event* event);
+
+    static ViewManager& GetInstance();
+
+    AbstractView* GetRoot() const;
+    void AddMouseActiveView(AbstractView* view);
+    void RemoveMouseActiveView(AbstractView* view);
+
+    EventResult ProcessEvent(glib::RenderWindow* render_window,
+                             AbstractView* view);
+    EventResult GetAndProcessEvent(glib::RenderWindow* render_window,
+                                   AbstractView* view);
+
+    bool IsOpen() const;
   };
 }
 

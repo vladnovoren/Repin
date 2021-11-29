@@ -1,69 +1,75 @@
 #include "gui_button_skin.hpp"
 
 
-gui::AbstractButtonSkin::AbstractButtonSkin(const glib::IntRect& location,
-                                            const glib::Texture* idle_texture,
-                                            const glib::Texture* hovered_texture,
-                                            const glib::Texture* pressed_texture):
-                         DefaultViewSkin(location),
-                         m_curr_texture(idle_texture),
-                         m_idle_texture(idle_texture),
-                         m_hovered_texture(hovered_texture),
-                         m_pressed_texture(pressed_texture) {
-  assert(idle_texture    != nullptr);
-  assert(hovered_texture != nullptr);
-  assert(pressed_texture != nullptr);
-}
+gui::AbstractButtonSkin::AbstractButtonSkin(const glib::Texture& texture,
+                                            const glib::IntRect& idle_texture_location,
+                                            const glib::IntRect& hovered_texture_location,
+                                            const glib::IntRect& pressed_texture_location):
+                         m_texture(texture),
+                         m_curr_texture_location(idle_texture_location),
+                         m_idle_texture_location(idle_texture_location),
+                         m_hovered_texture_location(hovered_texture_location),
+                         m_pressed_texture_location(pressed_texture_location) {}
 
 
 gui::AbstractButtonSkin::~AbstractButtonSkin() = default;
 
 
-gui::RectButtonSkin::RectButtonSkin(const glib::IntRect& location,
-                                    const glib::Texture* idle_texture,
-                                    const glib::Texture* hovered_texture,
-                                    const glib::Texture* pressed_texture):
-                     AbstractButtonSkin(location, idle_texture,
-                                        hovered_texture, pressed_texture) {}
+bool gui::AbstractButtonSkin::LoadFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
 
+  char* texture_path = (char*)calloc(strlen(folder_path) + strlen("/texture.png") + 1, sizeof(char));
+  strcpy(texture_path, folder_path);
+  strcat(texture_path, "/texture.png");
 
-void gui::RectButtonSkin::Draw(glib::RenderTarget* render_target,
-                               const glib::Vector2i& position) {
-  assert(render_target);
+  char* map_path = (char*)calloc(strlen(folder_path) + strlen("/map.txt") + 1, sizeof(char));
+  strcpy(map_path, folder_path);
+  strcat(map_path, "/map.txt");
 
-  glib::Vector2i new_position = position + m_location.m_position;
-  render_target->CopyTexture(*m_curr_texture, new_position);
+  if (!m_texture.LoadFromFile(texture_path)) {
+    return false;
+  }
+
+  FILE* map = fopen(map_path, "rb");
+  if (map == nullptr) {
+    printf("no map in path [%s]\n", map_path);
+    return false;
+  }
+
+  if (fscanf(map, "%d %d %d %d", &m_idle_texture_location.m_position.x, &m_idle_texture_location.m_position.y, &m_idle_texture_location.m_size.x, &m_idle_texture_location.m_size.y) != 4) {
+    printf("invalid map.txt\n");
+    return false;
+  }
+  if (fscanf(map, "%d %d %d %d", &m_hovered_texture_location.m_position.x, &m_hovered_texture_location.m_position.y, &m_hovered_texture_location.m_size.x, &m_idle_texture_location.m_size.y) != 4) {
+    printf("invalid map.txt\n");
+    return false;
+  }
+  if (fscanf(map, "%d %d %d %d", &m_pressed_texture_location.m_position.x, &m_pressed_texture_location.m_position.y, &m_pressed_texture_location.m_size.x, &m_idle_texture_location.m_size.y) != 4) {
+    printf("invadid map.txt\n");
+    return false;
+  }
+
+  fclose(map);
+  free(map_path);
+  free(texture_path);
+
+  return true;
 }
 
 
-bool gui::RectButtonSkin::IsPointInside(glib::Vector2i point) {
-  point -= m_location.m_position;
-  return m_location.IsPointInRect(point);
-}
+gui::RectButtonSkin::RectButtonSkin(const glib::Texture& texture,
+                                    const glib::IntRect& idle_texture_location,
+                                    const glib::IntRect& hovered_texture_location,
+                                    const glib::IntRect& pressed_texture_location):
+                     AbstractButtonSkin(texture, idle_texture_location,
+                                        hovered_texture_location,
+                                        pressed_texture_location) {}
 
 
-gui::CircleButtonSkin::CircleButtonSkin(const glib::IntRect& location,
-                                        const glib::Texture* idle_texture,
-                                        const glib::Texture* hovered_texture,
-                                        const glib::Texture* pressed_texture,
-                                        const glib::IntCircle& circle):
-                       AbstractButtonSkin(location, idle_texture,
-                                          hovered_texture, pressed_texture),
-                       m_circle(circle) {}
-
-
-bool gui::CircleButtonSkin::IsPointInside(glib::Vector2i point) {
-  point -= m_location.m_position;
-  return m_circle.IsPointInside(point);
-}
-
-
-void gui::CircleButtonSkin::Draw(glib::RenderTarget* render_target,
-                                 const glib::Vector2i& position) {
-  assert(render_target != nullptr);
-
-  glib::Vector2i new_position = position;
-  new_position += m_location.m_position;
-
-  render_target->CopyTexture(*m_curr_texture, new_position);
-}
+gui::CircleButtonSkin::CircleButtonSkin(const glib::Texture& texture,
+                                        const glib::IntRect& idle_texture_location,
+                                        const glib::IntRect& hovered_texture_location,
+                                        const glib::IntRect& pressed_texture_location):
+                       AbstractButtonSkin(texture, idle_texture_location,
+                                          hovered_texture_location,
+                                          pressed_texture_location) {}

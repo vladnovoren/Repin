@@ -25,17 +25,8 @@ namespace gui {
 
     void SetSkin(AbstractButtonSkin* skin);
     void SetFunctor(AbstractViewFunctor* functor);
-    void SetMousePressState(MousePressState mouse_press_state);
-
-    void OnMouseHoverBegin(glib::Vector2i mouse_position) override;
-    void OnMouseHoverEnd(glib::Vector2i mouse_position) override;
-
-    void OnMouseMove(glib::Vector2i new_mouse_position) override;
-    void OnLeftMouseDrag(glib::Vector2i new_mouse_position) override;
-    void OnRightMouseDrag(glib::Vector2i new_mouse_position) override;
-
-    void OnLeftMouseButtonPressed(glib::Vector2i mouse_position) override;
-    void OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
+    void SetMousePressState(MousePressState mouse_press_state) override;
+    // EventResult OnLeftMouseButtonReleased(glib::Vector2i mouse_position) override;
 
     void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position) override;
   };

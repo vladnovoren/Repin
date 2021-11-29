@@ -2,21 +2,24 @@
 #define GUI_TITLE_BAR_SKIN_HPP
 
 
-#include "gui_default_view_skin.hpp"
+#include "gui_abstract_view_skin.hpp"
 
 
 namespace gui {
-  struct TitleBarSkin: DefaultViewSkin {
-    glib::Texture* m_left_texture = nullptr;
-    glib::Texture* m_middle_texture = nullptr;
-    glib::Texture* m_right_texture = nullptr;
+  struct TitleBarSkin: AbstractViewSkin {
+    glib::Texture m_texture;
+    glib::IntRect m_left_location;
+    glib::IntRect m_middle_location;
+    glib::IntRect m_right_location;
 
     TitleBarSkin() = default;
-    TitleBarSkin(const glib::IntRect& location, glib::Texture* left_texture,
-                 glib::Texture* middle_texture, glib::Texture* right_texture);
+    TitleBarSkin(const glib::Texture& texture, const glib::IntRect& left_location,
+                 const glib::IntRect& middle_location,
+                 const glib::IntRect& right_location);
     ~TitleBarSkin() override = default;
 
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position);
+    void Draw(glib::RenderTarget* render_target, const glib::IntRect& location);
+    bool LoadFromFolder(const char* folder_path) override;
   };
 }
 

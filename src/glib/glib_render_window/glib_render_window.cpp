@@ -18,13 +18,10 @@ void glib::RenderWindow::Resize(const Vector2f& size) {
 }
 
 
-glib::Event* glib::RenderWindow::PollEvent() {
-  sf::Event sf_event;
-  if (m_sf_render_window.pollEvent(sf_event)) {
-    return SFMLToGLibEvent(sf_event);
-  } else {
-    return nullptr;
-  }
+bool glib::RenderWindow::PollEvent(sf::Event* sf_event) {
+  assert(sf_event != nullptr);
+
+  return m_sf_render_window.pollEvent(*sf_event);
 }
 
 

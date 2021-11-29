@@ -6,111 +6,79 @@
 
 
 #include "glib.hpp"
-#include "gui_default_view_skin.hpp"
+#include "gui_abstract_view_skin.hpp"
 #include <list>
 
 
 namespace gui {
+  enum class EventResult {
+    NO_EVENT,
+    PROCESSED,
+    NOT_PROCESSED
+  };
+
+
+  enum class MouseButton {
+    NO_BUTTON,
+    LEFT,
+    MIDDLE,
+    RIGHT
+  };
+
+
   enum class MousePressState {
     IDLE,
     HOVERED,
-    PRESSED
+    LEFT_PRESSED,
+    RIGHT_PRESSED,
+    LEFT_RELEASED,
+    RIGHT_RELEASED
   };
 
-  /**
-   * Abstract view with common details
-  */
+
   class AbstractView {
    protected:
     friend class TitleBar;
     friend class Window;
 
-    std::list<AbstractView*> m_children; ///< List of children views
-    DefaultViewSkin* m_skin = nullptr;
+    glib::IntRect m_location;
 
-    AbstractView* m_child_under_mouse_hovered = nullptr;
-    AbstractView* m_child_under_mouse_pressed = nullptr;
-    MousePressState m_mouse_press_state = MousePressState::IDLE;
-    glib::Vector2i m_curr_mouse_position;
+    AbstractView*     m_child_under_mouse_hovered = nullptr;
+    AbstractView*     m_child_under_mouse_pressed = nullptr;
+    glib::Vector2i    m_curr_mouse_position;
 
-    bool m_should_close = false; ///< If view needs to be closed
+    bool m_should_close = false;
    public:
-    /**
-     * Default constructor
-    */
     AbstractView() = default;
-    /**
-     * Constructor initialising location
-    */
-    AbstractView(DefaultViewSkin* skin);
-    /**
-     * Pure virtual default destructor
-    */
     virtual ~AbstractView() = 0;
 
-    /**
-     * Sets location
-    */
+
     void SetLocation(const glib::IntRect& location);
+
+    virtual void SetMousePressState(MousePressState mouse_press_state);
 
     glib::IntRect Location() const;
 
-    /**
-     * Checks if point inside the view
-    */
-    virtual bool IsPointInside(const glib::Vector2i& point);
+    virtual EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button);
 
-    /**
-     * Handler of left mouse button pressed event
-     * \param mouse_position Mouse position
-    */
-    virtual void OnLeftMouseButtonPressed(glib::Vector2i mouse_position);
+    virtual EventResult OnMouseButtonReleased(glib::Vector2i mouse_position, MouseButton button);
 
-    virtual void OnMouseHoverBegin(glib::Vector2i mouse_position);
+    virtual EventResult OnMouseHoverBegin(glib::Vector2i mouse_position);
 
-    virtual void OnMouseHoverEnd(glib::Vector2i mouse_position);
+    virtual EventResult OnMouseHoverEnd(glib::Vector2i mouse_position);
 
-    /**
-     * Handler of right mouse button pressed event
-     * \param mouse_position Mouse position
-    */
-    virtual void OnRightMouseButtonPressed(glib::Vector2i mouse_position);
+    virtual EventResult OnMouseMove(glib::Vector2i new_mouse_position);
 
-    /**
-     * Handler of left mouse button released event
-     * \param mouse_position Mouse position
-    */
-    virtual void OnLeftMouseButtonReleased(glib::Vector2i mouse_position);
-    /**
-     * Handler of right mouse button released event
-     * \param mouse_position Mouse position
-    */
-    virtual void OnRightMouseButtonReleased(glib::Vector2i mouse_position);
+    virtual EventResult OnUnknownEvent();
 
-    virtual void OnMouseMove(glib::Vector2i new_mouse_position);
+    EventResult OnClose();
 
-    virtual void OnLeftMouseDrag(glib::Vector2i new_mouse_position);
-
-    virtual void OnRightMouseDrag(glib::Vector2i new_mouse_position);
-
-    /**
-     * Handler of close event
-    */
-    void OnClose();
-
-    /**
-     * Matches view for close
-    */
     void MatchForClose();
-
 
     void Move(const glib::Vector2i& delta_position);
 
-
     virtual void Draw(glib::RenderTarget* render_target,
-                      const glib::Vector2i& position);
-
-    void MoveChildUp(std::list<AbstractView*>::iterator child_it);
+                      const glib::Vector2i& position) = 0;
   };
 }
 

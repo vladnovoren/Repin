@@ -6,7 +6,7 @@
 
 
 namespace gui {
-  AbstractEvent* GLibToGUIEvent(const glib::Event* glib_event);
+  AbstractEvent*    GLibToGUIEvent(const glib::Event* glib_event);
 
   MouseButtonEvent* GLibToGUIMouseButtonEvent(const glib::Event* glib_event);
   MouseMoveEvent*   GLibToGUIMouseMoveEvent(const glib::Event* glib_event);

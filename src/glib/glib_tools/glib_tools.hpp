@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <cassert>
+#include <iostream>
 #include "SFML/Graphics.hpp"
 
 
@@ -158,7 +159,7 @@ namespace glib {
     }
 
     void Print() const {
-      printf("x: %lf, y: %lf\n", x, y);
+      std::cout << x << ' ' << y << '\n';
     }
   };
 

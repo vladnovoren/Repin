@@ -8,62 +8,31 @@
 
 
 namespace gui {
-  class AbstractSkinKeeper {
-   public:
-    AbstractSkinKeeper() = default;
-    virtual ~AbstractSkinKeeper() = 0;
-
-    virtual void LoadFromFolder(const char* folder_path) = 0;
-  };
-
-
-  class ButtonSkinKeeper: public AbstractSkinKeeper {
-   protected:
-    glib::Texture m_idle_texture;
-    glib::Texture m_hovered_texture;
-    glib::Texture m_pressed_texture;
-   public:
-    ButtonSkinKeeper() = default;
-    ButtonSkinKeeper(const char* folder_path);
-    ~ButtonSkinKeeper() override = default;
-
-    void LoadFromFolder(const char* folder_path) override;
-    void LoadToSkin(AbstractButtonSkin* abstract_button_skin);
-  };
-
-
-  class TitleBarSkinKeeper: public AbstractSkinKeeper {
-   protected:
-    glib::Texture m_left_texture;
-    glib::Texture m_middle_texture;
-    glib::Texture m_right_texture;
-   public:
-    TitleBarSkinKeeper() = default;
-    TitleBarSkinKeeper(const char* folder_path);
-    ~TitleBarSkinKeeper() override = default;
-
-    void LoadFromFolder(const char* folder_path) override;
-    void LoadToSkin(TitleBarSkin* title_bar_skin);
-  };
-
-
   class SkinManager {
    protected:
-    ButtonSkinKeeper   m_minimize_button;
-    ButtonSkinKeeper   m_maximize_button;
-    ButtonSkinKeeper   m_close_button;
-    TitleBarSkinKeeper m_title_bar;
+    AbstractButtonSkin* m_minimize_button_skin = nullptr;
+    AbstractButtonSkin* m_maximize_button_skin = nullptr;
+    AbstractButtonSkin* m_close_button_skin    = nullptr;
+    TitleBarSkin*       m_title_bar_skin       = nullptr;
    public:
     SkinManager() = default;
-    SkinManager(const char* folder_path);
+    SkinManager(AbstractButtonSkin* minimize_button_skin,
+                AbstractButtonSkin* maximize_button_skin,
+                AbstractButtonSkin* close_button_skin,
+                TitleBarSkin* title_bar_skin);
     ~SkinManager() = default;
 
-    ButtonSkinKeeper   GetMinimizeButtonSkinKeeper() const;
-    ButtonSkinKeeper   GetMaximizeButtonSkinKeeper() const;
-    ButtonSkinKeeper   GetCloseButtonSkinKeeper() const;
-    TitleBarSkinKeeper GetTitleBarSkinKeeper() const;
+    void SetMinimizeButtonSkin(AbstractButtonSkin* minimize_button_skin);
+    void SetMaximizeButtonSkin(AbstractButtonSkin* maximize_button_skin);
+    void SetCloseButtonSkin(AbstractButtonSkin* close_button_skin);
+    void SetTitleBarSkin(TitleBarSkin* title_bar_skin);
 
-    void LoadFromFolder(const char* folder_path);
+    AbstractButtonSkin* GetMinimizeButtonSkin() const;
+    AbstractButtonSkin* GetMaximizeButtonSkin() const;
+    AbstractButtonSkin* GetCloseButtonSkin() const;
+    TitleBarSkin*       GetTitleBarSkin() const;
+
+    bool LoadFromFolder(const char* folder_path);
   };
 }
 

@@ -6,6 +6,7 @@
 #include "gui_button.hpp"
 #include "gui_skin_manager.hpp"
 #include "gui_view_manager.hpp"
+#include "gui_events.hpp"
 
 
 #endif /* gui.hpp */

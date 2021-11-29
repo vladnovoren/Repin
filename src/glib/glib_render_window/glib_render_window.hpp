@@ -19,7 +19,7 @@ namespace glib {
     void Display();
     double ResetTime();
 
-    Event* PollEvent();
+    bool PollEvent(sf::Event* sf_event);
   };
 }
 

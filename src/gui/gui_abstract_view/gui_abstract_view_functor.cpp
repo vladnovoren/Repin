@@ -5,7 +5,7 @@ gui::AbstractViewFunctor::~AbstractViewFunctor() = default;
 
 
 gui::CloseViewFunctor::CloseViewFunctor(AbstractView* view): m_view(view) {
-  assert(m_view);
+  assert(m_view != nullptr);
 }
 
 

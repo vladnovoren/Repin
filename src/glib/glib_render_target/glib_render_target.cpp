@@ -47,8 +47,10 @@ void glib::RenderTarget::CopyTexture(const Texture& texture,
   sf::Sprite sprite(texture.GetSFMLTexture());
   sprite.setPosition(GLibToSFMLVector2(position));
   if (texture_rect.m_size.x > 0 && texture_rect.m_size.y > 0) {
-    sprite.setTextureRect(sf::IntRect(texture_rect.m_position.x, texture_rect.m_position.y,
-                                      texture_rect.m_size.x, texture_rect.m_size.y));
+    sprite.setTextureRect(sf::IntRect(texture_rect.m_position.x,
+                                      texture_rect.m_position.y,
+                                      texture_rect.m_size.x,
+                                      texture_rect.m_size.y));
   }
   m_sf_render_target->draw(sprite);
 }

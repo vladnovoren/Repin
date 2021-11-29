@@ -16,8 +16,14 @@ namespace glib {
     Rect(const glib::Vector2<RectType>& position,
          const glib::Vector2<RectType>& size):
     m_position(position), m_size(size) {}
+    Rect(const Rect<float>& other):
+    m_position(other.m_position), m_size(other.m_size) {}
 
-    Rect(const Rect& other) = default;
+    Rect(const Rect<unsigned int>& other):
+    m_position(other.m_position), m_size(other.m_size) {}
+
+    Rect(const Rect<int>& other):
+    m_position(other.m_position), m_size(other.m_size) {}
 
     bool IsPointInRect(const glib::Vector2<RectType>& point) const {
       return m_position.x < point.x && point.x < m_position.x + m_size.x &&
