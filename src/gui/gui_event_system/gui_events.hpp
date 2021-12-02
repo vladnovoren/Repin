@@ -10,6 +10,8 @@ namespace gui {
   MouseButton SFMLToGUIMouseButton(sf::Mouse::Button sf_button);
 
   bool IsMouseEvent(sf::Event sf_event);
+
+  glib::Vector2i GetMousePositionFromSfEvent(const sf::Event& sf_event);
 }
 
 

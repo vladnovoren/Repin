@@ -19,6 +19,5 @@ const sf::Texture& glib::Texture::GetSFMLTexture() const {
 
 
 glib::Vector2i glib::Texture::GetSize() const {
-  printf("m_sf_texture: %d, %d\n", m_sf_texture.getSize().x, m_sf_texture.getSize().y);
   return glib::SFMLToGLibVector2(m_sf_texture.getSize());
 }

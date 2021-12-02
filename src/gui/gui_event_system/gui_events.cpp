@@ -28,3 +28,20 @@ bool gui::IsMouseEvent(sf::Event sf_event) {
       return false;
   }
 }
+
+
+glib::Vector2i gui::GetMousePositionFromSfEvent(const sf::Event& sf_event) {
+  glib::Vector2i mouse_position;
+  switch (sf_event.type) {
+    case sf::Event::MouseButtonPressed:
+    case sf::Event::MouseButtonReleased:
+      mouse_position = glib::Vector2i(sf_event.mouseButton.x, sf_event.mouseButton.y);
+      break;
+    case sf::Event::MouseMoved:
+      mouse_position = glib::Vector2i(sf_event.mouseMove.x, sf_event.mouseMove.y);
+      break;
+    default:
+      break;
+  }
+  return mouse_position;
+}

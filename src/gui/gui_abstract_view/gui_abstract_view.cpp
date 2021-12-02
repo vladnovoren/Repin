@@ -9,13 +9,13 @@ void gui::AbstractView::SetLocation(const glib::IntRect& location) {
 }
 
 
-void gui::AbstractView::SetMousePressState(MousePressState mouse_press_state) {
-  SetMousePressState(mouse_press_state);
+glib::IntRect gui::AbstractView::Location() const {
+  return m_location;
 }
 
 
-glib::IntRect gui::AbstractView::Location() const {
-  return m_location;
+bool gui::AbstractView::IsPointInside(glib::Vector2i point) const {
+  return m_location.IsPointInRect(point);
 }
 
 
@@ -48,13 +48,6 @@ gui::EventResult gui::AbstractView::OnClose() {
   MatchForClose();
   return EventResult::PROCESSED;
 }
-
-
-// bool gui::AbstractView::IsPointInside(const glib::Vector2i& point) {
-  // assert(m_skin != nullptr);
-// 
-  // return m_location.IsPointInRect(point);
-// }
 
 
 void gui::AbstractView::MatchForClose() {

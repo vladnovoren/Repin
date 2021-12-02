@@ -1,11 +1,12 @@
 #include "gui_title_bar_skin.hpp"
 
 
-gui::TitleBarSkin::TitleBarSkin(const glib::Texture& texture,
+gui::TitleBarSkin::TitleBarSkin(const glib::Texture& source_texture,
                                 const glib::IntRect& left_location,
                                 const glib::IntRect& middle_location,
                                 const glib::IntRect& right_location):
-                   m_texture(texture), m_left_location(left_location),
+                   m_source_texture(source_texture),
+                   m_left_location(left_location),
                    m_middle_location(middle_location),
                    m_right_location(right_location) {}
 
@@ -17,7 +18,7 @@ bool gui::TitleBarSkin::LoadFromFolder(const char* folder_path) {
   char* texture_path = (char*)calloc(texture_path_len + 1, sizeof(char));
   strcpy(texture_path, folder_path);
   strcat(texture_path, "/texture.png");
-  if (!m_texture.LoadFromFile(texture_path)) {
+  if (!m_source_texture.LoadFromFile(texture_path)) {
     free(texture_path);
     return false;
   }
@@ -54,18 +55,25 @@ bool gui::TitleBarSkin::LoadFromFolder(const char* folder_path) {
 }
 
 
-void gui::TitleBarSkin::Draw(glib::RenderTarget* render_target,
-                             const glib::IntRect& location) {
-  assert(render_target != nullptr);
+void gui::TitleBarSkin::Render(const glib::Vector2i& size) {
+  m_render_texture.Resize(size);
+  m_render_texture.CopyTexture(m_source_texture, m_left_location.m_position,
+                               m_left_location);
 
-  render_target->CopyTexture(m_texture, m_left_location.m_position, m_left_location);
-
-  int n_middle = location.m_size.x - m_right_location.m_size.x - m_left_location.m_size.x;
-  glib::Vector2i curr_position = location.m_position + glib::Vector2i(m_left_location.m_size.x, 0);
+  int n_middle = size.x - m_right_location.m_size.x - m_left_location.m_size.x;
+  glib::Vector2i curr_position = glib::Vector2i(m_left_location.m_size.x, 0);
   for (int i = 0; i < n_middle; ++i) {
-    render_target->CopyTexture(m_texture, curr_position, m_middle_location);
+    m_render_texture.CopyTexture(m_source_texture, curr_position, m_middle_location);
     curr_position += glib::Vector2i(1, 0);
   }
 
-  render_target->CopyTexture(m_texture, curr_position, m_right_location);
+  m_render_texture.CopyTexture(m_source_texture, curr_position, m_right_location);
+}
+
+
+void gui::TitleBarSkin::Copy(glib::RenderTarget* render_target,
+                             const glib::Vector2i& position) const {
+  assert(render_target != nullptr);
+
+  render_target->CopyRenderTexture(m_render_texture, position);
 }

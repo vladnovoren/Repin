@@ -19,7 +19,7 @@ namespace gui {
 
     bool is_open = true;
 
-    std::list<AbstractView*> m_mouse_active_views;
+    AbstractView* m_mouse_active_view = nullptr;
    public:
     ~ViewManager();
 
@@ -31,10 +31,11 @@ namespace gui {
     void AddMouseActiveView(AbstractView* view);
     void RemoveMouseActiveView(AbstractView* view);
 
-    EventResult ProcessEvent(glib::RenderWindow* render_window,
-                             AbstractView* view);
-    EventResult GetAndProcessEvent(glib::RenderWindow* render_window,
-                                   AbstractView* view);
+    EventResult ProcessEvent(AbstractView* view, const sf::Event& sf_event,
+                             bool force = false);
+    EventResult GetAndProcessEvent(glib::RenderWindow* render_window);
+    EventResult ProcessMouseEventOnSignedView(glib::RenderWindow* render_window,
+                                              const sf::Event& sf_event);
 
     bool IsOpen() const;
   };

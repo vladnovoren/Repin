@@ -16,7 +16,7 @@ App& App::GetInstance() {
 
 void App::Exec() {
   while (m_view_manager.IsOpen()) {
-    m_view_manager.ProcessEvent(&m_render_window, m_view_manager.GetRoot());
+    m_view_manager.GetAndProcessEvent(&m_render_window);
     m_view_manager.Draw(&m_render_window);
   }
 }

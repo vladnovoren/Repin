@@ -33,3 +33,8 @@ void glib::RenderWindow::Display() {
 double glib::RenderWindow::ResetTime() {
   return m_sf_clock.restart().asSeconds();
 }
+
+
+const sf::RenderWindow* glib::RenderWindow::GetSFMLRenderWindow() {
+  return &m_sf_render_window;
+}

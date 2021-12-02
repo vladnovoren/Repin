@@ -20,6 +20,8 @@ namespace glib {
     double ResetTime();
 
     bool PollEvent(sf::Event* sf_event);
+
+    const sf::RenderWindow* GetSFMLRenderWindow();
   };
 }
 

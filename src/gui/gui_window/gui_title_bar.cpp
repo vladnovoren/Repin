@@ -40,7 +40,12 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
                          const glib::Vector2i& position) {
   assert(render_target != nullptr);
 
-  m_skin->Draw(render_target, glib::IntRect(position, m_location.m_size));
+  if (m_needs_to_render) {
+    m_skin->Render(m_location.m_size);
+    m_needs_to_render = false;
+  } else {
+    m_skin->Copy(render_target, position + m_location.m_position);
+  }
 }
 
 

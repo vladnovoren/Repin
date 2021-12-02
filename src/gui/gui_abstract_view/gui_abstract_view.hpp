@@ -26,16 +26,6 @@ namespace gui {
   };
 
 
-  enum class MousePressState {
-    IDLE,
-    HOVERED,
-    LEFT_PRESSED,
-    RIGHT_PRESSED,
-    LEFT_RELEASED,
-    RIGHT_RELEASED
-  };
-
-
   class AbstractView {
    protected:
     friend class TitleBar;
@@ -47,7 +37,8 @@ namespace gui {
     AbstractView*     m_child_under_mouse_pressed = nullptr;
     glib::Vector2i    m_curr_mouse_position;
 
-    bool m_should_close = false;
+    bool m_should_close    = false;
+    bool m_needs_to_render = true;
    public:
     AbstractView() = default;
     virtual ~AbstractView() = 0;
@@ -55,9 +46,9 @@ namespace gui {
 
     void SetLocation(const glib::IntRect& location);
 
-    virtual void SetMousePressState(MousePressState mouse_press_state);
-
     glib::IntRect Location() const;
+
+    bool IsPointInside(glib::Vector2i point) const;
 
     virtual EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button);
 
