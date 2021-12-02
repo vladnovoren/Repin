@@ -14,6 +14,7 @@ namespace glib {
     Texture(const sf::Texture& sf_texture);
     ~Texture() = default;
 
+    void SetSfTexture(const sf::Texture& sf_texture);
     bool LoadFromFile(const char* file_name);
     const sf::Texture& GetSFMLTexture() const;
 

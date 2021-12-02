@@ -33,7 +33,7 @@ namespace gui {
 
     EventResult ProcessEvent(AbstractView* view, const sf::Event& sf_event,
                              bool force = false);
-    EventResult GetAndProcessEvent(glib::RenderWindow* render_window);
+    EventResult GetAndProcessEvent(glib::RenderWindow* render_window, bool& is_pooled);
     EventResult ProcessMouseEventOnSignedView(glib::RenderWindow* render_window,
                                               const sf::Event& sf_event);
 

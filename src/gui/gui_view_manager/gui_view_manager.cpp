@@ -111,11 +111,12 @@ gui::EventResult gui::ViewManager::ProcessMouseEventOnSignedView(glib::RenderWin
 }
 
 
-gui::EventResult gui::ViewManager::GetAndProcessEvent(glib::RenderWindow* render_window) {
+gui::EventResult gui::ViewManager::GetAndProcessEvent(glib::RenderWindow* render_window, bool& is_pooled) {
   assert(render_window != nullptr);
 
   sf::Event sf_event;
-  if (!render_window->PollEvent(&sf_event)) {
+  is_pooled = render_window->PollEvent(&sf_event);
+  if (!is_pooled) {
     return EventResult::NO_EVENT;
   }
 

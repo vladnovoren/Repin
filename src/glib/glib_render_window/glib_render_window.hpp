@@ -16,7 +16,7 @@ namespace glib {
 
     void Resize(const Vector2f& size);
 
-    void Display();
+    void Display() override;
     double ResetTime();
 
     bool PollEvent(sf::Event* sf_event);

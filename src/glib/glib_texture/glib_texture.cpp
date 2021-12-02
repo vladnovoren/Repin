@@ -5,6 +5,11 @@ glib::Texture::Texture(const sf::Texture& sf_texture):
                m_sf_texture(sf_texture) {}
 
 
+void glib::Texture::SetSfTexture(const sf::Texture& sf_texture) {
+  m_sf_texture = sf_texture;
+}
+
+
 bool glib::Texture::LoadFromFile(const char* file_name) {
   if (!m_sf_texture.loadFromFile(file_name)) {
     return false;

@@ -15,6 +15,22 @@ gui::AbstractButtonSkin::AbstractButtonSkin(const glib::Texture& texture,
 gui::AbstractButtonSkin::~AbstractButtonSkin() = default;
 
 
+void gui::AbstractButtonSkin::Render(const glib::Vector2i& size) {
+  m_render_texture.Resize(size);
+  m_render_texture.CopyTexture(m_source_texture, glib::Vector2f(), m_curr_texture_location);
+  m_render_texture.Display();
+  m_texture = m_render_texture.GetTexture();
+}
+
+
+void gui::AbstractButtonSkin::Copy(glib::RenderTarget* render_target,
+                                   const glib::Vector2i& position) const {
+  assert(render_target != nullptr);
+
+  render_target->CopyTexture(m_texture, position);
+}
+
+
 bool gui::AbstractButtonSkin::LoadFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
@@ -66,6 +82,12 @@ gui::RectButtonSkin::RectButtonSkin(const glib::Texture& texture,
                                         pressed_texture_location) {}
 
 
+bool gui::RectButtonSkin::IsPointInside(const glib::IntRect& location,
+                                        const glib::Vector2i& point) const {
+  return location.IsPointInRect(point);
+}
+
+
 gui::CircleButtonSkin::CircleButtonSkin(const glib::Texture& texture,
                                         const glib::IntRect& idle_texture_location,
                                         const glib::IntRect& hovered_texture_location,
@@ -73,3 +95,10 @@ gui::CircleButtonSkin::CircleButtonSkin(const glib::Texture& texture,
                        AbstractButtonSkin(texture, idle_texture_location,
                                           hovered_texture_location,
                                           pressed_texture_location) {}
+
+
+bool gui::CircleButtonSkin::IsPointInside(const glib::IntRect& location,
+                                          const glib::Vector2i& point) const {
+  glib::IntCircle circle(location.m_position + 0.5 * location.m_size, 0.5 * location.m_size.x);
+  return circle.IsPointInside(point);
+}

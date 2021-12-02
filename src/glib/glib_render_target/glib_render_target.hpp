@@ -15,7 +15,7 @@ namespace glib {
   public:
     RenderTarget() = default;
     RenderTarget(sf::RenderTarget* sf_render_target);
-    virtual ~RenderTarget() = default;
+    virtual ~RenderTarget() = 0;
 
     void Clear(const ColorRGB& color = ColorRGB());
 
@@ -28,6 +28,8 @@ namespace glib {
     void CopyRenderTexture(const RenderTexture& render_texture,
                            const Vector2f& position,
                            const FloatRect& texture_rect = FloatRect());
+
+    virtual void Display() = 0;
   };
 }
 

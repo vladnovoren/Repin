@@ -2,6 +2,9 @@
 #include "glib_render_texture.hpp"
 
 
+glib::RenderTarget::~RenderTarget() = default;
+
+
 glib::RenderTarget::RenderTarget(sf::RenderTarget* sf_render_target):
                     m_sf_render_target(sf_render_target) {}
 

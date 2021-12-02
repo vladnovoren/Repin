@@ -25,9 +25,13 @@ void gui::Button::SetFunctor(AbstractViewFunctor* functor) {
 
 
 void gui::Button::Draw(glib::RenderTarget* render_target,
-                       const glib::Vector2i&) {
+                       const glib::Vector2i& position) {
   assert(render_target);
 
-  // m_skin->Draw(render_target, position);
+  if (m_needs_to_render) {
+    m_skin->Render(m_location.m_size);
+    m_needs_to_render = false;
+  }
+  m_skin->Copy(render_target, position);
 }
 //==============================================================================

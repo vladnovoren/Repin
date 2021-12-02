@@ -43,9 +43,8 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
   if (m_needs_to_render) {
     m_skin->Render(m_location.m_size);
     m_needs_to_render = false;
-  } else {
-    m_skin->Copy(render_target, position + m_location.m_position);
   }
+  m_skin->Copy(render_target, position + m_location.m_position);
 }
 
 
@@ -56,28 +55,28 @@ void gui::TitleBar::AddSkin(TitleBarSkin* skin) {
 }
 
 
-// void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
-//   assert(minimize_button != nullptr);
+void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
+  assert(minimize_button != nullptr);
 
-//   m_minimize_button = minimize_button;
-//   m_children.push_front(minimize_button);
-// }
-
-
-// void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
-//   assert(maximize_button != nullptr);
-
-//   m_maximize_button = maximize_button;
-//   m_children.push_front(maximize_button);
-// }
+  m_minimize_button = minimize_button;
+  m_children.push_front(minimize_button);
+}
 
 
-// void gui::TitleBar::AddCloseButton(Button* close_button) {
-//   assert(close_button != nullptr);
+void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
+  assert(maximize_button != nullptr);
 
-//   m_close_button = close_button;
-//   m_children.push_front(close_button);
-// }
+  m_maximize_button = maximize_button;
+  m_children.push_front(maximize_button);
+}
+
+
+void gui::TitleBar::AddCloseButton(Button* close_button) {
+  assert(close_button != nullptr);
+
+  m_close_button = close_button;
+  m_children.push_front(close_button);
+}
 
 
 // void gui::TitleBar::AddTitle(Title* title) {

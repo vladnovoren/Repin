@@ -8,7 +8,6 @@
 class App {
  private:
   App();
-  App(const App& app);
   ~App();
 
   glib::RenderWindow m_render_window;

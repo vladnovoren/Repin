@@ -19,3 +19,14 @@ void glib::RenderTexture::Resize(const Vector2f& size) {
 const sf::RenderTexture& glib::RenderTexture::GetSFMLRenderTexture() const {
   return m_sf_render_texture;
 }
+
+
+const glib::Texture& glib::RenderTexture::GetTexture() {
+  m_texture.SetSfTexture(m_sf_render_texture.getTexture());
+  return m_texture;
+}
+
+
+void glib::RenderTexture::Display() {
+  m_sf_render_texture.display();
+}

@@ -7,6 +7,7 @@
 
 namespace gui {
   struct TitleBarSkin: AbstractViewSkin {
+    glib::Texture       m_texture;
     glib::RenderTexture m_render_texture;
     glib::Texture       m_source_texture;
     glib::IntRect       m_left_location;

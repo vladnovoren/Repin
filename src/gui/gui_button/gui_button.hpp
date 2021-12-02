@@ -17,7 +17,7 @@ namespace gui {
     glib::Vector2i m_curr_mouse_position;
 
     AbstractViewFunctor* m_functor = nullptr;
-    AbstractButtonSkin* m_skin = nullptr;
+    AbstractButtonSkin*     m_skin = nullptr;
    public:
     Button() = default;
     Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin);
