@@ -2,11 +2,11 @@
 #define GUI_TITLE_HPP
 
 
-#include "gui_abstract_view.hpp"
+#include "gui_abstract_widget.hpp"
 
 
 namespace gui {
-  class Title: public AbstractView {
+  class Title: public AbstractWidget {
    protected:
    public:
   };

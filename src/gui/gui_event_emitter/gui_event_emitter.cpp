@@ -19,84 +19,84 @@ gui::EventEmitter::EventEmitter() {
 }
 
 
-gui::EventResult gui::EventEmitter::Emit(gui::AbstractEvent* event, AbstractView* view) {
+gui::EventResult gui::EventEmitter::Emit(gui::AbstractEvent* event, AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
-  return (this->*emitter_funcs[size_t(event->Type())])(event, view);
+  return (this->*emitter_funcs[size_t(event->Type())])(event, widget);
 }
 
 
-gui::EventResult gui::EventEmitter::EmitClose(gui::AbstractEvent* event, AbstractView* view) {
+gui::EventResult gui::EventEmitter::EmitClose(gui::AbstractEvent* event, AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
-  return view->OnClose();
+  return widget->OnClose();
 }
 
 
 gui::EventResult gui::EventEmitter::EmitLeftMouseButtonPressed(gui::AbstractEvent* event,
-                                                   AbstractView* view) {
+                                                   AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseButtonEvent* mouse_button_event = reinterpret_cast<glib::MouseButtonEvent*>(event);
-  return view->OnLeftMouseButtonPressed(mouse_button_event->m_position);
+  return widget->OnLeftMouseButtonPressed(mouse_button_event->m_position);
 }
 
 
 gui::EventResult gui::EventEmitter::EmitLeftMouseButtonReleased(gui::AbstractEvent* event,
-                                                    AbstractView* view) {
+                                                    AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseButtonEvent* mouse_button_event = reinterpret_cast<glib::MouseButtonEvent*>(event);
-  return view->OnLeftMouseButtonReleased(mouse_button_event->m_position);
+  return widget->OnLeftMouseButtonReleased(mouse_button_event->m_position);
 }
 
 
 gui::EventResult gui::EventEmitter::EmitRightMouseButtonPressed(gui::AbstractEvent* event,
-                                                    AbstractView* view) {
+                                                    AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseButtonEvent* mouse_button_event = reinterpret_cast<glib::MouseButtonEvent*>(event);
-  return view->OnRightMouseButtonPressed(mouse_button_event->m_position);
+  return widget->OnRightMouseButtonPressed(mouse_button_event->m_position);
 }
 
 
 gui::EventResult gui::EventEmitter::EmitRightMouseButtonReleased(gui::AbstractEvent* event,
-                                                     AbstractView* view) {
+                                                     AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseButtonEvent* mouse_button_event = reinterpret_cast<glib::MouseButtonEvent*>(event);
-  return view->OnRightMouseButtonReleased(mouse_button_event->m_position);
+  return widget->OnRightMouseButtonReleased(mouse_button_event->m_position);
 }
 
 
-gui::EventResult gui::EventEmitter::EmitMouseMove(gui::AbstractEvent* event, AbstractView* view) {
+gui::EventResult gui::EventEmitter::EmitMouseMove(gui::AbstractEvent* event, AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseMoveEvent* mouse_move_event = reinterpret_cast<glib::MouseMoveEvent*>(event);
-  return view->OnMouseMove(mouse_move_event->m_new_position);
+  return widget->OnMouseMove(mouse_move_event->m_new_position);
 }
 
 
-gui::EventResult gui::EventEmitter::EmitLeftMouseDrag(gui::AbstractEvent* event, AbstractView* view) {
+gui::EventResult gui::EventEmitter::EmitLeftMouseDrag(gui::AbstractEvent* event, AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseMoveEvent* left_mouse_drag = reinterpret_cast<glib::MouseMoveEvent*>(event);
-  return view->OnLeftMouseDrag(left_mouse_drag->m_new_position);
+  return widget->OnLeftMouseDrag(left_mouse_drag->m_new_position);
 }
 
 
-gui::EventResult gui::EventEmitter::EmitRightMouseDrag(gui::AbstractEvent* event, AbstractView* view) {
+gui::EventResult gui::EventEmitter::EmitRightMouseDrag(gui::AbstractEvent* event, AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view  != nullptr);
+  assert(widget  != nullptr);
 
   glib::MouseMoveEvent* right_mouse_drag = reinterpret_cast<glib::MouseMoveEvent*>(event);
-  return view->OnRightMouseDrag(right_mouse_drag->m_new_position);
+  return widget->OnRightMouseDrag(right_mouse_drag->m_new_position);
 }

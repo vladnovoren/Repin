@@ -5,15 +5,15 @@ gui::AbstractEventSpreader::~AbstractEventSpreader() = default;
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadEventDFS(AbstractEvent* event,
-                                                            AbstractView* view) {
+                                                            AbstractWidget* widget) {
   assert(event != nullptr);
-  assert(view != nullptr);
+  assert(widget != nullptr);
 
   EventResult event_result      = EventResult::NOT_PROCESSED;
   EventResult curr_event_result = EventResult::NOT_PROCESSED;
   EventEmitter& event_emitter_instance = EventEmitter::GetInstance();
-  for (auto child_it = view->m_children.begin();
-       child_it != view->m_children.end();
+  for (auto child_it = widget->m_children.begin();
+       child_it != widget->m_children.end();
        ++child_it) {
     auto child_ptr = *child_it;
     assert(child_ptr != nullptr);
@@ -28,7 +28,7 @@ gui::EventResult gui::AbstractEventSpreader::SpreadEventDFS(AbstractEvent* event
         break;
     }
   }
-  curr_event_result = event_emitter_instance.Emit(event, view);
+  curr_event_result = event_emitter_instance.Emit(event, widget);
   switch (curr_event_result) {
     case EventResult::PROCESSED_NOT_FINAL:
       event_result = EventResult::PROCESSED_NOT_FINAL;
@@ -43,48 +43,48 @@ gui::EventResult gui::AbstractEventSpreader::SpreadEventDFS(AbstractEvent* event
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadClose(AbstractEvent* event,
-                                                         AbstractView* view) {
-  return SpreadEventDFS(event, view);
+                                                         AbstractWidget* widget) {
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadLeftMouseButtonPressed(AbstractEvent* event,
-                                                                          AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                                          AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadRightMouseButtonPressed(AbstractEvent* event,
-                                                                           AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                                           AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadLeftMouseButtonReleased(AbstractEvent* event,
-                                                                           AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                                           AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadRightMouseButtonReleased(AbstractEvent* event,
-                                                                            AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                                            AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadMouseMove(AbstractEvent* event,
-                                                             AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                             AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadLeftMouseDrag(AbstractEvent* event,
-                                                                 AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                                 AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }
 
 
 gui::EventResult gui::AbstractEventSpreader::SpreadRightMouseDrag(AbstractEvent* event,
-                                                                  AbstractView* view){
-  return SpreadEventDFS(event, view);
+                                                                  AbstractWidget* widget){
+  return SpreadEventDFS(event, widget);
 }

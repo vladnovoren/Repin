@@ -1,5 +1,5 @@
 #include "gui_title_bar.hpp"
-#include "gui_view_manager.hpp"
+#include "gui_widget_manager.hpp"
 
 
 gui::TitleBar::TitleBar(TitleBarSkin* skin):
@@ -32,7 +32,7 @@ gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i mouse_positi
     m_is_dragging = true;
   }
   m_old_mouse_position = mouse_position;
-  ViewManager::GetInstance().AddMouseActiveView(this);
+  WidgetManager::GetInstance().AddMouseActiveWidget(this);
   return EventResult::PROCESSED;
 }
 
@@ -57,11 +57,11 @@ gui::EventResult gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
 
 
 gui::EventResult gui::TitleBar::OnMouseButtonReleased(glib::Vector2i, MouseButton button) {
-  ViewManager& view_manager = ViewManager::GetInstance();
+  WidgetManager& widget_manager = WidgetManager::GetInstance();
   if (button == MouseButton::LEFT) {
     m_is_dragging = false;
-    if (this == view_manager.GetMouseActiveView()) {
-      view_manager.RemoveMouseActiveView(this);
+    if (this == widget_manager.GetMouseActiveWidget()) {
+      widget_manager.RemoveMouseActiveWidget(this);
     }
   }
   return EventResult::PROCESSED;
@@ -103,6 +103,7 @@ void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
   assert(minimize_button != nullptr);
 
   m_minimize_button = minimize_button;
+  minimize_button->m_parent_widget = this;
   m_children.push_front(minimize_button);
 }
 
@@ -111,6 +112,7 @@ void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
   assert(maximize_button != nullptr);
 
   m_maximize_button = maximize_button;
+  maximize_button->m_parent_widget = this;
   m_children.push_front(maximize_button);
 }
 
@@ -119,5 +121,6 @@ void gui::TitleBar::AddCloseButton(Button* close_button) {
   assert(close_button != nullptr);
 
   m_close_button = close_button;
+  close_button->m_parent_widget = this;
   m_children.push_front(close_button);
 }

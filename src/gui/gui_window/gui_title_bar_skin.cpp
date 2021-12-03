@@ -88,6 +88,6 @@ void gui::TitleBarSkin::CopyToRenderTarget(glib::RenderTarget* render_target,
 }
 
 
-gui::AbstractViewSkin* gui::TitleBarSkin::Copy() const {
+gui::AbstractWidgetSkin* gui::TitleBarSkin::Copy() const {
   return new TitleBarSkin(*this);
 }

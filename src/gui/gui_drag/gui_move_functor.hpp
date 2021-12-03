@@ -2,13 +2,13 @@
 #define GUI_MOVE_FUNCTOR_HPP
 
 
-#include "gui_abstract_view_functor.hpp"
+#include "gui_abstract_widget_functor.hpp"
 
 
 namespace gui {
   class Window;
 
-  class MoveFunctor: public AbstractViewFunctor {
+  class MoveFunctor: public AbstractWidgetFunctor {
    protected:
     Window* m_owner = nullptr;
     glib::Vector2i m_delta_position;

@@ -2,14 +2,14 @@
 #define GUI_TITLE_BAR_HPP
 
 
-#include "gui_abstract_container_view.hpp"
+#include "gui_abstract_container_widget.hpp"
 #include "gui_button.hpp"
 #include "gui_title.hpp"
 #include "gui_title_bar_skin.hpp"
 
 
 namespace gui {
-  class TitleBar: public AbstractContainerView {
+  class TitleBar: public AbstractContainerWidget {
    protected:
     TitleBarSkin* m_skin      = nullptr;
     Button* m_minimize_button = nullptr;

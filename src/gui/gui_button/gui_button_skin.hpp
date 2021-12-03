@@ -2,11 +2,11 @@
 #define GUI_BUTTON_SKIN_HPP
 
 
-#include "gui_abstract_view_skin.hpp"
+#include "gui_abstract_widget_skin.hpp"
 
 
 namespace gui {
-  struct AbstractButtonSkin: AbstractViewSkin {
+  struct AbstractButtonSkin: AbstractWidgetSkin {
     glib::RenderTexture m_render_texture;
     glib::Texture       m_texture;
 
@@ -50,7 +50,7 @@ namespace gui {
     bool IsPointInside(const glib::IntRect& location,
                        glib::Vector2i point) const override;
 
-    AbstractViewSkin* Copy() const override;
+    AbstractWidgetSkin* Copy() const override;
   };
 
 
@@ -65,7 +65,7 @@ namespace gui {
     bool IsPointInside(const glib::IntRect& location,
                        glib::Vector2i point) const override;
 
-    AbstractViewSkin* Copy() const override;
+    AbstractWidgetSkin* Copy() const override;
   };
 }
 

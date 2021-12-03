@@ -41,7 +41,7 @@ PROJECT_NAME           = "My Project"
 PROJECT_NUMBER         =
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
-# for a project that appears at the top of each page and should give viewer a
+# for a project that appears at the top of each page and should give widgeter a
 # quick idea about the purpose of the project. Keep the description short.
 
 PROJECT_BRIEF          =
@@ -450,7 +450,7 @@ TYPEDEF_HIDES_STRUCT   = NO
 # cache size is given by this formula: 2^(16+LOOKUP_CACHE_SIZE). The valid range
 # is 0..9, the default is 0, corresponding to a cache size of 2^16=65536
 # symbols. At the end of a run doxygen will report the cache usage and suggest
-# the optimal cache size from a speed point of view.
+# the optimal cache size from a speed point of widget.
 # Minimum value: 0, maximum value: 9, default value: 0.
 
 LOOKUP_CACHE_SIZE      = 0
@@ -520,7 +520,7 @@ EXTRACT_ANON_NSPACES   = NO
 
 # If the HIDE_UNDOC_MEMBERS tag is set to YES, doxygen will hide all
 # undocumented members inside documented classes or files. If set to NO these
-# members will be included in the various overviews, but no documentation
+# members will be included in the various overwidgets, but no documentation
 # section is generated. This option has no effect if EXTRACT_ALL is enabled.
 # The default value is: NO.
 
@@ -528,7 +528,7 @@ HIDE_UNDOC_MEMBERS     = NO
 
 # If the HIDE_UNDOC_CLASSES tag is set to YES, doxygen will hide all
 # undocumented classes that are normally visible in the class hierarchy. If set
-# to NO, these classes will be included in the various overviews. This option
+# to NO, these classes will be included in the various overwidgets. This option
 # has no effect if EXTRACT_ALL is enabled.
 # The default value is: NO.
 
@@ -707,7 +707,7 @@ MAX_INITIALIZER_LINES  = 30
 SHOW_USED_FILES        = YES
 
 # Set the SHOW_FILES tag to NO to disable the generation of the Files page. This
-# will remove the Files entry from the Quick Index and from the Folder Tree View
+# will remove the Files entry from the Quick Index and from the Folder Tree Widget
 # (if specified).
 # The default value is: YES.
 
@@ -715,7 +715,7 @@ SHOW_FILES             = YES
 
 # Set the SHOW_NAMESPACES tag to NO to disable the generation of the Namespaces
 # page. This will remove the Namespaces entry from the Quick Index and from the
-# Folder Tree View (if specified).
+# Folder Tree Widget (if specified).
 # The default value is: YES.
 
 SHOW_NAMESPACES        = YES
@@ -1199,7 +1199,7 @@ HTML_FILE_EXTENSION    = .html
 #
 # To get valid HTML the header file that includes any scripts and style sheets
 # that doxygen needs, which is dependent on the configuration options used (e.g.
-# the setting GENERATE_TREEVIEW). It is highly recommended to start with a
+# the setting GENERATE_TREEWIDGET). It is highly recommended to start with a
 # default header using
 # doxygen -w html new_header.html new_footer.html new_stylesheet.css
 # YourConfigFile
@@ -1384,7 +1384,7 @@ DOCSET_PUBLISHER_NAME  = Publisher
 # files are now used as the Windows 98 help format, and will replace the old
 # Windows help format (.hlp) on all Windows platforms in the future. Compressed
 # HTML files also contain an index, a table of contents, and you can search for
-# words in the documentation. The HTML workshop also contains a viewer for
+# words in the documentation. The HTML workshop also contains a widgeter for
 # compressed HTML files.
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
@@ -1428,7 +1428,7 @@ CHM_INDEX_ENCODING     =
 BINARY_TOC             = NO
 
 # The TOC_EXPAND flag can be set to YES to add extra items for group members to
-# the table of contents of the HTML help documentation and to the tree view.
+# the table of contents of the HTML help documentation and to the tree widget.
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTMLHELP is set to YES.
 
@@ -1522,13 +1522,13 @@ ECLIPSE_DOC_ID         = org.doxygen.Project
 # DISABLE_INDEX tag can be used to turn on/off the condensed index (tabs) at top
 # of each HTML page. A value of NO enables the index and the value YES disables
 # it. Since the tabs in the index contain the same information as the navigation
-# tree, you can set this option to YES if you also set GENERATE_TREEVIEW to YES.
+# tree, you can set this option to YES if you also set GENERATE_TREEWIDGET to YES.
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
 DISABLE_INDEX          = NO
 
-# The GENERATE_TREEVIEW tag is used to specify whether a tree-like index
+# The GENERATE_TREEWIDGET tag is used to specify whether a tree-like index
 # structure should be generated to display hierarchical information. If the tag
 # value is set to YES, a side panel will be generated containing a tree-like
 # index structure (just like the one that is generated for HTML Help). For this
@@ -1543,24 +1543,24 @@ DISABLE_INDEX          = NO
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-GENERATE_TREEVIEW      = NO
+GENERATE_TREEWIDGET      = NO
 
 # The ENUM_VALUES_PER_LINE tag can be used to set the number of enum values that
 # doxygen will group on one line in the generated HTML documentation.
 #
 # Note that a value of 0 will completely suppress the enum values from appearing
-# in the overview section.
+# in the overwidget section.
 # Minimum value: 0, maximum value: 20, default value: 4.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
 ENUM_VALUES_PER_LINE   = 4
 
-# If the treeview is enabled (see GENERATE_TREEVIEW) then this tag can be used
+# If the treewidget is enabled (see GENERATE_TREEWIDGET) then this tag can be used
 # to set the initial width (in pixels) of the frame in which the tree is shown.
 # Minimum value: 0, maximum value: 1500, default value: 250.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-TREEVIEW_WIDTH         = 250
+TREEWIDGET_WIDTH         = 250
 
 # If the EXT_LINKS_IN_WINDOW option is set to YES, doxygen will open links to
 # external symbols imported via tag files in a separate window.
@@ -1857,7 +1857,7 @@ LATEX_EXTRA_FILES      =
 # If the PDF_HYPERLINKS tag is set to YES, the LaTeX that is generated is
 # prepared for conversion to PDF (using ps2pdf or pdflatex). The PDF file will
 # contain links (just like the HTML output) instead of page references. This
-# makes the output suitable for online browsing using a PDF viewer.
+# makes the output suitable for online browsing using a PDF widgeter.
 # The default value is: YES.
 # This tag requires that the tag GENERATE_LATEX is set to YES.
 

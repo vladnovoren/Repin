@@ -1,8 +1,8 @@
 #include "gui_window.hpp"
 
 
-gui::Window::Window(DefaultViewSkin* skin):
-             AbstractView(skin) {
+gui::Window::Window(DefaultWidgetSkin* skin):
+             AbstractWidget(skin) {
   assert(skin   != nullptr);
   assert(m_skin != nullptr);
 }

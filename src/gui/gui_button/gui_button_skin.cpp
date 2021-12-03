@@ -112,7 +112,7 @@ bool gui::RectButtonSkin::IsPointInside(const glib::IntRect& location,
 }
 
 
-gui::AbstractViewSkin* gui::RectButtonSkin::Copy() const {
+gui::AbstractWidgetSkin* gui::RectButtonSkin::Copy() const {
   return new RectButtonSkin(*this);
 }
 
@@ -133,6 +133,6 @@ bool gui::CircleButtonSkin::IsPointInside(const glib::IntRect& location,
 }
 
 
-gui::AbstractViewSkin* gui::CircleButtonSkin::Copy() const {
+gui::AbstractWidgetSkin* gui::CircleButtonSkin::Copy() const {
   return new CircleButtonSkin(*this);
 }

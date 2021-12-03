@@ -20,17 +20,17 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_tools/glib_tools.cpp
 )
 
-set(GUI_SOURCE src/gui/gui_abstract_view/gui_abstract_view.cpp
-               src/gui/gui_abstract_view/gui_abstract_view_functor.cpp
-               src/gui/gui_abstract_view/gui_abstract_view_skin.cpp
+set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
+               src/gui/gui_abstract_widget/gui_abstract_widget_functor.cpp
+               src/gui/gui_abstract_widget/gui_abstract_widget_skin.cpp
                src/gui/gui_button/gui_button.cpp
                src/gui/gui_button/gui_button_skin.cpp
                src/gui/gui_skin_manager/gui_skin_manager.cpp
-               src/gui/gui_view_manager/gui_view_manager.cpp
+               src/gui/gui_widget_manager/gui_widget_manager.cpp
                src/gui/gui_window/gui_title_bar.cpp
                src/gui/gui_window/gui_title_bar_skin.cpp
                src/gui/gui_event_system/gui_events.cpp
-               src/gui/gui_abstract_container_view/gui_abstract_container_view.cpp
+               src/gui/gui_abstract_container_widget/gui_abstract_container_widget.cpp
 )
 
 

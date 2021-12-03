@@ -3,27 +3,27 @@
 
 
 #include "glib.hpp"
-#include "gui_abstract_view.hpp"
-#include "gui_abstract_view_functor.hpp"
+#include "gui_abstract_widget.hpp"
+#include "gui_abstract_widget_functor.hpp"
 #include "gui_button_skin.hpp"
 
 
 namespace gui {
-  class Button: public AbstractView {
+  class Button: public AbstractWidget {
    protected:
     glib::Vector2i m_curr_mouse_position;
 
-    AbstractViewFunctor* m_functor = nullptr;
+    AbstractWidgetFunctor* m_functor = nullptr;
     AbstractButtonSkin*     m_skin = nullptr;
    public:
     Button() = default;
-    Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin);
+    Button(AbstractWidgetFunctor* functor, AbstractButtonSkin* skin);
     ~Button() override;
 
     bool IsPointInside(glib::Vector2i point) const override;
 
     void SetSkin(AbstractButtonSkin* skin);
-    void SetFunctor(AbstractViewFunctor* functor);
+    void SetFunctor(AbstractWidgetFunctor* functor);
 
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;

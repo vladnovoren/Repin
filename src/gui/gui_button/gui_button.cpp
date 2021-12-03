@@ -1,10 +1,10 @@
 #include "gui_button.hpp"
-#include "gui_view_manager.hpp"
+#include "gui_widget_manager.hpp"
 
 
 // Button
 //==============================================================================
-gui::Button::Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin):
+gui::Button::Button(AbstractWidgetFunctor* functor, AbstractButtonSkin* skin):
              m_functor(functor), m_skin(skin) {
   assert(functor != nullptr);
   assert(skin    != nullptr);
@@ -31,7 +31,7 @@ void gui::Button::SetSkin(AbstractButtonSkin* skin) {
 }
 
 
-void gui::Button::SetFunctor(AbstractViewFunctor* functor) {
+void gui::Button::SetFunctor(AbstractWidgetFunctor* functor) {
   assert(functor);
 
   m_functor = functor;
@@ -54,7 +54,7 @@ void gui::Button::Draw(glib::RenderTarget* render_target,
 gui::EventResult gui::Button::OnMouseButtonPressed(glib::Vector2i,
                                                    MouseButton button) {
   if (button == MouseButton::LEFT) {
-    ViewManager::GetInstance().AddMouseActiveView(this);
+    WidgetManager::GetInstance().AddMouseActiveWidget(this);
     m_skin->SetPressed();
     m_needs_to_render = true;
     return EventResult::PROCESSED;
@@ -64,17 +64,17 @@ gui::EventResult gui::Button::OnMouseButtonPressed(glib::Vector2i,
 
 
 gui::EventResult gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
-  ViewManager& view_manager = ViewManager::GetInstance();
+  WidgetManager& widget_manager = WidgetManager::GetInstance();
   if (IsPointInside(new_mouse_position)) {
-    if (view_manager.GetMouseActiveView() != this) {
+    if (widget_manager.GetMouseActiveWidget() != this) {
       m_skin->SetHovered();
       m_needs_to_render = true;
     }
   } else {
     m_skin->SetIdle();
     m_needs_to_render = true;
-    if (view_manager.GetMouseActiveView() == this) {
-      view_manager.RemoveMouseActiveView(this);
+    if (widget_manager.GetMouseActiveWidget() == this) {
+      widget_manager.RemoveMouseActiveWidget(this);
     }
   }
   return EventResult::NOT_PROCESSED;
@@ -84,9 +84,9 @@ gui::EventResult gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
 gui::EventResult gui::Button::OnMouseButtonReleased(glib::Vector2i mouse_position,
                                                     MouseButton button) {
   if (button == MouseButton::LEFT) {
-    ViewManager& view_manager = ViewManager::GetInstance();
-    if (this == view_manager.GetMouseActiveView()) {
-      view_manager.RemoveMouseActiveView(this);
+    WidgetManager& widget_manager = WidgetManager::GetInstance();
+    if (this == widget_manager.GetMouseActiveWidget()) {
+      widget_manager.RemoveMouseActiveWidget(this);
     }
     if (IsPointInside(mouse_position)) {
       m_functor->operator()();

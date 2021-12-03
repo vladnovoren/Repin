@@ -11,7 +11,7 @@ class App {
   ~App();
 
   glib::RenderWindow m_render_window;
-  gui::ViewManager& m_view_manager = gui::ViewManager::GetInstance();
+  gui::WidgetManager& m_widget_manager = gui::WidgetManager::GetInstance();
  public:
   static App& GetInstance();
 

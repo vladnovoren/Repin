@@ -3,7 +3,7 @@
 
 
 #include "glib.hpp"
-#include "gui_abstract_view.hpp"
+#include "gui_abstract_widget.hpp"
 
 
 namespace gui {

@@ -1,9 +1,9 @@
-#ifndef GUI_ABSTRACT_VIEW_HPP
-#define GUI_ABSTRACT_VIEW_HPP
+#ifndef GUI_ABSTRACT_WIDGET_HPP
+#define GUI_ABSTRACT_WIDGET_HPP
 
 
 #include "glib.hpp"
-#include "gui_abstract_view_skin.hpp"
+#include "gui_abstract_widget_skin.hpp"
 
 
 namespace gui {
@@ -22,22 +22,21 @@ namespace gui {
   };
 
 
-  class AbstractView {
+  class AbstractWidget {
    protected:
     friend class TitleBar;
     friend class Window;
 
     glib::IntRect m_location;
 
-    AbstractView*  m_child_under_mouse_hovered = nullptr;
-    AbstractView*  m_child_under_mouse_pressed = nullptr;
+    AbstractWidget* m_parent_widget = nullptr;
     glib::Vector2i m_curr_mouse_position;
 
     bool m_should_close    = false;
     bool m_needs_to_render = true;
    public:
-    AbstractView() = default;
-    virtual ~AbstractView() = 0;
+    AbstractWidget() = default;
+    virtual ~AbstractWidget() = 0;
 
 
     void SetLocation(const glib::IntRect& location);
@@ -46,9 +45,13 @@ namespace gui {
 
     virtual bool IsPointInside(glib::Vector2i point) const;
 
-    virtual EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button);
+    glib::Vector2i PointRelativeToParent(glib::Vector2i point) const;
 
-    virtual EventResult OnMouseButtonReleased(glib::Vector2i mouse_position, MouseButton button);
+    virtual EventResult OnMouseButtonPressed(glib::Vector2i mouse_position,
+                                             MouseButton button);
+
+    virtual EventResult OnMouseButtonReleased(glib::Vector2i mouse_position,
+                                              MouseButton button);
 
     virtual EventResult OnMouseHoverBegin(glib::Vector2i mouse_position);
 
@@ -74,4 +77,4 @@ namespace gui {
 }
 
 
-#endif /* gui_abstract_view.hpp */
+#endif /* gui_abstract_widget.hpp */

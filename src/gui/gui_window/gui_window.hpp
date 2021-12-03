@@ -2,18 +2,18 @@
 #define GUI_WINDOW_HPP
 
 
-#include "gui_abstract_view.hpp"
+#include "gui_abstract_widget.hpp"
 #include "gui_title_bar.hpp"
-#include "gui_abstract_view_skin.hpp"
+#include "gui_abstract_widget_skin.hpp"
 
 
 namespace gui {
-  class Window: public AbstractView {
+  class Window: public AbstractWidget {
    protected:
     TitleBar* m_title_bar = nullptr;
    public:
     Window() = default;
-    Window(DefaultViewSkin* skin);
+    Window(DefaultWidgetSkin* skin);
     ~Window() = default;
 
     EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button) override;
