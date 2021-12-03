@@ -10,13 +10,13 @@ gui::ViewManager::ViewManager() {
 
   TitleBar* title_bar = new TitleBar;
   title_bar->SetSkin(m_skin_manager.GetTitleBarSkin());
-  title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
+  title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(1200, 21)));
 
   CloseViewFunctor* close_view_functor = new CloseViewFunctor(title_bar);
 
   Button* close_button = new Button(close_view_functor,
                                     m_skin_manager.GetCloseButtonSkin());
-  close_button->SetLocation(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)));
+  close_button->SetLocation(glib::IntRect(glib::Vector2i(1181, 3), glib::Vector2i(14, 15)));
 
   title_bar->AddCloseButton(close_button);
 
@@ -33,7 +33,9 @@ void gui::ViewManager::Draw(glib::RenderWindow* render_window) {
   assert(render_window != nullptr);
 
   render_window->Clear();
-  m_root->Draw(render_window, glib::Vector2i(0, 0));
+  if (m_root != nullptr) {
+    m_root->Draw(render_window, glib::Vector2i(0, 0));
+  }
   render_window->Display();
 }
 
@@ -52,15 +54,25 @@ void gui::ViewManager::AddMouseActiveView(AbstractView* view) {
 
 
 void gui::ViewManager::DeleteMatched() {
-  if (m_mouse_active_view->ShouldClose()) {
-    m_mouse_active_view = nullptr;
+  if (m_root == nullptr) {
+    return;
+  }
+  if (m_mouse_active_view != nullptr) {
+    if (m_mouse_active_view->ShouldClose()) {
+      m_mouse_active_view = nullptr;
+    }
+  }
+  m_root->DeleteMatched();
+  if (m_root->ShouldClose()) {
+    delete m_root;
+    m_root = nullptr;
   }
 }
 
 
 void gui::ViewManager::RemoveMouseActiveView(AbstractView* view) {
   assert(view != nullptr);
-
+  
   if (view == m_mouse_active_view) {
     m_mouse_active_view = nullptr;
   } else {
@@ -89,12 +101,11 @@ gui::EventResult gui::ViewManager::ProcessEvent(AbstractView* view,
 
   switch (sf_event.type) {
     case sf::Event::Closed:
-      is_open = false;
+      m_is_open = false;
       return view->OnClose();
 
     case sf::Event::MouseButtonPressed:
       if (view->IsPointInside(mouse_position) || force) {
-        mouse_position = glib::Vector2i(sf_event.mouseButton.x, sf_event.mouseButton.y);
         return view->OnMouseButtonPressed(mouse_position, button);
       } else {
         return EventResult::NOT_PROCESSED;
@@ -132,7 +143,8 @@ gui::EventResult gui::ViewManager::ProcessMouseEventOnSignedView(glib::RenderWin
 }
 
 
-gui::EventResult gui::ViewManager::GetAndProcessEvent(glib::RenderWindow* render_window, bool& is_pooled) {
+gui::EventResult gui::ViewManager::GetAndProcessEvent(glib::RenderWindow* render_window,
+                                                      bool& is_pooled) {
   assert(render_window != nullptr);
 
   sf::Event sf_event;
@@ -140,6 +152,16 @@ gui::EventResult gui::ViewManager::GetAndProcessEvent(glib::RenderWindow* render
   if (!is_pooled) {
     return EventResult::NO_EVENT;
   }
+
+  if (IsCloseEvent(sf_event)) {
+    m_is_open = false;
+    return EventResult::PROCESSED;
+  }
+
+  if (m_root == nullptr) {
+    return EventResult::NOT_PROCESSED;
+  }
+
 
   if (IsMouseEvent(sf_event)) {
     ProcessMouseEventOnSignedView(render_window, sf_event);
@@ -150,5 +172,5 @@ gui::EventResult gui::ViewManager::GetAndProcessEvent(glib::RenderWindow* render
 
 
 bool gui::ViewManager::IsOpen() const {
-  return is_open;
+  return m_is_open;
 }

@@ -57,10 +57,13 @@ gui::EventResult gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
 
 
 gui::EventResult gui::TitleBar::OnMouseButtonReleased(glib::Vector2i, MouseButton button) {
+  ViewManager& view_manager = ViewManager::GetInstance();
   if (button == MouseButton::LEFT) {
     m_is_dragging = false;
+    if (this == view_manager.GetMouseActiveView()) {
+      view_manager.RemoveMouseActiveView(this);
+    }
   }
-  ViewManager::GetInstance().RemoveMouseActiveView(this);
   return EventResult::PROCESSED;
 }
 

@@ -17,7 +17,7 @@ namespace gui {
     AbstractView* m_root = nullptr;
     SkinManager   m_skin_manager;
 
-    bool is_open = true;
+    bool m_is_open = true;
 
     AbstractView* m_mouse_active_view = nullptr;
    public:
@@ -33,7 +33,6 @@ namespace gui {
     void AddMouseActiveView(AbstractView* view);
     void RemoveMouseActiveView(AbstractView* view);
 
-    void DeleteMatchedDFS(AbstractView* view);
     void DeleteMatched();
 
     EventResult ProcessEvent(AbstractView* view, const sf::Event& sf_event,

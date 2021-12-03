@@ -18,7 +18,7 @@ gui::MouseButton gui::SFMLToGUIMouseButton(sf::Mouse::Button sf_button) {
 }
 
 
-bool gui::IsMouseEvent(sf::Event sf_event) {
+bool gui::IsMouseEvent(const sf::Event& sf_event) {
   switch (sf_event.type) {
     case sf::Event::MouseButtonPressed:
     case sf::Event::MouseButtonReleased:
@@ -26,6 +26,15 @@ bool gui::IsMouseEvent(sf::Event sf_event) {
       return true;
     default:
       return false;
+  }
+}
+
+
+bool gui::IsCloseEvent(const sf::Event& sf_event) {
+  if (sf_event.type == sf::Event::Closed) {
+    return true;
+  } else {
+    return false;
   }
 }
 

@@ -29,9 +29,9 @@ namespace gui {
 
     glib::IntRect m_location;
 
-    AbstractView*     m_child_under_mouse_hovered = nullptr;
-    AbstractView*     m_child_under_mouse_pressed = nullptr;
-    glib::Vector2i    m_curr_mouse_position;
+    AbstractView*  m_child_under_mouse_hovered = nullptr;
+    AbstractView*  m_child_under_mouse_pressed = nullptr;
+    glib::Vector2i m_curr_mouse_position;
 
     bool m_should_close    = false;
     bool m_needs_to_render = true;
@@ -63,6 +63,8 @@ namespace gui {
     void MatchForClose();
 
     bool ShouldClose() const;
+
+    virtual void DeleteMatched();
 
     void Move(const glib::Vector2i& delta_position);
 

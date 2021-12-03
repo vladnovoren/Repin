@@ -10,6 +10,8 @@ namespace gui {
   class AbstractContainerView: public AbstractView {
    protected:
     std::list<AbstractView*> m_children;
+   public:
+    void DeleteMatched() override;
   };
 }
 

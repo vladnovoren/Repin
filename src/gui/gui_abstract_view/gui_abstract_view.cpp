@@ -60,6 +60,9 @@ bool gui::AbstractView::ShouldClose() const {
 }
 
 
+void gui::AbstractView::DeleteMatched() {}
+
+
 void gui::AbstractView::Move(const glib::Vector2i& delta_position) {
   m_location.m_position += delta_position;
 }

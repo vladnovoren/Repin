@@ -54,6 +54,7 @@ void gui::Button::Draw(glib::RenderTarget* render_target,
 gui::EventResult gui::Button::OnMouseButtonPressed(glib::Vector2i,
                                                    MouseButton button) {
   if (button == MouseButton::LEFT) {
+    ViewManager::GetInstance().AddMouseActiveView(this);
     m_skin->SetPressed();
     m_needs_to_render = true;
     return EventResult::PROCESSED;
@@ -83,12 +84,17 @@ gui::EventResult gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
 gui::EventResult gui::Button::OnMouseButtonReleased(glib::Vector2i mouse_position,
                                                     MouseButton button) {
   if (button == MouseButton::LEFT) {
+    ViewManager& view_manager = ViewManager::GetInstance();
+    if (this == view_manager.GetMouseActiveView()) {
+      view_manager.RemoveMouseActiveView(this);
+    }
     if (IsPointInside(mouse_position)) {
       m_functor->operator()();
       m_skin->SetHovered();
     } else {
       m_skin->SetIdle();
     }
+    m_needs_to_render = true;
   }
   return EventResult::PROCESSED;
 }

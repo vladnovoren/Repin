@@ -2,7 +2,7 @@
 
 
 App::App():
-     m_render_window(glib::Vector2f(800, 600), "Repin") {}
+     m_render_window(glib::Vector2f(1200, 800), "Repin") {}
 
 App::~App() = default;
 
@@ -20,6 +20,7 @@ void App::Exec() {
     while (is_polled) {
       m_view_manager.GetAndProcessEvent(&m_render_window, is_polled);
     }
+    m_view_manager.DeleteMatched();
     m_view_manager.Draw(&m_render_window);
     // double curr_time = m_render_window.ResetTime();
     // printf("FPS: %lf\n", 1.f / (curr_time - prev_time));
