@@ -9,13 +9,13 @@ glib::RenderTarget::RenderTarget(sf::RenderTarget* sf_render_target):
                     m_sf_render_target(sf_render_target) {}
 
 
-void glib::RenderTarget::Clear(const ColorRGB& color) {
+void glib::RenderTarget::Clear(const ColorRGBA& color) {
   m_sf_render_target->clear(GLibToSFMLColor(color));
 }
 
 
 void glib::RenderTarget::RenderLine(const glib::FloatLine& line,
-                                    const ColorRGB& color) {
+                                    const ColorRGBA& color) {
   sf::Vertex sf_line[] = {
     sf::Vertex(glib::GLibToSFMLVector2(line.m_begin), glib::GLibToSFMLColor(color)),
     sf::Vertex(glib::GLibToSFMLVector2(line.m_end), glib::GLibToSFMLColor(color))
@@ -25,7 +25,7 @@ void glib::RenderTarget::RenderLine(const glib::FloatLine& line,
 
 
 void glib::RenderTarget::RenderRect(const glib::FloatRect& rect,
-                                    const ColorRGB& color) {
+                                    const ColorRGBA& color) {
   sf::RectangleShape sf_rect(glib::GLibToSFMLVector2(rect.m_size));
   sf_rect.setPosition(glib::GLibToSFMLVector2(rect.m_position));
   sf_rect.setFillColor(glib::GLibToSFMLColor(color));
@@ -34,7 +34,7 @@ void glib::RenderTarget::RenderRect(const glib::FloatRect& rect,
 
 
 void glib::RenderTarget::RenderCircle(const glib::FloatCircle& circle,
-                                      const ColorRGB& color) {
+                                      const ColorRGBA& color) {
   sf::CircleShape sf_circle;
   sf_circle.setOrigin(sf::Vector2f(circle.m_radius, circle.m_radius));
   sf_circle.setRadius(circle.m_radius);

@@ -51,10 +51,21 @@ void gui::ViewManager::AddMouseActiveView(AbstractView* view) {
 }
 
 
+void gui::ViewManager::DeleteMatched() {
+  if (m_mouse_active_view->ShouldClose()) {
+    m_mouse_active_view = nullptr;
+  }
+}
+
+
 void gui::ViewManager::RemoveMouseActiveView(AbstractView* view) {
   assert(view != nullptr);
 
-  m_mouse_active_view = nullptr;
+  if (view == m_mouse_active_view) {
+    m_mouse_active_view = nullptr;
+  } else {
+    printf("tried to unfocus view that isn't under mouse\n");
+  }
 }
 
 

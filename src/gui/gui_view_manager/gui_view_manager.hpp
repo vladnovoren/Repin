@@ -33,6 +33,9 @@ namespace gui {
     void AddMouseActiveView(AbstractView* view);
     void RemoveMouseActiveView(AbstractView* view);
 
+    void DeleteMatchedDFS(AbstractView* view);
+    void DeleteMatched();
+
     EventResult ProcessEvent(AbstractView* view, const sf::Event& sf_event,
                              bool force = false);
     EventResult GetAndProcessEvent(glib::RenderWindow* render_window, bool& is_pooled);

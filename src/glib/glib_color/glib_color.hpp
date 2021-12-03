@@ -7,26 +7,28 @@
 
 
 namespace glib {
-  struct ColorRGB {
+  struct ColorRGBA {
     double r = 0;
     double g = 0;
     double b = 0;
+    double a = 1;
 
-    ColorRGB() = default;
-    ColorRGB(double r, double g, double b);
+    ColorRGBA() = default;
+    ColorRGBA(double r, double g, double b);
+    ColorRGBA(double r, double g, double b, double a);
 
-    ColorRGB& operator *= (const double mul);
-    ColorRGB& operator *= (const ColorRGB& right);
-    ColorRGB& operator += (const ColorRGB& right);
-    ColorRGB operator + (const ColorRGB& right) const;
-    ColorRGB operator * (const ColorRGB& right) const;
-    ColorRGB operator * (const double scalar) const;
-    friend ColorRGB operator * (const double scalar, const ColorRGB& color);
+    ColorRGBA& operator *= (const double mul);
+    ColorRGBA& operator *= (const ColorRGBA& right);
+    ColorRGBA& operator += (const ColorRGBA& right);
+    ColorRGBA operator + (const ColorRGBA& right) const;
+    ColorRGBA operator * (const ColorRGBA& right) const;
+    ColorRGBA operator * (const double scalar) const;
+    friend ColorRGBA operator * (const double scalar, const ColorRGBA& color);
   };
 
-  ColorRGB operator * (const double scalar, const ColorRGB& color);
+  ColorRGBA operator * (const double scalar, const ColorRGBA& color);
 
-  sf::Color GLibToSFMLColor(const ColorRGB& color);
+  sf::Color GLibToSFMLColor(const ColorRGBA& color);
 }
 
 

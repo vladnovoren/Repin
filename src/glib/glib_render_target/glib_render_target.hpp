@@ -17,11 +17,11 @@ namespace glib {
     RenderTarget(sf::RenderTarget* sf_render_target);
     virtual ~RenderTarget() = 0;
 
-    void Clear(const ColorRGB& color = ColorRGB());
+    void Clear(const ColorRGBA& color = ColorRGBA());
 
-    void RenderLine(const FloatLine& line, const ColorRGB& color);
-    void RenderRect(const FloatRect& rect, const ColorRGB& color);
-    void RenderCircle(const FloatCircle& circle, const ColorRGB& color);
+    void RenderLine(const FloatLine& line, const ColorRGBA& color);
+    void RenderRect(const FloatRect& rect, const ColorRGBA& color);
+    void RenderCircle(const FloatCircle& circle, const ColorRGBA& color);
 
     void CopyTexture(const Texture& texture, const Vector2f& position,
                      const FloatRect& texture_rect = FloatRect());

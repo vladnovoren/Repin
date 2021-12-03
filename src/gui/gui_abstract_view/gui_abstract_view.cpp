@@ -55,6 +55,11 @@ void gui::AbstractView::MatchForClose() {
 }
 
 
+bool gui::AbstractView::ShouldClose() const {
+  return m_should_close;
+}
+
+
 void gui::AbstractView::Move(const glib::Vector2i& delta_position) {
   m_location.m_position += delta_position;
 }

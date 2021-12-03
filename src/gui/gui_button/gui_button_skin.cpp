@@ -25,6 +25,7 @@ gui::AbstractButtonSkin::~AbstractButtonSkin() = default;
 
 void gui::AbstractButtonSkin::Render(const glib::Vector2i& size) {
   m_render_texture.Resize(size);
+  m_render_texture.Clear(glib::ColorRGBA(0, 0, 0, 0));
   m_render_texture.CopyTexture(m_source_texture, glib::Vector2f(), m_curr_texture_location);
   m_render_texture.Display();
   m_texture = m_render_texture.GetTexture();

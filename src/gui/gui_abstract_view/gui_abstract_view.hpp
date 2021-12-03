@@ -62,6 +62,8 @@ namespace gui {
 
     void MatchForClose();
 
+    bool ShouldClose() const;
+
     void Move(const glib::Vector2i& delta_position);
 
     virtual void Draw(glib::RenderTarget* render_target,
