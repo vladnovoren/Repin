@@ -8,7 +8,26 @@ gui::TitleBar::TitleBar(TitleBarSkin* skin):
 }
 
 
+gui::TitleBar::~TitleBar() {
+  delete(m_skin);
+  delete(m_minimize_button);
+  delete(m_maximize_button);
+  delete(m_close_button);
+  delete(m_title);
+}
+
+
 gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button) {
+  glib::Vector2i mouse_position_inside = mouse_position - m_location.m_position;
+  for (auto child_it =  m_children.begin();
+            child_it != m_children.end();
+            ++child_it) {
+    auto child_ptr = *child_it;
+    assert(child_ptr != nullptr);
+    if (child_ptr->IsPointInside(mouse_position_inside)) {
+      return child_ptr->OnMouseButtonPressed(mouse_position_inside, button);
+    }
+  }
   if (button == MouseButton::LEFT) {
     m_is_dragging = true;
   }
@@ -21,6 +40,16 @@ gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i mouse_positi
 gui::EventResult gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
   if (m_is_dragging) {
     Move(new_mouse_position - m_old_mouse_position);
+  } else {
+    glib::Vector2i new_mouse_position_inside = new_mouse_position -
+                                               m_location.m_position;
+    for (auto child_it =  m_children.begin();
+              child_it != m_children.end();
+              ++child_it) {
+      auto child_ptr = *child_it;
+      assert(child_ptr != nullptr);
+      child_ptr->OnMouseMove(new_mouse_position_inside);
+    }
   }
   m_old_mouse_position = new_mouse_position;
   return EventResult::PROCESSED;
@@ -40,18 +69,30 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
                          const glib::Vector2i& position) {
   assert(render_target != nullptr);
 
+  glib::Vector2i position_inside = position + m_location.m_position;
+
   if (m_needs_to_render) {
     m_skin->Render(m_location.m_size);
     m_needs_to_render = false;
   }
-  m_skin->Copy(render_target, position + m_location.m_position);
+  m_skin->CopyToRenderTarget(render_target, position_inside);
+
+  for (auto child_it =  m_children.begin();
+            child_it != m_children.end();
+            ++child_it) {
+    auto child_ptr = *child_it;
+    assert(child_ptr != nullptr);
+
+    child_ptr->Draw(render_target, position_inside);
+  }
 }
 
 
-void gui::TitleBar::AddSkin(TitleBarSkin* skin) {
+void gui::TitleBar::SetSkin(TitleBarSkin* skin) {
   assert(skin != nullptr);
 
-  m_skin = skin;
+  delete(m_skin);
+  m_skin = new TitleBarSkin(*skin);
 }
 
 
@@ -77,11 +118,3 @@ void gui::TitleBar::AddCloseButton(Button* close_button) {
   m_close_button = close_button;
   m_children.push_front(close_button);
 }
-
-
-// void gui::TitleBar::AddTitle(Title* title) {
-//   assert(title != nullptr);
-
-//   m_title = title;
-//   m_children.push_front(title);
-// }

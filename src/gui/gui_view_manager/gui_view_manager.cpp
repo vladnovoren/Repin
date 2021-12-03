@@ -4,12 +4,22 @@
 gui::ViewManager::ViewManager() {
   m_skin_manager.SetMinimizeButtonSkin(new CircleButtonSkin());
   m_skin_manager.SetMaximizeButtonSkin(new CircleButtonSkin());
-  m_skin_manager.SetCloseButtonSkin(new CircleButtonSkin());
-  m_skin_manager.SetTitleBarSkin(new TitleBarSkin());
+  m_skin_manager.SetCloseButtonSkin   (new CircleButtonSkin());
+  m_skin_manager.SetTitleBarSkin      (new TitleBarSkin());
   m_skin_manager.LoadFromFolder("Skins/aqua");
+
   TitleBar* title_bar = new TitleBar;
-  title_bar->AddSkin(m_skin_manager.GetTitleBarSkin());
+  title_bar->SetSkin(m_skin_manager.GetTitleBarSkin());
   title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
+
+  CloseViewFunctor* close_view_functor = new CloseViewFunctor(title_bar);
+
+  Button* close_button = new Button(close_view_functor,
+                                    m_skin_manager.GetCloseButtonSkin());
+  close_button->SetLocation(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)));
+
+  title_bar->AddCloseButton(close_button);
+
   m_root = title_bar;
 }
 
@@ -48,8 +58,13 @@ void gui::ViewManager::RemoveMouseActiveView(AbstractView* view) {
 }
 
 
-gui::AbstractView* gui::ViewManager::GetRoot() const {
+gui::AbstractView* gui::ViewManager::GetRoot() {
   return m_root;
+}
+
+
+gui::AbstractView* gui::ViewManager::GetMouseActiveView() {
+  return m_mouse_active_view;
 }
 
 
@@ -63,12 +78,10 @@ gui::EventResult gui::ViewManager::ProcessEvent(AbstractView* view,
 
   switch (sf_event.type) {
     case sf::Event::Closed:
-      // printf("closed\n");
       is_open = false;
       return view->OnClose();
 
     case sf::Event::MouseButtonPressed:
-      // printf("pressed\n");
       if (view->IsPointInside(mouse_position) || force) {
         mouse_position = glib::Vector2i(sf_event.mouseButton.x, sf_event.mouseButton.y);
         return view->OnMouseButtonPressed(mouse_position, button);
@@ -77,16 +90,13 @@ gui::EventResult gui::ViewManager::ProcessEvent(AbstractView* view,
       }
 
     case sf::Event::MouseButtonReleased:
-      // printf("released\n");
       if (view->IsPointInside(mouse_position) || force) {
-        // printf("pressed and entered\n");
         return view->OnMouseButtonReleased(mouse_position, button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
 
     case sf::Event::MouseMoved:
-      // printf("move\n");
       if (view->IsPointInside(mouse_position) || force) {
         return view->OnMouseMove(mouse_position);
       } else {

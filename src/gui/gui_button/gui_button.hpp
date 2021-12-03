@@ -1,6 +1,3 @@
-/**
- * \file
-*/
 #ifndef GUI_BUTTON_HPP
 #define GUI_BUTTON_HPP
 
@@ -21,12 +18,21 @@ namespace gui {
    public:
     Button() = default;
     Button(AbstractViewFunctor* functor, AbstractButtonSkin* skin);
-    ~Button() override = default;
+    ~Button() override;
+
+    bool IsPointInside(glib::Vector2i point) const override;
 
     void SetSkin(AbstractButtonSkin* skin);
     void SetFunctor(AbstractViewFunctor* functor);
 
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position) override;
+    void Draw(glib::RenderTarget* render_target,
+              const glib::Vector2i& position) override;
+
+    EventResult OnMouseButtonPressed(glib::Vector2i mouse_position,
+                                     MouseButton button) override;
+    EventResult OnMouseMove(glib::Vector2i new_mouse_position) override;
+    EventResult OnMouseButtonReleased(glib::Vector2i mouse_position,
+                                      MouseButton button) override;
   };
 }
 

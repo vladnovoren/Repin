@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16.3 FATAL_ERROR)
 
 project(Repin VERSION 1.0)
 
+
 # set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
 set(CMAKE_CXX_FLAGS "-g -fsanitize=address -Wall -Wextra -Werror -O2")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -29,6 +30,7 @@ set(GUI_SOURCE src/gui/gui_abstract_view/gui_abstract_view.cpp
                src/gui/gui_window/gui_title_bar.cpp
                src/gui/gui_window/gui_title_bar_skin.cpp
                src/gui/gui_event_system/gui_events.cpp
+               src/gui/gui_abstract_container_view/gui_abstract_container_view.cpp
 )
 
 

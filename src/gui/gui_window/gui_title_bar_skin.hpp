@@ -15,13 +15,16 @@ namespace gui {
     glib::IntRect       m_right_location;
 
     TitleBarSkin() = default;
+    TitleBarSkin(const TitleBarSkin& other);
     TitleBarSkin(const glib::Texture& source_texture, const glib::IntRect& left_location,
                  const glib::IntRect& middle_location,
                  const glib::IntRect& right_location);
     ~TitleBarSkin() override = default;
 
+    AbstractViewSkin* Copy() const override;
+
     void Render(const glib::Vector2i& size);
-    void Copy(glib::RenderTarget* render_target, const glib::Vector2i& position) const;
+    void CopyToRenderTarget(glib::RenderTarget* render_target, const glib::Vector2i& position) const;
     bool LoadFromFolder(const char* folder_path) override;
   };
 }

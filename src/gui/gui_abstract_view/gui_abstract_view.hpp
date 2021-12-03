@@ -1,13 +1,9 @@
-/**
- * \file Header file with describing of abstract view
-*/
 #ifndef GUI_ABSTRACT_VIEW_HPP
 #define GUI_ABSTRACT_VIEW_HPP
 
 
 #include "glib.hpp"
 #include "gui_abstract_view_skin.hpp"
-#include <list>
 
 
 namespace gui {
@@ -48,7 +44,7 @@ namespace gui {
 
     glib::IntRect Location() const;
 
-    bool IsPointInside(glib::Vector2i point) const;
+    virtual bool IsPointInside(glib::Vector2i point) const;
 
     virtual EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button);
 

@@ -11,6 +11,13 @@ gui::TitleBarSkin::TitleBarSkin(const glib::Texture& source_texture,
                    m_right_location(right_location) {}
 
 
+gui::TitleBarSkin::TitleBarSkin(const TitleBarSkin& other):
+                   m_source_texture(other.m_source_texture),
+                   m_left_location(other.m_left_location),
+                   m_middle_location(other.m_middle_location),
+                   m_right_location(other.m_right_location) {}
+
+
 bool gui::TitleBarSkin::LoadFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
@@ -73,9 +80,14 @@ void gui::TitleBarSkin::Render(const glib::Vector2i& size) {
 }
 
 
-void gui::TitleBarSkin::Copy(glib::RenderTarget* render_target,
+void gui::TitleBarSkin::CopyToRenderTarget(glib::RenderTarget* render_target,
                              const glib::Vector2i& position) const {
   assert(render_target != nullptr);
 
   render_target->CopyTexture(m_texture, position);
+}
+
+
+gui::AbstractViewSkin* gui::TitleBarSkin::Copy() const {
+  return new TitleBarSkin(*this);
 }

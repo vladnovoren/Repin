@@ -8,6 +8,11 @@
 #include "SFML/Graphics.hpp"
 
 
+#define PRINT_LINE_LOCATION \
+printf("file: %s\nfunction: %s\nline: %d\n", __FILE__, __PRETTY_FUNCTION__, __LINE__);
+
+
+
 namespace glib {
   size_t RoundUpDiv(const size_t divident, const size_t divider);
 

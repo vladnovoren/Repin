@@ -2,14 +2,14 @@
 #define GUI_TITLE_BAR_HPP
 
 
-#include "gui_abstract_view.hpp"
+#include "gui_abstract_container_view.hpp"
 #include "gui_button.hpp"
 #include "gui_title.hpp"
 #include "gui_title_bar_skin.hpp"
 
 
 namespace gui {
-  class TitleBar: public AbstractView {
+  class TitleBar: public AbstractContainerView {
    protected:
     TitleBarSkin* m_skin      = nullptr;
     Button* m_minimize_button = nullptr;
@@ -23,7 +23,7 @@ namespace gui {
    public:
     TitleBar() = default;
     TitleBar(TitleBarSkin* skin);
-    ~TitleBar() = default;
+    ~TitleBar();
 
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;
@@ -32,12 +32,12 @@ namespace gui {
     EventResult OnMouseButtonReleased(glib::Vector2i mouse_position, MouseButton button) override;
     EventResult OnMouseMove(glib::Vector2i new_mouse_position) override;
 
-    void AddSkin(TitleBarSkin* skin);
+    void SetSkin(TitleBarSkin* skin);
 
-    // void AddMinimizeButton(Button* minimize_button);
-    // void AddMaximizeButton(Button* maximize_button);
-    // void AddCloseButton(Button* close_button);
-    // void AddTitle(Title* title);
+    void AddMinimizeButton(Button* minimize_button);
+    void AddMaximizeButton(Button* maximize_button);
+    void AddCloseButton(Button* close_button);
+    void AddTitle(Title* title);
   };
 }
 

@@ -27,7 +27,9 @@ namespace gui {
 
     static ViewManager& GetInstance();
 
-    AbstractView* GetRoot() const;
+    AbstractView* GetRoot();
+    AbstractView* GetMouseActiveView();
+
     void AddMouseActiveView(AbstractView* view);
     void RemoveMouseActiveView(AbstractView* view);
 

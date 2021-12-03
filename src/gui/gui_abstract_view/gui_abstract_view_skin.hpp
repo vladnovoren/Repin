@@ -12,6 +12,7 @@ namespace gui {
     virtual ~AbstractViewSkin() = default;
 
     virtual bool LoadFromFolder(const char* folder_path) = 0;
+    virtual AbstractViewSkin* Copy() const = 0;
   };
 };
 

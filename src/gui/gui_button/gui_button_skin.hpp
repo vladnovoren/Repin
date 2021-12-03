@@ -17,7 +17,8 @@ namespace gui {
     glib::IntRect       m_pressed_texture_location;
 
     AbstractButtonSkin() = default;
-    AbstractButtonSkin(const glib::Texture& texture,
+    AbstractButtonSkin(const AbstractButtonSkin& other);
+    AbstractButtonSkin(const glib::Texture& source_texture,
                        const glib::IntRect& idle_texture_location,
                        const glib::IntRect& hovered_texture_location,
                        const glib::IntRect& pressed_texture_location);
@@ -25,35 +26,46 @@ namespace gui {
 
     bool LoadFromFolder(const char* folder_path) override;
 
+    virtual bool IsPointInside(const glib::IntRect& location,
+                               glib::Vector2i point) const = 0;
+
     void Render(const glib::Vector2i& size);
-    void Copy(glib::RenderTarget* render_target,
+    void CopyToRenderTarget(glib::RenderTarget* render_target,
               const glib::Vector2i& position) const;
+
+    void SetIdle();
+    void SetHovered();
+    void SetPressed();
   };
 
 
   struct RectButtonSkin: AbstractButtonSkin {
     RectButtonSkin() = default;
-    RectButtonSkin(const glib::Texture& texture,
+    RectButtonSkin(const glib::Texture& source_texture,
                    const glib::IntRect& idle_texture_location,
                    const glib::IntRect& hovered_texture_location,
                    const glib::IntRect& pressed_texture_location);
     ~RectButtonSkin() override = default;
 
     bool IsPointInside(const glib::IntRect& location,
-                       const glib::Vector2i& point) const;
+                       glib::Vector2i point) const override;
+
+    AbstractViewSkin* Copy() const override;
   };
 
 
   struct CircleButtonSkin: AbstractButtonSkin {
     CircleButtonSkin() = default;
-    CircleButtonSkin(const glib::Texture& texture,
-                     const glib::IntRect& idle_texture,
-                     const glib::IntRect& hovered_texture,
-                     const glib::IntRect& pressed_texture);
+    CircleButtonSkin(const glib::Texture& source_texture,
+                     const glib::IntRect& idle_texture_location,
+                     const glib::IntRect& hovered_texture_location,
+                     const glib::IntRect& pressed_texture_location);
     ~CircleButtonSkin() override = default;
 
     bool IsPointInside(const glib::IntRect& location,
-                       const glib::Vector2i& point) const;
+                       glib::Vector2i point) const override;
+
+    AbstractViewSkin* Copy() const override;
   };
 }
 
