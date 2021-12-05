@@ -8,19 +8,31 @@
 
 
 namespace glib {
+  enum class TextAlign {
+    LEFT,
+    CENTER,
+    RIGHT
+  };
+
   class Text {
    protected:
-    sf::Text m_sf_text;
+    TextAlign m_text_align = TextAlign::CENTER;
+    sf::Text  m_sf_text;
    public:
     Text() = default;
-    Text(const char* label, const Font& font);
+    Text(const char* label, Font* font);
     ~Text() = default;
 
+    sf::Text GetSFMLText() const;
+
+    void UpdateOrigin();
+
+    void SetAlign(TextAlign align);
+    void SetFont(Font* font);
     void SetLabel(const char* label);
     void SetFontSize(unsigned int size);
     void SetColor(const ColorRGBA& color);
     void SetPosition(const Vector2i& position);
-    void SetCenterPosition(const Vector2i& center_position);
 
     Vector2i GetSize() const;
 

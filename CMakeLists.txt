@@ -1,10 +1,26 @@
 cmake_minimum_required(VERSION 3.16.3 FATAL_ERROR)
 
-project(Repin VERSION 1.0)
+project(Repin VERSION 1.0 LANGUAGES CXX)
 
+set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_CXX_STANDARD 20)
 
-# set(CMAKE_CXX_FLAGS "-g -Wall -Wextra -Werror -O2")
-set(CMAKE_CXX_FLAGS "-g -fsanitize=address -Wall -Wextra -Werror -O2")
+add_compile_options(
+    -O2
+
+    -g
+    -fsanitize=address
+
+    -Werror
+    -Wall
+    -Wextra
+    -Wpedantic
+)
+
+add_link_options(
+    -fsanitize=address
+)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
@@ -28,6 +44,7 @@ set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_button/gui_button_skin.cpp
                src/gui/gui_skin_manager/gui_skin_manager.cpp
                src/gui/gui_widget_manager/gui_widget_manager.cpp
+               src/gui/gui_window/gui_title_bar/gui_title.cpp
                src/gui/gui_window/gui_title_bar/gui_title_bar.cpp
                src/gui/gui_window/gui_title_bar/gui_title_bar_skin.cpp
                src/gui/gui_event_system/gui_events.cpp
@@ -60,6 +77,10 @@ add_library(gui STATIC ${GUI_SOURCE})
 
 add_executable(Repin src/app.cpp)
 
+add_executable(TestFontText Test/test_my_font_text.cpp)
+
 target_link_libraries(glib PUBLIC sfml-graphics)
 target_link_libraries(gui PUBLIC glib)
 target_link_libraries(Repin PUBLIC gui)
+target_link_libraries(TestFontText PUBLIC glib)
+target_link_libraries(TestFontText PUBLIC gui)

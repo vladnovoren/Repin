@@ -1,6 +1,11 @@
 #include "gui_skin_manager.hpp"
 
 
+gui::SkinManager::SkinManager() {
+  LoadSanFranciscoFont();
+}
+
+
 gui::SkinManager::SkinManager(AbstractButtonSkin* minimize_button_skin,
                               AbstractButtonSkin* maximize_button_skin,
                               AbstractButtonSkin* close_button_skin,
@@ -13,6 +18,19 @@ gui::SkinManager::SkinManager(AbstractButtonSkin* minimize_button_skin,
   assert(maximize_button_skin != nullptr);
   assert(close_button_skin    != nullptr);
   assert(title_bar_skin       != nullptr);
+
+  LoadSanFranciscoFont();
+}
+
+
+gui::SkinManager::~SkinManager() {
+  delete m_san_francisco_font;
+}
+
+
+void gui::SkinManager::LoadSanFranciscoFont() {
+  m_san_francisco_font = new glib::Font("SanFrancisco/SF-Pro-Display-Regular.otf");
+  assert(m_san_francisco_font != nullptr);
 }
 
 
@@ -105,4 +123,9 @@ gui::AbstractButtonSkin* gui::SkinManager::GetCloseButtonSkin() const {
 
 gui::TitleBarSkin* gui::SkinManager::GetTitleBarSkin() const {
   return m_title_bar_skin;
+}
+
+
+glib::Font* gui::SkinManager::GetSanFranciscoFont() const {
+  return m_san_francisco_font;
 }

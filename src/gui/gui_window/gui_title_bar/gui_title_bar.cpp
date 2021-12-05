@@ -13,7 +13,8 @@ gui::TitleBar::~TitleBar() {
 }
 
 
-gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button) {
+gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i mouse_position,
+                                                     MouseButton button) {
   glib::Vector2i mouse_position_inside = mouse_position - m_location.m_position;
   for (auto child_it =  m_children.begin();
             child_it != m_children.end();
@@ -52,7 +53,8 @@ gui::EventResult gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
 }
 
 
-gui::EventResult gui::TitleBar::OnMouseButtonReleased(glib::Vector2i, MouseButton button) {
+gui::EventResult gui::TitleBar::OnMouseButtonReleased(glib::Vector2i,
+                                                      MouseButton button) {
   WidgetManager& widget_manager = WidgetManager::GetInstance();
   if (button == MouseButton::LEFT) {
     m_is_dragging = false;
@@ -116,4 +118,12 @@ void gui::TitleBar::AddCloseButton(Button* close_button) {
 
   close_button->m_parent_widget = this;
   m_children.push_front(close_button);
+}
+
+
+void gui::TitleBar::AddTitle(Title* title) {
+  assert(title != nullptr);
+
+  title->m_parent_widget = this;
+  m_children.push_front(title);
 }

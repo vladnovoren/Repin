@@ -15,6 +15,8 @@ class App {
  public:
   static App& GetInstance();
 
+  glib::RenderWindow* GetRenderWindow();
+
   void Exec();
 };
 

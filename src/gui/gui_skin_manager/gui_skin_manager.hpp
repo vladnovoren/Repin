@@ -14,13 +14,16 @@ namespace gui {
     AbstractButtonSkin* m_maximize_button_skin = nullptr;
     AbstractButtonSkin* m_close_button_skin    = nullptr;
     TitleBarSkin*       m_title_bar_skin       = nullptr;
+    glib::Font*         m_san_francisco_font   = nullptr;
    public:
-    SkinManager() = default;
+    SkinManager();
     SkinManager(AbstractButtonSkin* minimize_button_skin,
                 AbstractButtonSkin* maximize_button_skin,
                 AbstractButtonSkin* close_button_skin,
                 TitleBarSkin* title_bar_skin);
-    ~SkinManager() = default;
+    ~SkinManager();
+
+    void LoadSanFranciscoFont();
 
     void SetMinimizeButtonSkin(AbstractButtonSkin* minimize_button_skin);
     void SetMaximizeButtonSkin(AbstractButtonSkin* maximize_button_skin);
@@ -31,6 +34,7 @@ namespace gui {
     AbstractButtonSkin* GetMaximizeButtonSkin() const;
     AbstractButtonSkin* GetCloseButtonSkin() const;
     TitleBarSkin*       GetTitleBarSkin() const;
+    glib::Font*         GetSanFranciscoFont() const;
 
     bool LoadFromFolder(const char* folder_path);
   };

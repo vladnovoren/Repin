@@ -5,6 +5,7 @@
 #include "SFML/Graphics.hpp"
 #include "glib_primitives.hpp"
 #include "glib_texture.hpp"
+#include "glib_text.hpp"
 
 
 namespace glib {
@@ -22,6 +23,8 @@ namespace glib {
     void RenderLine(const IntLine& line, const ColorRGBA& color);
     void RenderRect(const IntRect& rect, const ColorRGBA& color);
     void RenderCircle(const IntCircle& circle, const ColorRGBA& color);
+
+    void RenderText(Text* text, const Vector2i& position);
 
     void CopyTexture(const Texture& texture, const Vector2i& position,
                      const IntRect& texture_rect = IntRect());

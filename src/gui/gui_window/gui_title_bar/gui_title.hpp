@@ -15,9 +15,11 @@ namespace gui {
           unsigned int font_size);
     ~Title() = default;
 
+    void SetText(const glib::Text& text);
     void SetLabel(const char* label);
-    void SetCenterPosition(const glib::Vector2i& center_position);
     void SetFontSize(unsigned int font_size);
+
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position) override;
   };
 }
 

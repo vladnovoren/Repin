@@ -1,5 +1,7 @@
 #include "glib_render_target.hpp"
+#include "glib_render_window.hpp"
 #include "glib_render_texture.hpp"
+#include "app.hpp"
 
 
 glib::RenderTarget::~RenderTarget() = default;
@@ -41,6 +43,18 @@ void glib::RenderTarget::RenderCircle(const glib::IntCircle& circle,
   sf_circle.setPosition(circle.m_center.x, circle.m_center.y);
   sf_circle.setFillColor(GLibToSFMLColor(color));
   m_sf_render_target->draw(sf_circle);
+}
+
+
+void glib::RenderTarget::RenderText(Text* text, const Vector2i& position) {
+  assert((void*)this != nullptr);
+  assert(text != nullptr);
+  assert((void*)&position != nullptr);
+  assert(m_sf_render_target != nullptr);
+
+  text->SetPosition(position);
+  sf::Text sf_text = text->GetSFMLText();
+  m_sf_render_target->draw(sf_text);
 }
 
 

@@ -34,6 +34,6 @@ double glib::RenderWindow::ResetTime() {
 }
 
 
-const sf::RenderWindow* glib::RenderWindow::GetSFMLRenderWindow() {
+sf::RenderWindow* glib::RenderWindow::GetSFMLRenderWindow() {
   return &m_sf_render_window;
 }

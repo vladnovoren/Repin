@@ -18,7 +18,6 @@ namespace gui {
 
     EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button) override;
     EventResult OnMouseMove(glib::Vector2i mouse_position, MouseButton button) override;
-    void 
 
     void AddTitleBar(TitleBar* title_bar);
   };

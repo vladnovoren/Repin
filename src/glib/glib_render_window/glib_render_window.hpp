@@ -21,7 +21,7 @@ namespace glib {
 
     bool PollEvent(sf::Event* sf_event);
 
-    const sf::RenderWindow* GetSFMLRenderWindow();
+    sf::RenderWindow* GetSFMLRenderWindow();
   };
 }
 

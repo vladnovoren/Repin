@@ -14,7 +14,7 @@ namespace gui {
     virtual bool LoadFromFolder(const char* folder_path) = 0;
     virtual AbstractWidgetSkin* Copy() const = 0;
   };
-};
+}
 
 
 #endif /* gui_abstract_widget_skin.hpp */

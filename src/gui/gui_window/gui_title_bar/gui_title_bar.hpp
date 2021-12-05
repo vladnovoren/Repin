@@ -11,7 +11,7 @@
 namespace gui {
   class TitleBar: public AbstractContainerWidget {
    protected:
-    TitleBarSkin* m_skin      = nullptr;
+    TitleBarSkin* m_skin = nullptr;
 
     glib::Vector2i m_old_mouse_position;
 
@@ -24,8 +24,10 @@ namespace gui {
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;
 
-    EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button) override;
-    EventResult OnMouseButtonReleased(glib::Vector2i mouse_position, MouseButton button) override;
+    EventResult OnMouseButtonPressed(glib::Vector2i mouse_position,
+                                     MouseButton button) override;
+    EventResult OnMouseButtonReleased(glib::Vector2i mouse_position,
+                                      MouseButton button) override;
     EventResult OnMouseMove(glib::Vector2i new_mouse_position) override;
 
     void SetSkin(TitleBarSkin* skin);
