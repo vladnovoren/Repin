@@ -4,8 +4,10 @@
 
 // Button
 //==============================================================================
-gui::Button::Button(AbstractWidgetFunctor* functor, AbstractButtonSkin* skin):
-             m_functor(functor), m_skin(skin) {
+gui::Button::Button(const glib::IntRect& location,
+                    AbstractWidgetFunctor* functor,
+                    AbstractButtonSkin* skin):
+             AbstractWidget(location), m_functor(functor), m_skin(skin) {
   assert(functor != nullptr);
   assert(skin    != nullptr);
 }

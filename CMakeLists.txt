@@ -10,7 +10,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_color/glib_color.cpp
-                src/glib/glib_events/glib_convert_events.cpp
                 src/glib/glib_events/glib_events.cpp
                 src/glib/glib_primitives/glib_primitives.cpp
                 src/glib/glib_render_target/glib_render_target.cpp
@@ -18,6 +17,8 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_render_window/glib_render_window.cpp
                 src/glib/glib_texture/glib_texture.cpp
                 src/glib/glib_tools/glib_tools.cpp
+                src/glib/glib_text/glib_text.cpp
+                src/glib/glib_font/glib_font.cpp
 )
 
 set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
@@ -27,8 +28,8 @@ set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_button/gui_button_skin.cpp
                src/gui/gui_skin_manager/gui_skin_manager.cpp
                src/gui/gui_widget_manager/gui_widget_manager.cpp
-               src/gui/gui_window/gui_title_bar.cpp
-               src/gui/gui_window/gui_title_bar_skin.cpp
+               src/gui/gui_window/gui_title_bar/gui_title_bar.cpp
+               src/gui/gui_window/gui_title_bar/gui_title_bar_skin.cpp
                src/gui/gui_event_system/gui_events.cpp
                src/gui/gui_abstract_container_widget/gui_abstract_container_widget.cpp
 )

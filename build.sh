@@ -1,6 +1,5 @@
 mkdir build
 cd build
-cmake ..
-make -j8
+cmake --build . -- -j8
 cd ..
 

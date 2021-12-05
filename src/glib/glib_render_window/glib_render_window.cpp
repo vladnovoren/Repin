@@ -1,10 +1,9 @@
 #include "glib_render_window.hpp"
 
 
-glib::RenderWindow::RenderWindow(const Vector2f& size, const char* title):
+glib::RenderWindow::RenderWindow(const Vector2i& size, const char* title):
                     RenderTarget(&m_sf_render_window) {
   m_sf_render_window.create(sf::VideoMode(size.x, size.y), title);
-  m_sf_render_window.setVerticalSyncEnabled(true);
 }
 
 
@@ -13,7 +12,7 @@ glib::RenderWindow::~RenderWindow() {
 }
 
 
-void glib::RenderWindow::Resize(const Vector2f& size) {
+void glib::RenderWindow::Resize(const Vector2i& size) {
   m_sf_render_window.setSize(sf::Vector2u(size.x, size.y));
 }
 

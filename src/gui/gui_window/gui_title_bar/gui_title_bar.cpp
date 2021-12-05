@@ -10,10 +10,6 @@ gui::TitleBar::TitleBar(TitleBarSkin* skin):
 
 gui::TitleBar::~TitleBar() {
   delete(m_skin);
-  delete(m_minimize_button);
-  delete(m_maximize_button);
-  delete(m_close_button);
-  delete(m_title);
 }
 
 
@@ -102,7 +98,6 @@ void gui::TitleBar::SetSkin(TitleBarSkin* skin) {
 void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
   assert(minimize_button != nullptr);
 
-  m_minimize_button = minimize_button;
   minimize_button->m_parent_widget = this;
   m_children.push_front(minimize_button);
 }
@@ -111,7 +106,6 @@ void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
 void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
   assert(maximize_button != nullptr);
 
-  m_maximize_button = maximize_button;
   maximize_button->m_parent_widget = this;
   m_children.push_front(maximize_button);
 }
@@ -120,7 +114,6 @@ void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
 void gui::TitleBar::AddCloseButton(Button* close_button) {
   assert(close_button != nullptr);
 
-  m_close_button = close_button;
   close_button->m_parent_widget = this;
   m_children.push_front(close_button);
 }

@@ -19,15 +19,15 @@ namespace glib {
 
     void Clear(const ColorRGBA& color = ColorRGBA());
 
-    void RenderLine(const FloatLine& line, const ColorRGBA& color);
-    void RenderRect(const FloatRect& rect, const ColorRGBA& color);
-    void RenderCircle(const FloatCircle& circle, const ColorRGBA& color);
+    void RenderLine(const IntLine& line, const ColorRGBA& color);
+    void RenderRect(const IntRect& rect, const ColorRGBA& color);
+    void RenderCircle(const IntCircle& circle, const ColorRGBA& color);
 
-    void CopyTexture(const Texture& texture, const Vector2f& position,
-                     const FloatRect& texture_rect = FloatRect());
+    void CopyTexture(const Texture& texture, const Vector2i& position,
+                     const IntRect& texture_rect = IntRect());
     void CopyRenderTexture(const RenderTexture& render_texture,
-                           const Vector2f& position,
-                           const FloatRect& texture_rect = FloatRect());
+                           const Vector2i& position,
+                           const IntRect& texture_rect = IntRect());
 
     virtual void Display() = 0;
   };

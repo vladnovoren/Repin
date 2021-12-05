@@ -11,10 +11,12 @@ namespace gui {
    protected:
     std::list<AbstractWidget*> m_children;
    public:
+    AbstractContainerWidget() = default;
+    AbstractContainerWidget(const glib::IntRect& location);
+    virtual ~AbstractContainerWidget() = 0;
     void DeleteMatched() override;
   };
 }
-
 
 
 #endif /* gui_abstract_container_widget.hpp */

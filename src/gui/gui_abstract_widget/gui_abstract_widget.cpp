@@ -1,6 +1,10 @@
 #include "gui_abstract_widget.hpp"
 
 
+gui::AbstractWidget::AbstractWidget(const glib::IntRect& location):
+                     m_location(location) {}
+
+
 gui::AbstractWidget::~AbstractWidget() {}
 
 

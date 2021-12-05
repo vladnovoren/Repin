@@ -12,10 +12,10 @@ namespace glib {
       Texture           m_texture;
     public:
       RenderTexture();
-      RenderTexture(const Vector2f& size);
+      RenderTexture(const Vector2i& size);
       ~RenderTexture() = default;
 
-      void Resize(const Vector2f& size);
+      void Resize(const Vector2i& size);
       const Texture& GetTexture();
       const sf::RenderTexture& GetSFMLRenderTexture() const;
 

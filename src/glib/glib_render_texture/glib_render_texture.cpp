@@ -5,13 +5,13 @@ glib::RenderTexture::RenderTexture():
                      RenderTarget(&m_sf_render_texture) {}
 
 
-glib::RenderTexture::RenderTexture(const Vector2f& size):
+glib::RenderTexture::RenderTexture(const Vector2i& size):
                      RenderTarget(&m_sf_render_texture) {
   m_sf_render_texture.create(size.x, size.y);
 }
 
 
-void glib::RenderTexture::Resize(const Vector2f& size) {
+void glib::RenderTexture::Resize(const Vector2i& size) {
   m_sf_render_texture.create(size.x, size.y);
 }
 

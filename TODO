@@ -1,5 +1,1 @@
-OnMouseMove & OnLeftMouseMove & OnRightMouseMove
-OnMouseMove:
-вызываем от ребенка, если ребенок был hovered
-OnMouseDrag:
-вызываем от ребенка, если ребенок был pressed
+перевести glib на int

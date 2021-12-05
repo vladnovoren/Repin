@@ -9,6 +9,8 @@
 #include "glib_render_texture.hpp"
 #include "glib_render_window.hpp"
 #include "glib_texture.hpp"
+#include "glib_font.hpp"
+#include "glib_text.hpp"
 
 
 #endif /* glib.hpp */

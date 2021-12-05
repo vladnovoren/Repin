@@ -30,12 +30,12 @@ namespace gui {
     glib::IntRect m_location;
 
     AbstractWidget* m_parent_widget = nullptr;
-    glib::Vector2i m_curr_mouse_position;
 
     bool m_should_close    = false;
     bool m_needs_to_render = true;
    public:
     AbstractWidget() = default;
+    AbstractWidget(const glib::IntRect& location);
     virtual ~AbstractWidget() = 0;
 
 

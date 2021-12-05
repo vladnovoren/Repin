@@ -12,10 +12,6 @@ namespace gui {
   class TitleBar: public AbstractContainerWidget {
    protected:
     TitleBarSkin* m_skin      = nullptr;
-    Button* m_minimize_button = nullptr;
-    Button* m_maximize_button = nullptr;
-    Button* m_close_button    = nullptr;
-    Title* m_title            = nullptr;
 
     glib::Vector2i m_old_mouse_position;
 
@@ -36,8 +32,8 @@ namespace gui {
 
     void AddMinimizeButton(Button* minimize_button);
     void AddMaximizeButton(Button* maximize_button);
-    void AddCloseButton(Button* close_button);
-    void AddTitle(Title* title);
+    void AddCloseButton   (Button* close_button);
+    void AddTitle         (Title* title);
   };
 }
 

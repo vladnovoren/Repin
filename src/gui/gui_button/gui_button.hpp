@@ -17,7 +17,9 @@ namespace gui {
     AbstractButtonSkin*     m_skin = nullptr;
    public:
     Button() = default;
-    Button(AbstractWidgetFunctor* functor, AbstractButtonSkin* skin);
+    Button(const glib::IntRect& location,
+           AbstractWidgetFunctor* functor,
+           AbstractButtonSkin* skin);
     ~Button() override;
 
     bool IsPointInside(glib::Vector2i point) const override;

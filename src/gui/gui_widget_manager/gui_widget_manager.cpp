@@ -12,13 +12,26 @@ gui::WidgetManager::WidgetManager() {
   title_bar->SetSkin(m_skin_manager.GetTitleBarSkin());
   title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(1200, 21)));
 
-  CloseWidgetFunctor* close_widget_functor = new CloseWidgetFunctor(title_bar);
+  CloseWidgetFunctor* close_widget_functor    = new CloseWidgetFunctor(title_bar);
+  CloseWidgetFunctor* maximize_widget_functor = new CloseWidgetFunctor(title_bar);
+  CloseWidgetFunctor* minimize_widget_functor = new CloseWidgetFunctor(title_bar);
+
 
   Button* close_button = new Button(close_widget_functor,
                                     m_skin_manager.GetCloseButtonSkin());
   close_button->SetLocation(glib::IntRect(glib::Vector2i(1181, 3), glib::Vector2i(14, 15)));
 
+  Button* maximize_button = new Button(maximize_widget_functor,
+                                       m_skin_manager.GetMaximizeButtonSkin());
+  maximize_button->SetLocation(glib::IntRect(glib::Vector2i(1162, 3), glib::Vector2i(14, 15)));
+
+  Button* minimize_button = new Button(minimize_widget_functor,
+                                       m_skin_manager.GetMinimizeButtonSkin());
+  minimize_button->SetLocation(glib::IntRect(glib::Vector2i(1143, 3), glib::Vector2i(14, 15)));
+
   title_bar->AddCloseButton(close_button);
+  title_bar->AddMaximizeButton(maximize_button);
+  title_bar->AddMinimizeButton(minimize_button);
 
   m_root = title_bar;
 }

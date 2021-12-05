@@ -1,7 +1,7 @@
 #ifndef GLIB_RENDER_WINDOW_HPP
 #define GLIB_RENDER_WINDOW_HPP
 
-#include "glib_convert_events.hpp"
+
 #include "glib_render_target.hpp"
 
 
@@ -11,10 +11,10 @@ namespace glib {
     sf::Clock m_sf_clock;
   public:
     RenderWindow() = default;
-    RenderWindow(const Vector2f& size, const char* title);
+    RenderWindow(const Vector2i& size, const char* title);
     ~RenderWindow() override;
 
-    void Resize(const Vector2f& size);
+    void Resize(const Vector2i& size);
 
     void Display() override;
     double ResetTime();
