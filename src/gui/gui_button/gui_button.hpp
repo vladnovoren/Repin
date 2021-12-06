@@ -30,10 +30,13 @@ namespace gui {
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;
 
-    EventResult OnMouseButtonPressed(glib::Vector2i mouse_position,
+    EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
+                                     glib::Vector2i global_mouse_position,
                                      MouseButton button) override;
-    EventResult OnMouseMove(glib::Vector2i new_mouse_position) override;
-    EventResult OnMouseButtonReleased(glib::Vector2i mouse_position,
+    EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
+                            glib::Vector2i new_global_mouse_position) override;
+    EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
+                                      glib::Vector2i global_mouse_position,
                                       MouseButton button) override;
   };
 }

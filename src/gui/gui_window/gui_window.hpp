@@ -2,24 +2,35 @@
 #define GUI_WINDOW_HPP
 
 
-#include "gui_abstract_widget.hpp"
+#include "gui_abstract_container_widget.hpp"
 #include "gui_title_bar.hpp"
-#include "gui_abstract_widget_skin.hpp"
+#include "gui_window_skin.hpp"
 
 
 namespace gui {
-  class Window: public AbstractWidget {
+  class Window: public AbstractContainerWidget {
    protected:
-    TitleBar* m_title_bar = nullptr;
+    TitleBar* m_title_bar            = nullptr;
+    AbstractWidget* m_content_widget = nullptr;
+    WindowSkin* m_skin               = nullptr;
    public:
     Window() = default;
-    Window(DefaultWidgetSkin* skin);
-    ~Window() = default;
+    Window(WindowSkin* skin);
+    ~Window();
 
-    EventResult OnMouseButtonPressed(glib::Vector2i mouse_position, MouseButton button) override;
-    EventResult OnMouseMove(glib::Vector2i mouse_position, MouseButton button) override;
+    EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
+                                     glib::Vector2i global_mouse_position,
+                                     MouseButton button) override;
+    EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
+                                      glib::Vector2i global_mouse_position,
+                                      MouseButton button) override;
+    EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
+                            glib::Vector2i new_global_mouse_position) override;
 
     void AddTitleBar(TitleBar* title_bar);
+    void AddContent(AbstractWidget* content_widget);
+
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position) override;
   };
 }
 

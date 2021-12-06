@@ -7,35 +7,41 @@ gui::WidgetManager::WidgetManager() {
   m_skin_manager.SetMaximizeButtonSkin(new CircleButtonSkin());
   m_skin_manager.SetCloseButtonSkin   (new CircleButtonSkin());
   m_skin_manager.SetTitleBarSkin      (new TitleBarSkin());
+  m_skin_manager.SetWindowSkin        (new WindowSkin());
   m_skin_manager.LoadFromFolder       ("Skins/aqua");
+
+  assert(m_skin_manager.GetWindowSkin());
 
   glib::Text title_text("Canvas", m_skin_manager.GetSanFranciscoFont());
   title_text.SetFontSize(14);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
+  Window* window = new Window(m_skin_manager.GetWindowSkin());
+  window->SetLocation(glib::IntRect(glib::Vector2i(), glib::Vector2i(800, 600)));
+  MoveFunctor* window_move_functor = new MoveFunctor(window);
+
   Title* title = new Title;
-  title->SetLocation(glib::IntRect(glib::Vector2i(600, 0), glib::Vector2i()));
+  title->SetLocation(glib::IntRect(glib::Vector2i(400, 0), glib::Vector2i()));
   title->SetText(title_text);
 
-  sf::RenderWindow sf_render_window(sf::VideoMode(1200, 800), "Test window");
-
   TitleBar* title_bar = new TitleBar;
+  title_bar->SetMoveFunctor(window_move_functor);
   title_bar->SetSkin(m_skin_manager.GetTitleBarSkin());
-  title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(1200, 21)));
+  title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
 
-  CloseWidgetFunctor* close_widget_functor    = new CloseWidgetFunctor(title_bar);
+  CloseWidgetFunctor* close_widget_functor    = new CloseWidgetFunctor(window);
   CloseWidgetFunctor* maximize_widget_functor = new CloseWidgetFunctor(title_bar);
   CloseWidgetFunctor* minimize_widget_functor = new CloseWidgetFunctor(title_bar);
 
-  Button* close_button = new Button(glib::IntRect(glib::Vector2i(1181, 3), glib::Vector2i(14, 15)),
+  Button* close_button = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
                                     close_widget_functor,
                                     m_skin_manager.GetCloseButtonSkin());
 
-  Button* maximize_button = new Button(glib::IntRect(glib::Vector2i(1162, 3), glib::Vector2i(14, 15)),
+  Button* maximize_button = new Button(glib::IntRect(glib::Vector2i(762, 3), glib::Vector2i(14, 15)),
                                        maximize_widget_functor,
                                        m_skin_manager.GetMaximizeButtonSkin());
 
-  Button* minimize_button = new Button(glib::IntRect(glib::Vector2i(1143, 3), glib::Vector2i(14, 15)),
+  Button* minimize_button = new Button(glib::IntRect(glib::Vector2i(743, 3), glib::Vector2i(14, 15)),
                                        minimize_widget_functor,
                                        m_skin_manager.GetMinimizeButtonSkin());
 
@@ -43,8 +49,9 @@ gui::WidgetManager::WidgetManager() {
   title_bar->AddMaximizeButton(maximize_button);
   title_bar->AddMinimizeButton(minimize_button);
   title_bar->AddTitle(title);
+  window->AddTitleBar(title_bar);
 
-  m_root = title_bar;
+  m_root = window;
 }
 
 
@@ -122,7 +129,7 @@ gui::EventResult gui::WidgetManager::ProcessEvent(AbstractWidget* widget,
 
   MouseButton button = SFMLToGUIMouseButton(sf_event.mouseButton.button);
   glib::Vector2i mouse_position = GetMousePositionFromSfEvent(sf_event);
-  mouse_position = widget->PointRelativeToParent(mouse_position);
+  glib::Vector2i local_mouse_position = widget->PointRelativeToParent(mouse_position);
 
   switch (sf_event.type) {
     case sf::Event::Closed:
@@ -131,21 +138,21 @@ gui::EventResult gui::WidgetManager::ProcessEvent(AbstractWidget* widget,
 
     case sf::Event::MouseButtonPressed:
       if (widget->IsPointInside(mouse_position) || force) {
-        return widget->OnMouseButtonPressed(mouse_position, button);
+        return widget->OnMouseButtonPressed(local_mouse_position, mouse_position, button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
 
     case sf::Event::MouseButtonReleased:
       if (widget->IsPointInside(mouse_position) || force) {
-        return widget->OnMouseButtonReleased(mouse_position, button);
+        return widget->OnMouseButtonReleased(local_mouse_position, mouse_position, button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
 
     case sf::Event::MouseMoved:
       if (widget->IsPointInside(mouse_position) || force) {
-        return widget->OnMouseMove(mouse_position);
+        return widget->OnMouseMove(local_mouse_position, mouse_position);
       } else {
         return EventResult::NOT_PROCESSED;
       }
@@ -169,7 +176,7 @@ gui::EventResult gui::WidgetManager::ProcessMouseEventOnSignedWidget(glib::Rende
 
 
 gui::EventResult gui::WidgetManager::GetAndProcessEvent(glib::RenderWindow* render_window,
-                                                      bool& is_pooled) {
+                                                        bool& is_pooled) {
   assert(render_window != nullptr);
 
   sf::Event sf_event;
@@ -187,9 +194,10 @@ gui::EventResult gui::WidgetManager::GetAndProcessEvent(glib::RenderWindow* rend
     return EventResult::NOT_PROCESSED;
   }
 
-
   if (IsMouseEvent(sf_event)) {
-    ProcessMouseEventOnSignedWidget(render_window, sf_event);
+    if (ProcessMouseEventOnSignedWidget(render_window, sf_event) == EventResult::PROCESSED) {
+      return EventResult::PROCESSED;
+    }
   }
 
   return ProcessEvent(m_root, sf_event);

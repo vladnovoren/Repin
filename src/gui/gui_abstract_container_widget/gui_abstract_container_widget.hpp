@@ -14,6 +14,7 @@ namespace gui {
     AbstractContainerWidget() = default;
     AbstractContainerWidget(const glib::IntRect& location);
     virtual ~AbstractContainerWidget() = 0;
+
     void DeleteMatched() override;
   };
 }

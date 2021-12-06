@@ -4,10 +4,7 @@
 glib::Font::Font(const char* file_path) {
   assert(file_path != nullptr);
 
-  if (!LoadFromFile(file_path)) {
-    PRINT_LINE_LOCATION
-    printf("failed to load font from file\n");
-  }
+  LoadFromFile(file_path);
 }
 
 

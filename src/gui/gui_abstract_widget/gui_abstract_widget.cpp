@@ -33,12 +33,16 @@ glib::Vector2i gui::AbstractWidget::PointRelativeToParent(glib::Vector2i point) 
 }
 
 
-gui::EventResult gui::AbstractWidget::OnMouseButtonPressed(glib::Vector2i, MouseButton) {
+gui::EventResult gui::AbstractWidget::OnMouseButtonPressed(glib::Vector2i,
+                                                           glib::Vector2i,
+                                                           MouseButton) {
   return EventResult::NOT_PROCESSED;
 }
 
 
-gui::EventResult gui::AbstractWidget::OnMouseButtonReleased(glib::Vector2i, MouseButton) {
+gui::EventResult gui::AbstractWidget::OnMouseButtonReleased(glib::Vector2i,
+                                                            glib::Vector2i,
+                                                            MouseButton) {
   return EventResult::NOT_PROCESSED;
 }
 
@@ -53,7 +57,7 @@ gui::EventResult gui::AbstractWidget::OnMouseHoverEnd(glib::Vector2i) {
 }
 
 
-gui::EventResult gui::AbstractWidget::OnMouseMove(glib::Vector2i) {
+gui::EventResult gui::AbstractWidget::OnMouseMove(glib::Vector2i, glib::Vector2i) {
   return EventResult::NOT_PROCESSED;
 }
 

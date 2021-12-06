@@ -47,17 +47,20 @@ namespace gui {
 
     glib::Vector2i PointRelativeToParent(glib::Vector2i point) const;
 
-    virtual EventResult OnMouseButtonPressed(glib::Vector2i mouse_position,
+    virtual EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
+                                             glib::Vector2i global_mouse_position,
                                              MouseButton button);
 
-    virtual EventResult OnMouseButtonReleased(glib::Vector2i mouse_position,
+    virtual EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
+                                              glib::Vector2i global_mouse_position,
                                               MouseButton button);
 
     virtual EventResult OnMouseHoverBegin(glib::Vector2i mouse_position);
 
     virtual EventResult OnMouseHoverEnd(glib::Vector2i mouse_position);
 
-    virtual EventResult OnMouseMove(glib::Vector2i new_mouse_position);
+    virtual EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
+                                    glib::Vector2i new_global_mouse_position);
 
     virtual EventResult OnUnknownEvent();
 

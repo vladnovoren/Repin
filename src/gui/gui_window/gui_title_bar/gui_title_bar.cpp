@@ -10,50 +10,58 @@ gui::TitleBar::TitleBar(TitleBarSkin* skin):
 
 gui::TitleBar::~TitleBar() {
   delete(m_skin);
+  delete(m_move_functor);
 }
 
 
-gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i mouse_position,
+gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i local_mouse_position,
+                                                     glib::Vector2i global_mouse_position,
                                                      MouseButton button) {
-  glib::Vector2i mouse_position_inside = mouse_position - m_location.m_position;
+  glib::Vector2i mouse_position_inside = local_mouse_position - m_location.m_position;
   for (auto child_it =  m_children.begin();
             child_it != m_children.end();
             ++child_it) {
     auto child_ptr = *child_it;
     assert(child_ptr != nullptr);
     if (child_ptr->IsPointInside(mouse_position_inside)) {
-      return child_ptr->OnMouseButtonPressed(mouse_position_inside, button);
+      return child_ptr->OnMouseButtonPressed(mouse_position_inside,
+                                             global_mouse_position,
+                                             button);
     }
   }
   if (button == MouseButton::LEFT) {
     m_is_dragging = true;
   }
-  m_old_mouse_position = mouse_position;
+  m_old_global_mouse_position = global_mouse_position;
   WidgetManager::GetInstance().AddMouseActiveWidget(this);
   return EventResult::PROCESSED;
 }
 
 
-gui::EventResult gui::TitleBar::OnMouseMove(glib::Vector2i new_mouse_position) {
+gui::EventResult gui::TitleBar::OnMouseMove(glib::Vector2i new_local_mouse_position,
+                                            glib::Vector2i new_global_mouse_position) {
+  EventResult result = EventResult::PROCESSED;
   if (m_is_dragging) {
-    Move(new_mouse_position - m_old_mouse_position);
+    m_move_functor->operator()(new_global_mouse_position - m_old_global_mouse_position);
   } else {
-    glib::Vector2i new_mouse_position_inside = new_mouse_position -
+    glib::Vector2i new_mouse_position_inside = new_local_mouse_position -
                                                m_location.m_position;
     for (auto child_it =  m_children.begin();
               child_it != m_children.end();
               ++child_it) {
       auto child_ptr = *child_it;
       assert(child_ptr != nullptr);
-      child_ptr->OnMouseMove(new_mouse_position_inside);
+      child_ptr->OnMouseMove(new_mouse_position_inside, new_global_mouse_position);
     }
+    result = EventResult::NOT_PROCESSED;
   }
-  m_old_mouse_position = new_mouse_position;
-  return EventResult::PROCESSED;
+  m_old_global_mouse_position = new_global_mouse_position;
+  return result;
 }
 
 
 gui::EventResult gui::TitleBar::OnMouseButtonReleased(glib::Vector2i,
+                                                      glib::Vector2i,
                                                       MouseButton button) {
   WidgetManager& widget_manager = WidgetManager::GetInstance();
   if (button == MouseButton::LEFT) {
@@ -94,6 +102,14 @@ void gui::TitleBar::SetSkin(TitleBarSkin* skin) {
 
   delete(m_skin);
   m_skin = new TitleBarSkin(*skin);
+}
+
+
+void gui::TitleBar::SetMoveFunctor(MoveFunctor* move_functor) {
+  assert(move_functor);
+
+  delete m_move_functor;
+  m_move_functor = move_functor;
 }
 
 

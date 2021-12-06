@@ -7,6 +7,7 @@
 #include "gui_button.hpp"
 #include "gui_events.hpp"
 #include "gui_title_bar.hpp"
+#include "gui_window.hpp"
 
 
 namespace gui {

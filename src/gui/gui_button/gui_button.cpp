@@ -54,6 +54,7 @@ void gui::Button::Draw(glib::RenderTarget* render_target,
 
 
 gui::EventResult gui::Button::OnMouseButtonPressed(glib::Vector2i,
+                                                   glib::Vector2i,
                                                    MouseButton button) {
   if (button == MouseButton::LEFT) {
     WidgetManager::GetInstance().AddMouseActiveWidget(this);
@@ -65,9 +66,10 @@ gui::EventResult gui::Button::OnMouseButtonPressed(glib::Vector2i,
 }
 
 
-gui::EventResult gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
+gui::EventResult gui::Button::OnMouseMove(glib::Vector2i new_local_mouse_position,
+                                          glib::Vector2i) {
   WidgetManager& widget_manager = WidgetManager::GetInstance();
-  if (IsPointInside(new_mouse_position)) {
+  if (IsPointInside(new_local_mouse_position)) {
     if (widget_manager.GetMouseActiveWidget() != this) {
       m_skin->SetHovered();
       m_needs_to_render = true;
@@ -83,14 +85,15 @@ gui::EventResult gui::Button::OnMouseMove(glib::Vector2i new_mouse_position) {
 }
 
 
-gui::EventResult gui::Button::OnMouseButtonReleased(glib::Vector2i mouse_position,
+gui::EventResult gui::Button::OnMouseButtonReleased(glib::Vector2i local_mouse_position,
+                                                    glib::Vector2i,
                                                     MouseButton button) {
   if (button == MouseButton::LEFT) {
     WidgetManager& widget_manager = WidgetManager::GetInstance();
     if (this == widget_manager.GetMouseActiveWidget()) {
       widget_manager.RemoveMouseActiveWidget(this);
     }
-    if (IsPointInside(mouse_position)) {
+    if (IsPointInside(local_mouse_position)) {
       m_functor->operator()();
       m_skin->SetHovered();
     } else {

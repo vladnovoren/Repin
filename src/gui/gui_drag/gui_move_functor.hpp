@@ -6,15 +6,13 @@
 
 
 namespace gui {
-  class Window;
-
   class MoveFunctor: public AbstractWidgetFunctor {
    protected:
-    Window* m_owner = nullptr;
-    glib::Vector2i m_delta_position;
+    AbstractWidget* m_owner = nullptr;
+    glib::Vector2i  m_delta_position;
    public:
     MoveFunctor() = default;
-    MoveFunctor(Window* owner);
+    MoveFunctor(AbstractWidget* owner);
     ~MoveFunctor() = default;
 
     void SetDeltaPosition(const glib::Vector2i& delta_position);

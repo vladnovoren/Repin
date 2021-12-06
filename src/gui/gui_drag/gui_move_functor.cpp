@@ -2,7 +2,7 @@
 #include "gui_window.hpp"
 
 
-gui::MoveFunctor::MoveFunctor(Window* owner): m_owner(owner) {
+gui::MoveFunctor::MoveFunctor(AbstractWidget* owner): m_owner(owner) {
   assert(owner != nullptr);
 }
 
