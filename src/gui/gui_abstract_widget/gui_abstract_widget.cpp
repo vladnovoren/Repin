@@ -47,16 +47,6 @@ gui::EventResult gui::AbstractWidget::OnMouseButtonReleased(glib::Vector2i,
 }
 
 
-gui::EventResult gui::AbstractWidget::OnMouseHoverBegin(glib::Vector2i) {
-  return EventResult::NOT_PROCESSED;
-}
-
-
-gui::EventResult gui::AbstractWidget::OnMouseHoverEnd(glib::Vector2i) {
-  return EventResult::NOT_PROCESSED;
-}
-
-
 gui::EventResult gui::AbstractWidget::OnMouseMove(glib::Vector2i, glib::Vector2i) {
   return EventResult::NOT_PROCESSED;
 }

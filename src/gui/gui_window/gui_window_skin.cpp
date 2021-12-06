@@ -6,41 +6,6 @@ gui::WindowSkin::WindowSkin(const WindowSkin& other):
                  m_edge_location(other.m_edge_location) {}
 
 
-bool gui::WindowSkin::LoadFromFolder(const char* folder_path) {
-  assert(folder_path != nullptr);
-
-  size_t texture_path_len = strlen(folder_path) + strlen("/texture.png");
-  char* texture_path = (char*)calloc(texture_path_len + 1, sizeof(char));
-  strcpy(texture_path, folder_path);
-  strcat(texture_path, "/texture.png");
-  if (!m_source_texture.LoadFromFile(texture_path)) {
-    free(texture_path);
-    return false;
-  }
-
-  size_t map_path_len = strlen(folder_path) + strlen("/map.txt");
-  char* map_path = (char*)calloc(map_path_len + 1, sizeof(char));
-  strcpy(map_path, folder_path);
-  strcat(map_path, "/map.txt");
-  
-  FILE* map = fopen(map_path, "rb");
-  if (map == nullptr) {
-    printf("wrong map path\n");
-    free(map_path);
-    fclose(map);
-    return false;
-  }
-  fscanf(map, "%d %d %d %d", &m_edge_location.m_position.x, &m_edge_location.m_position.y,
-                             &m_edge_location.m_size.x, &m_edge_location.m_size.y);
-
-  free(texture_path);
-  free(map_path);
-  fclose(map);
-
-  return true;
-}
-
-
 void gui::WindowSkin::Render(const glib::Vector2i& window_size,
                              const glib::Vector2i& title_bar_size) {
   m_render_texture.Resize(window_size);

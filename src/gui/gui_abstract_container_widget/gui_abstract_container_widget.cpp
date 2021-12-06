@@ -32,7 +32,7 @@ gui::AbstractContainerWidget::~AbstractContainerWidget() {
 }
 
 
-void gui::AbstractContainerWidget::ConnectChild(AbstractWidget* child) {
+void gui::AbstractContainerWidget::AddChild(AbstractWidget* child) {
   assert(child != nullptr);
 
   child->m_parent_widget = this;

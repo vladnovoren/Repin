@@ -1,17 +1,13 @@
 #include "gui_widget_manager.hpp"
 
 
-gui::WidgetManager::WidgetManager() {
-  m_skin_manager.SetMinimizeButtonSkin(new CircleButtonSkin());
-  m_skin_manager.SetMaximizeButtonSkin(new CircleButtonSkin());
-  m_skin_manager.SetCloseButtonSkin   (new CircleButtonSkin());
-  m_skin_manager.SetTitleBarSkin      (new TitleBarSkin());
-  m_skin_manager.SetWindowSkin        (new WindowSkin());
-  m_skin_manager.LoadFromFolder       ("Skins/aqua");
+gui::WidgetManager::WidgetManager():
+                    m_skin_manager("Skins/aqua") {
+  m_skin_manager.LoadFromFolder("Skins/aqua");
 
   assert(m_skin_manager.GetWindowSkin());
 
-  glib::Text title_text("Canvas", m_skin_manager.GetSanFranciscoFont());
+  glib::Text title_text("Serega Chernozhopysh", m_skin_manager.GetSanFranciscoFont());
   title_text.SetFontSize(14);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 

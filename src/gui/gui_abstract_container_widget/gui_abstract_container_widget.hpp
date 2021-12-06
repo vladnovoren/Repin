@@ -16,7 +16,7 @@ namespace gui {
     virtual ~AbstractContainerWidget() = 0;
 
     void DeleteMatched() override;
-    void ConnectChild(AbstractWidget* child);
+    void AddChild(AbstractWidget* child);
   };
 }
 

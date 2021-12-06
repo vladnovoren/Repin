@@ -24,8 +24,6 @@ namespace gui {
                        const glib::IntRect& pressed_texture_location);
     ~AbstractButtonSkin() override = 0;
 
-    bool LoadFromFolder(const char* folder_path) override;
-
     virtual bool IsPointInside(const glib::IntRect& location,
                                glib::Vector2i point) const = 0;
 

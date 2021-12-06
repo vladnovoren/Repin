@@ -25,7 +25,6 @@ namespace gui {
 
     void Render(const glib::Vector2i& size);
     void CopyToRenderTarget(glib::RenderTarget* render_target, const glib::Vector2i& position) const;
-    bool LoadFromFolder(const char* folder_path) override;
   };
 }
 

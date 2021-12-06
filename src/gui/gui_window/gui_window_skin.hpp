@@ -19,8 +19,6 @@ namespace gui {
     WindowSkin(const glib::Texture& source_texture,
                const glib::IntRect& edge_location);
 
-    bool LoadFromFolder(const char* folder_path) override;
-
     void Render(const glib::Vector2i& window_size,
                 const glib::Vector2i& title_bar_size);
     void CopyToRenderTarget(glib::RenderTarget* render_target,

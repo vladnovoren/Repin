@@ -56,10 +56,6 @@ namespace gui {
                                               glib::Vector2i global_mouse_position,
                                               MouseButton button);
 
-    virtual EventResult OnMouseHoverBegin(glib::Vector2i mouse_position);
-
-    virtual EventResult OnMouseHoverEnd(glib::Vector2i mouse_position);
-
     virtual EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
                                     glib::Vector2i new_global_mouse_position);
 

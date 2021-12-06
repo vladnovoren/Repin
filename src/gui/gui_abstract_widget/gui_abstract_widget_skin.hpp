@@ -11,7 +11,6 @@ namespace gui {
     AbstractWidgetSkin() = default;
     virtual ~AbstractWidgetSkin() = default;
 
-    virtual bool LoadFromFolder(const char* folder_path) = 0;
     virtual AbstractWidgetSkin* Copy() const = 0;
   };
 }

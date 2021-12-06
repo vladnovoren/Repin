@@ -1,27 +1,10 @@
 #include "gui_skin_manager.hpp"
 
 
-gui::SkinManager::SkinManager() {
-  LoadSanFranciscoFont();
-}
+gui::SkinManager::SkinManager(const char* folder_path) {
+  assert(folder_path != nullptr);
 
-
-gui::SkinManager::SkinManager(AbstractButtonSkin* minimize_button_skin,
-                              AbstractButtonSkin* maximize_button_skin,
-                              AbstractButtonSkin* close_button_skin,
-                              TitleBarSkin* title_bar_skin,
-                              WindowSkin* window_skin):
-                  m_minimize_button_skin(minimize_button_skin),
-                  m_maximize_button_skin(maximize_button_skin),
-                  m_close_button_skin(close_button_skin),
-                  m_title_bar_skin(title_bar_skin),
-                  m_window_skin(window_skin) {
-  assert(minimize_button_skin != nullptr);
-  assert(maximize_button_skin != nullptr);
-  assert(close_button_skin    != nullptr);
-  assert(title_bar_skin       != nullptr);
-  assert(window_skin          != nullptr);
-
+  LoadFromFolder(folder_path);
   LoadSanFranciscoFont();
 }
 
@@ -31,47 +14,61 @@ gui::SkinManager::~SkinManager() {
 }
 
 
+char* GetPath(const char* folder_path, const char* child_dir) {
+  assert(folder_path != nullptr);
+  assert(child_dir   != nullptr);
+
+  char* path = (char*)calloc(strlen(folder_path) + strlen(child_dir) + 1, sizeof(char));
+  strcpy(path, folder_path);
+  strcat(path, child_dir);
+  return path;
+}
+
+
 void gui::SkinManager::LoadSanFranciscoFont() {
-  m_san_francisco_font = new glib::Font("SanFrancisco/SF-Pro-Display-Regular.otf");
+  m_san_francisco_font = new glib::Font("SanFrancisco/SF-Pro-Display-Bold.otf");
   assert(m_san_francisco_font != nullptr);
+}
+
+
+bool gui::SkinManager::LoadLocationFromFile(FILE* file, glib::IntRect* location) {
+  assert(file     != nullptr);
+  assert(location != nullptr);
+  
+  if (fscanf(file, "%d %d %d %d", &location->m_position.x,
+                                 &location->m_position.y,
+                                 &location->m_size.x,
+                                 &location->m_size.y) != 4) {
+    printf("invalid map.txt\n");
+    return false;
+  }
+  return true;
 }
 
 
 bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
-  char* minimize_button_path = (char*)calloc(strlen(folder_path) + strlen("/MinimizeButton") + 1, sizeof(char));
-  char* maximize_button_path = (char*)calloc(strlen(folder_path) + strlen("/MaximizeButton") + 1, sizeof(char));
-  char* close_button_path    = (char*)calloc(strlen(folder_path) + strlen("/CloseButton") + 1,    sizeof(char));
-  char* title_bar_path       = (char*)calloc(strlen(folder_path) + strlen("/TitleBar") + 1,       sizeof(char));
-  char* window_path          = (char*)calloc(strlen(folder_path) + strlen("/Window") + 1,         sizeof(char));
+  delete m_minimize_button_skin;
+  delete m_maximize_button_skin;
+  delete m_close_button_skin;
+  delete m_title_bar_skin;
+  delete m_window_skin;
 
-  strcpy(minimize_button_path, folder_path);
-  strcpy(maximize_button_path, folder_path);
-  strcpy(close_button_path,    folder_path);
-  strcpy(title_bar_path,       folder_path);
-  strcpy(window_path,          folder_path);
+  char* minimize_button_path = GetPath(folder_path, "/MinimizeButton");
+  char* maximize_button_path = GetPath(folder_path, "/MaximizeButton");
+  char* close_button_path    = GetPath(folder_path, "/CloseButton");
+  char* title_bar_path       = GetPath(folder_path, "/TitleBar");
+  char* window_path          = GetPath(folder_path, "/Window");
 
-  minimize_button_path = strcat(minimize_button_path, "/MinimizeButton");
-  maximize_button_path = strcat(maximize_button_path, "/MaximizeButton");
-  close_button_path    = strcat(close_button_path,    "/CloseButton");
-  title_bar_path       = strcat(title_bar_path,       "/TitleBar");
-  window_path          = strcat(window_path,          "/Window");
+  bool result = true;
 
-  if (!m_minimize_button_skin->LoadFromFolder(minimize_button_path)) {
-    return false;
-  }
-  if (!m_maximize_button_skin->LoadFromFolder(maximize_button_path)) {
-    return false;
-  }
-  if (!m_close_button_skin->LoadFromFolder(close_button_path)) {
-    return false;
-  }
-  if (!m_title_bar_skin->LoadFromFolder(title_bar_path)) {
-    return false;
-  }
-  if (!m_window_skin->LoadFromFolder(window_path)) {
-    return false;
+  if ((m_minimize_button_skin = LoadButtonSkinFromFolder(minimize_button_path)) == nullptr ||
+      (m_maximize_button_skin = LoadButtonSkinFromFolder(maximize_button_path)) == nullptr ||
+      (m_close_button_skin    = LoadButtonSkinFromFolder(close_button_path))    == nullptr ||
+      (m_title_bar_skin       = LoadTitleBarSkinFromFolder(title_bar_path))     == nullptr ||
+      (m_window_skin          = LoadWindowSkinFromFolder(window_path))          == nullptr) {
+    result = false;
   }
 
   free(minimize_button_path);
@@ -84,43 +81,133 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
 }
 
 
-void gui::SkinManager::SetMinimizeButtonSkin(AbstractButtonSkin* minimize_button_skin) {
-  assert(minimize_button_skin != nullptr);
+gui::AbstractButtonSkin* gui::SkinManager::LoadButtonSkinFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
 
-  delete m_minimize_button_skin;
-  m_minimize_button_skin = minimize_button_skin;
+  char* texture_path = GetPath(folder_path, "/texture.png");
+  char* map_path     = GetPath(folder_path, "/map.txt");
+
+  FILE* map = fopen(map_path, "rb");
+  if (map == nullptr) {
+    printf("no map in path [%s]\n", map_path);
+    return nullptr;
+  }
+
+  char* button_type = (char*)calloc(20, sizeof(char));
+  fscanf(map, "%s", button_type);
+
+  bool load_ok = true;
+
+  AbstractButtonSkin* button_skin = nullptr;
+  if (strcmp(button_type, "circle") == 0) {
+    button_skin = new CircleButtonSkin;
+  } else if (strcmp(button_type, "rectangle") == 0) {
+    button_skin = new RectButtonSkin;
+  } else {
+    printf("invalid button type\n");
+    load_ok = false;
+  }
+
+  if (load_ok) {
+    if (!button_skin->m_source_texture.LoadFromFile(texture_path)) {
+      load_ok = false;
+    }
+  }
+
+  if (load_ok) {
+    if (!LoadLocationFromFile(map, &button_skin->m_idle_texture_location) ||
+        !LoadLocationFromFile(map, &button_skin->m_hovered_texture_location) ||
+        !LoadLocationFromFile(map, &button_skin->m_pressed_texture_location)) {
+      load_ok = false;
+    }
+  }
+
+  if (!load_ok) {
+    delete button_skin;
+    button_skin = nullptr;
+  }
+
+  fclose(map);
+  free(map_path);
+  free(texture_path);
+  free(button_type);
+
+  return button_skin;
 }
 
 
-void gui::SkinManager::SetMaximizeButtonSkin(AbstractButtonSkin* maximize_button_skin) {
-  assert(maximize_button_skin != nullptr);
+gui::TitleBarSkin* gui::SkinManager::LoadTitleBarSkinFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
 
-  delete m_maximize_button_skin;
-  m_maximize_button_skin = maximize_button_skin;
+  bool load_ok = true;
+
+  TitleBarSkin* title_bar_skin = new TitleBarSkin;
+  char* map_path = GetPath(folder_path, "/map.txt");
+  FILE* map = fopen(map_path, "rb");
+  if (map == nullptr) {
+    load_ok = false;
+  }
+
+  char* texture_path = GetPath(folder_path, "/texture.png");
+  if (load_ok) {
+    if (!title_bar_skin->m_source_texture.LoadFromFile(texture_path)) {
+      load_ok = false;
+    }
+  }
+
+  if (load_ok) {
+    if (!LoadLocationFromFile(map, &title_bar_skin->m_left_location) ||
+        !LoadLocationFromFile(map, &title_bar_skin->m_middle_location) ||
+        !LoadLocationFromFile(map, &title_bar_skin->m_right_location)) {
+      load_ok = false;
+    }
+  }
+
+  fclose(map);
+  free(map_path);
+  free(texture_path);
+
+  if (!load_ok) {
+    delete title_bar_skin;
+    title_bar_skin = nullptr;
+  }
+
+  return title_bar_skin;
 }
 
 
-void gui::SkinManager::SetCloseButtonSkin(AbstractButtonSkin* close_button_skin) {
-  assert(close_button_skin != nullptr);
+gui::WindowSkin* gui::SkinManager::LoadWindowSkinFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
 
-  delete m_close_button_skin;
-  m_close_button_skin = close_button_skin;
-}
+  bool load_ok = true;
+  WindowSkin* window_skin = new WindowSkin;
+  char* map_path = GetPath(folder_path, "/map.txt");
+  FILE* map = fopen(map_path, "rb");
+  if (map == nullptr) {
+    load_ok = false;
+  }
 
+  char* texture_path = GetPath(folder_path, "/texture");
+  if (load_ok) {
+    if (!m_source_texture.LoadFromFile(texture_path)) {
+      load_ok = false;
+    }
+  }
 
-void gui::SkinManager::SetTitleBarSkin(TitleBarSkin* title_bar_skin) {
-  assert(title_bar_skin != nullptr);
+  if (load_ok) {
+    if (!LoadLocationFromFile(map, window_skin));
+  }
 
-  delete m_title_bar_skin;
-  m_title_bar_skin = title_bar_skin;
-}
+  if (!load_ok) {
+    delete window_skin;
+    window_skin = nullptr;
+  }
 
+  free(texture_path);
+  free(map_path);
+  fclose(map);
 
-void gui::SkinManager::SetWindowSkin(WindowSkin* window_skin) {
-  assert(window_skin != nullptr);
-
-  delete m_window_skin;
-  m_window_skin = window_skin;
+  return window_skin;
 }
 
 
