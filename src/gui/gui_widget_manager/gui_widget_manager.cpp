@@ -1,5 +1,4 @@
 #include "gui_widget_manager.hpp"
-#include "app.hpp"
 
 
 gui::WidgetManager::WidgetManager() {
@@ -16,6 +15,8 @@ gui::WidgetManager::WidgetManager() {
   title_text.SetFontSize(14);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
+  Canvas* canvas = new Canvas(glib::IntRect(glib::Vector2i(1, 21), glib::Vector2i(798, 579)));
+
   Window* window = new Window(m_skin_manager.GetWindowSkin());
   window->SetLocation(glib::IntRect(glib::Vector2i(), glib::Vector2i(800, 600)));
   MoveFunctor* window_move_functor = new MoveFunctor(window);
@@ -30,26 +31,15 @@ gui::WidgetManager::WidgetManager() {
   title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
 
   CloseWidgetFunctor* close_widget_functor    = new CloseWidgetFunctor(window);
-  CloseWidgetFunctor* maximize_widget_functor = new CloseWidgetFunctor(title_bar);
-  CloseWidgetFunctor* minimize_widget_functor = new CloseWidgetFunctor(title_bar);
 
   Button* close_button = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
                                     close_widget_functor,
                                     m_skin_manager.GetCloseButtonSkin());
 
-  Button* maximize_button = new Button(glib::IntRect(glib::Vector2i(762, 3), glib::Vector2i(14, 15)),
-                                       maximize_widget_functor,
-                                       m_skin_manager.GetMaximizeButtonSkin());
-
-  Button* minimize_button = new Button(glib::IntRect(glib::Vector2i(743, 3), glib::Vector2i(14, 15)),
-                                       minimize_widget_functor,
-                                       m_skin_manager.GetMinimizeButtonSkin());
-
   title_bar->AddCloseButton(close_button);
-  title_bar->AddMaximizeButton(maximize_button);
-  title_bar->AddMinimizeButton(minimize_button);
   title_bar->AddTitle(title);
   window->AddTitleBar(title_bar);
+  window->AddContent(canvas);
 
   m_root = window;
 }

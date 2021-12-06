@@ -17,12 +17,27 @@ void glib::RenderTarget::Clear(const ColorRGBA& color) {
 
 
 void glib::RenderTarget::RenderLine(const glib::IntLine& line,
+                                    int thickness,
                                     const ColorRGBA& color) {
-  sf::Vertex sf_line[] = {
-    sf::Vertex(sf::Vector2f(line.m_begin.x, line.m_begin.y), glib::GLibToSFMLColor(color)),
-    sf::Vertex(sf::Vector2f(line.m_end.x, line.m_end.y), glib::GLibToSFMLColor(color))
-  };
-  m_sf_render_target->draw(sf_line, 2, sf::Lines);
+  FloatLine float_line(line.m_begin, line.m_end);
+  glib::Vector2f normal = float_line.m_end - float_line.m_begin;
+  normal.Rotate(M_PI / 2);
+  normal.Resize(thickness);
+
+  glib::Vector2f v0 = float_line.m_begin + normal;
+  glib::Vector2f v1 = float_line.m_begin - normal;
+  glib::Vector2f v2 = float_line.m_end   - normal;
+  glib::Vector2f v3 = float_line.m_end   + normal;
+
+  sf::ConvexShape convex;
+  convex.setPointCount(4);
+  convex.setPoint(0, sf::Vector2f(v0.x, v0.y));
+  convex.setPoint(1, sf::Vector2f(v1.x, v1.y));
+  convex.setPoint(2, sf::Vector2f(v2.x, v2.y));
+  convex.setPoint(3, sf::Vector2f(v3.x, v3.y));
+  convex.setFillColor(GLibToSFMLColor(color));
+
+  m_sf_render_target->draw(convex);
 }
 
 

@@ -8,6 +8,7 @@
 #include "gui_events.hpp"
 #include "gui_title_bar.hpp"
 #include "gui_window.hpp"
+#include "gui_canvas.hpp"
 
 
 namespace gui {

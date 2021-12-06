@@ -40,7 +40,7 @@ namespace gui {
     virtual ~AbstractWidget() = 0;
 
 
-    void SetLocation(const glib::IntRect& location);
+    virtual void SetLocation(const glib::IntRect& location);
 
     glib::IntRect Location() const;
 
