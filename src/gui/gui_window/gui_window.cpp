@@ -1,15 +1,8 @@
 #include "gui_window.hpp"
 
 
-gui::Window::Window(WindowSkin* skin):
-             m_skin(skin) {
-  assert(skin != nullptr);
-}
-
-
-gui::Window::~Window() {
-  delete m_skin;
-}
+gui::Window::Window(const glib::IntRect& location):
+             AbstractContainerWidget(location) {}
 
 
 gui::EventResult gui::Window::OnMouseButtonPressed(glib::Vector2i local_mouse_position,
@@ -86,12 +79,6 @@ void gui::Window::Draw(glib::RenderTarget* render_target,
   assert(render_target != nullptr);
 
   glib::Vector2i position_inside = position + m_location.m_position;
-
-  if (m_needs_to_render) {
-    m_skin->Render(m_location.m_size, m_title_bar->m_location.m_size);
-    m_needs_to_render = false;
-  }
-  m_skin->CopyToRenderTarget(render_target, position_inside);
 
   for (auto child_it =  m_children.begin();
             child_it != m_children.end();

@@ -17,6 +17,18 @@ namespace gui {
 
     void DeleteMatched() override;
     void AddChild(AbstractWidget* child);
+
+    EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
+                                     glib::Vector2i global_mouse_position,
+                                     MouseButton button) override;
+    EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
+                                      glib::Vector2i global_mouse_position,
+                                      MouseButton button) override;
+    EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
+                            glib::Vector2i new_global_mouse_position) override;
+
+    void Draw(glib::RenderTarget* render_target,
+              const glib::Vector2i& position) override;
   };
 }
 

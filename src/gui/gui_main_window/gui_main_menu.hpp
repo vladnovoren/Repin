@@ -16,14 +16,14 @@ namespace gui {
 
     EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
                                      glib::Vector2i global_mouse_position,
-                                     MouseButton button);
+                                     MouseButton button) override;
 
     EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
                                       glib::Vector2i global_mouse_position,
-                                      MouseButton button);
+                                      MouseButton button) override;
 
     EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
-                            glib::Vector2i new_global_mouse_position);
+                            glib::Vector2i new_global_mouse_position) override;
   };
 }
 

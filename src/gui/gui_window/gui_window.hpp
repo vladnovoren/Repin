@@ -4,7 +4,6 @@
 
 #include "gui_abstract_container_widget.hpp"
 #include "gui_title_bar.hpp"
-#include "gui_window_skin.hpp"
 
 
 namespace gui {
@@ -12,11 +11,10 @@ namespace gui {
    protected:
     TitleBar* m_title_bar            = nullptr;
     AbstractWidget* m_content_widget = nullptr;
-    WindowSkin* m_skin               = nullptr;
    public:
     Window() = default;
-    Window(WindowSkin* skin);
-    ~Window();
+    Window(const glib::IntRect& location);
+    ~Window() = default;
 
     EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
                                      glib::Vector2i global_mouse_position,

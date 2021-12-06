@@ -5,15 +5,13 @@ gui::WidgetManager::WidgetManager():
                     m_skin_manager("Skins/aqua") {
   m_skin_manager.LoadFromFolder("Skins/aqua");
 
-  assert(m_skin_manager.GetWindowSkin());
-
   glib::Text title_text("Serega Chernozhopysh", m_skin_manager.GetSanFranciscoFont());
   title_text.SetFontSize(14);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
-  Canvas* canvas = new Canvas(glib::IntRect(glib::Vector2i(1, 21), glib::Vector2i(798, 579)));
+  Canvas* canvas = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(800, 579)));
 
-  Window* window = new Window(m_skin_manager.GetWindowSkin());
+  Window* window = new Window;
   window->SetLocation(glib::IntRect(glib::Vector2i(), glib::Vector2i(800, 600)));
   MoveFunctor* window_move_functor = new MoveFunctor(window);
 

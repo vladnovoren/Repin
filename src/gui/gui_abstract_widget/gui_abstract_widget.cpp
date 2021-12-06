@@ -72,7 +72,17 @@ void gui::AbstractWidget::DeleteMatched() {}
 
 
 void gui::AbstractWidget::Move(const glib::Vector2i& delta_position) {
-  m_location.m_position += delta_position;
+  if (m_parent_widget == nullptr) {
+    m_location.m_position += delta_position;
+  } else {
+    glib::Vector2i new_left_up = m_location.m_position + delta_position;
+    new_left_up.x = std::max(new_left_up.x, 0);
+    new_left_up.y = std::max(new_left_up.y, 0);
+    glib::Vector2i new_right_down = new_left_up + m_location.m_size;
+    new_right_down.x = std::min(new_right_down.x, m_parent_widget->m_location.m_size.x);
+    new_right_down.y = std::min(new_right_down.y, m_parent_widget->m_location.m_size.y);
+    m_location.m_position = new_left_up;
+  }
 }
 
 

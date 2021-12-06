@@ -4,7 +4,6 @@
 
 #include "gui_button_skin.hpp"
 #include "gui_title_bar_skin.hpp"
-#include "gui_window_skin.hpp"
 #include <cstring>
 
 
@@ -15,7 +14,6 @@ namespace gui {
     AbstractButtonSkin* m_maximize_button_skin = nullptr;
     AbstractButtonSkin* m_close_button_skin    = nullptr;
     TitleBarSkin*       m_title_bar_skin       = nullptr;
-    WindowSkin*         m_window_skin          = nullptr;
 
     glib::Font*         m_san_francisco_font   = nullptr;
    public:
@@ -29,13 +27,11 @@ namespace gui {
     bool                LoadLocationFromFile(FILE* file, glib::IntRect* location);
     AbstractButtonSkin* LoadButtonSkinFromFolder(const char* folder_path);
     TitleBarSkin*       LoadTitleBarSkinFromFolder(const char* folder_path);
-    WindowSkin*         LoadWindowSkinFromFolder(const char* folder_path);
 
     AbstractButtonSkin* GetMinimizeButtonSkin() const;
     AbstractButtonSkin* GetMaximizeButtonSkin() const;
     AbstractButtonSkin* GetCloseButtonSkin() const;
     TitleBarSkin*       GetTitleBarSkin() const;
-    WindowSkin*         GetWindowSkin() const;
 
     glib::Font*         GetSanFranciscoFont() const;
 

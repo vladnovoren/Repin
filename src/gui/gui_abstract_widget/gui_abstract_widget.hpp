@@ -69,7 +69,7 @@ namespace gui {
 
     virtual void DeleteMatched();
 
-    void Move(const glib::Vector2i& delta_position);
+    virtual void Move(const glib::Vector2i& delta_position);
 
     virtual void Draw(glib::RenderTarget* render_target,
                       const glib::Vector2i& position) = 0;
