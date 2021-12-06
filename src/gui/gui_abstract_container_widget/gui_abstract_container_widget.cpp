@@ -30,3 +30,11 @@ gui::AbstractContainerWidget::~AbstractContainerWidget() {
     delete child_ptr;
   }
 }
+
+
+void gui::AbstractContainerWidget::ConnectChild(AbstractWidget* child) {
+  assert(child != nullptr);
+
+  child->m_parent_widget = this;
+  m_children.push_front(child);
+}

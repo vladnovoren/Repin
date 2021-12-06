@@ -24,6 +24,7 @@ namespace gui {
 
   class AbstractWidget {
    protected:
+    friend class AbstractContainerWidget;
     friend class TitleBar;
     friend class Window;
 

@@ -137,21 +137,21 @@ gui::EventResult gui::WidgetManager::ProcessEvent(AbstractWidget* widget,
       return widget->OnClose();
 
     case sf::Event::MouseButtonPressed:
-      if (widget->IsPointInside(mouse_position) || force) {
+      if (widget->IsPointInside(local_mouse_position) || force) {
         return widget->OnMouseButtonPressed(local_mouse_position, mouse_position, button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
 
     case sf::Event::MouseButtonReleased:
-      if (widget->IsPointInside(mouse_position) || force) {
+      if (widget->IsPointInside(local_mouse_position) || force) {
         return widget->OnMouseButtonReleased(local_mouse_position, mouse_position, button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
 
     case sf::Event::MouseMoved:
-      if (widget->IsPointInside(mouse_position) || force) {
+      if (widget->IsPointInside(local_mouse_position) || force) {
         return widget->OnMouseMove(local_mouse_position, mouse_position);
       } else {
         return EventResult::NOT_PROCESSED;

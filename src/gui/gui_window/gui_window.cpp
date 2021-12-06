@@ -69,7 +69,7 @@ void gui::Window::AddTitleBar(TitleBar* title_bar) {
   assert(title_bar != nullptr);
 
   m_title_bar = title_bar;
-  m_children.push_front(title_bar);
+  ConnectChild(title_bar);
 }
 
 
@@ -77,7 +77,7 @@ void gui::Window::AddContent(AbstractWidget* content_widget) {
   assert(content_widget != nullptr);
 
   m_content_widget = content_widget;
-  m_children.push_front(content_widget);
+  ConnectChild(content_widget);
 }
 
 
