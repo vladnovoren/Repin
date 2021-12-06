@@ -34,7 +34,13 @@ gui::EventResult gui::Canvas::OnMouseMove(glib::Vector2i new_local_mouse_positio
   glib::Vector2i mouse_position_inside = new_local_mouse_position - m_location.m_position;
   if (m_is_drawing) {
     DrawLine(glib::IntLine(m_prev_draw_point, mouse_position_inside));
-    result = EventResult::PROCESSED;
+    if (!IsPointInside(new_local_mouse_position)) {
+      m_is_drawing = false;
+      WidgetManager::GetInstance().RemoveMouseActiveWidget(this);
+      result = EventResult::NOT_PROCESSED;
+    } else {
+      result = EventResult::PROCESSED;
+    }
   }
   return result;
 }
