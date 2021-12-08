@@ -1,4 +1,5 @@
 #include "gui_abstract_widget.hpp"
+#include "gui_abstract_container_widget.hpp"
 
 
 gui::AbstractWidget::AbstractWidget(const glib::IntRect& location):
@@ -81,6 +82,7 @@ void gui::AbstractWidget::Move(const glib::Vector2i& delta_position) {
     glib::Vector2i new_right_down = new_left_up + m_location.m_size;
     new_right_down.x = std::min(new_right_down.x, m_parent_widget->m_location.m_size.x);
     new_right_down.y = std::min(new_right_down.y, m_parent_widget->m_location.m_size.y);
+    new_left_up = new_right_down - m_location.m_size;
     m_location.m_position = new_left_up;
   }
 }

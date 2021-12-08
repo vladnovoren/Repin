@@ -5,7 +5,10 @@ gui::WidgetManager::WidgetManager():
                     m_skin_manager("Skins/aqua") {
   m_skin_manager.LoadFromFolder("Skins/aqua");
 
-  glib::Text title_text("Serega Chernozhopysh", m_skin_manager.GetSanFranciscoFont());
+  MainMenu* main_menu = new MainMenu(glib::IntRect(glib::Vector2i(), glib::Vector2i(1200, 22)));
+  main_menu->SetSkin(m_skin_manager.GetMainMenuSkin());
+
+  glib::Text title_text("Serega Chernomyrdin", m_skin_manager.GetSanFranciscoFont());
   title_text.SetFontSize(14);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
@@ -30,12 +33,16 @@ gui::WidgetManager::WidgetManager():
                                     close_widget_functor,
                                     m_skin_manager.GetCloseButtonSkin());
 
+  MainWindow* main_window = MainWindow::GetInstance();
+
   title_bar->AddCloseButton(close_button);
   title_bar->AddTitle(title);
   window->AddTitleBar(title_bar);
   window->AddContent(canvas);
+  main_window->AddChild(window);
+  main_window->AddChild(main_menu);
 
-  m_root = window;
+  m_root = main_window;
 }
 
 

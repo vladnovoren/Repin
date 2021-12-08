@@ -11,10 +11,3 @@ gui::MainWindow* gui::MainWindow::GetInstance() {
   static MainWindow* instance = new MainWindow;
   return instance;
 }
-
-
-gui::EventResult gui::MainWindow::OnMouseButtonPressed(glib::Vector2i local_mouse_position,
-                                                       glib::Vector2i global_mouse_position,
-                                                       MouseButton button) {
-
-}

@@ -7,6 +7,9 @@
 
 
 namespace gui {
+  class AbstractContainerWidget;
+
+
   enum class EventResult {
     NO_EVENT,
     PROCESSED,
@@ -30,7 +33,7 @@ namespace gui {
 
     glib::IntRect m_location;
 
-    AbstractWidget* m_parent_widget = nullptr;
+    AbstractContainerWidget* m_parent_widget = nullptr;
 
     bool m_should_close    = false;
     bool m_needs_to_render = true;

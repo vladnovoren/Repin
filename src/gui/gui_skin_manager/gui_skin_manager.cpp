@@ -58,16 +58,19 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   char* maximize_button_path = GetPath(folder_path, "/MaximizeButton");
   char* close_button_path    = GetPath(folder_path, "/CloseButton");
   char* title_bar_path       = GetPath(folder_path, "/TitleBar");
+  char* main_menu_path       = GetPath(folder_path, "/MainMenu");
 
   bool result = true;
 
   if ((m_minimize_button_skin = LoadButtonSkinFromFolder(minimize_button_path)) == nullptr ||
       (m_maximize_button_skin = LoadButtonSkinFromFolder(maximize_button_path)) == nullptr ||
       (m_close_button_skin    = LoadButtonSkinFromFolder(close_button_path))    == nullptr ||
-      (m_title_bar_skin       = LoadTitleBarSkinFromFolder(title_bar_path))     == nullptr) {
+      (m_title_bar_skin       = LoadTitleBarSkinFromFolder(title_bar_path))     == nullptr ||
+      (m_main_menu_skin       = LoadMainMenuSkinFromFolder(main_menu_path))     == nullptr) {
     result = false;
   }
 
+  free(main_menu_path);
   free(minimize_button_path);
   free(maximize_button_path);
   free(close_button_path);
@@ -172,6 +175,45 @@ gui::TitleBarSkin* gui::SkinManager::LoadTitleBarSkinFromFolder(const char* fold
 }
 
 
+gui::MainMenuSkin* gui::SkinManager::LoadMainMenuSkinFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
+
+  bool load_ok = true;
+
+  MainMenuSkin* skin = new MainMenuSkin;
+  char* map_path = GetPath(folder_path, "/map.txt");
+  FILE* map = fopen(map_path, "rb");
+  if (map == nullptr) {
+    printf("wrong map path\n");
+    load_ok = false;
+  }
+
+  char* texture_path = GetPath(folder_path, "/texture.png");
+  if (load_ok) {
+    if (!skin->m_source_texture.LoadFromFile(texture_path)) {
+      load_ok = false;
+    }
+  }
+
+  if (load_ok) {
+    if (!LoadLocationFromFile(map, &skin->m_location)) {
+      load_ok = false;
+    }
+  }
+
+  free(texture_path);
+  fclose(map);
+  free(map_path);
+
+  if (!load_ok) {
+    delete skin;
+    skin = nullptr;
+  }
+
+  return skin;
+}
+
+
 gui::AbstractButtonSkin* gui::SkinManager::GetMinimizeButtonSkin() const {
   return m_minimize_button_skin;
 }
@@ -192,6 +234,14 @@ gui::TitleBarSkin* gui::SkinManager::GetTitleBarSkin() const {
 }
 
 
+gui::MainMenuSkin* gui::SkinManager::GetMainMenuSkin() const {
+  return m_main_menu_skin;
+}
+
+
 glib::Font* gui::SkinManager::GetSanFranciscoFont() const {
   return m_san_francisco_font;
 }
+
+
+

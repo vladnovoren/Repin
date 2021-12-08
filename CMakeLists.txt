@@ -53,6 +53,8 @@ set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_abstract_container_widget/gui_abstract_container_widget.cpp
                src/gui/gui_drag/gui_move_functor.cpp
                src/gui/gui_main_window/gui_main_window.cpp
+               src/gui/gui_main_window/gui_main_menu.cpp
+               src/gui/gui_main_window/gui_main_menu_skin.cpp
 )
 
 

@@ -5,20 +5,24 @@ gui::MainMenu::MainMenu(const glib::IntRect& location):
                AbstractContainerWidget(location) {}
 
 
-gui::EventResult gui::MainMenu::OnMouseButtonPressed(glib::Vector2i local_mouse_position,
-                                                     glib::Vector2i global_mouse_position,
-                                                     MouseButton button) {
-  for (auto child_it =  m_children.begin();
-            child_it != m_children.end();
-            ++child_it) {
-    auto child_ptr = *child_it;
-    
-  }
+void gui::MainMenu::SetSkin(MainMenuSkin* skin) {
+  assert(skin != nullptr);
+
+  delete m_skin;
+  m_skin = new MainMenuSkin(*skin);
 }
 
 
-gui::EventResult gui::MainMenu::OnMouseButtonReleased(glib::Vector2i local_mouse_position,
-                                                      glib::Vector2i global_mouse_position,
-                                                      MouseButton button) {
+void gui::MainMenu::Draw(glib::RenderTarget* render_target,
+                         const glib::Vector2i& position) {
+  assert(render_target != nullptr);
+
+  if (m_needs_to_render) {
+    m_skin->Render(m_location.m_size.x);
+    m_needs_to_render = false;
+  }
   
+  render_target->CopyTexture(m_skin->m_texture, position);
+
+  AbstractContainerWidget::Draw(render_target, position);
 }

@@ -2,7 +2,8 @@
 
 
 App::App():
-     m_render_window(glib::Vector2f(1200, 800), "Repin") {}
+     m_render_window(glib::Vector2f(1200, 800), "Repin") {
+}
 
 App::~App() = default;
 

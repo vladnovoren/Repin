@@ -4,26 +4,21 @@
 
 #include "glib.hpp"
 #include "gui_abstract_container_widget.hpp"
+#include "gui_main_menu_skin.hpp"
 
 
 namespace gui {
-  class MainMenu {
+  class MainMenu: public AbstractContainerWidget {
    protected:
+    MainMenuSkin* m_skin = nullptr;
    public:
     MainMenu() = default;
     MainMenu(const glib::IntRect& location);
     ~MainMenu() = default;
 
-    EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
-                                     glib::Vector2i global_mouse_position,
-                                     MouseButton button) override;
+    void SetSkin(MainMenuSkin* skin);
 
-    EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
-                                      glib::Vector2i global_mouse_position,
-                                      MouseButton button) override;
-
-    EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
-                            glib::Vector2i new_global_mouse_position) override;
+    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position);
   };
 }
 

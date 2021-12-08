@@ -32,6 +32,11 @@ gui::AbstractContainerWidget::~AbstractContainerWidget() {
 }
 
 
+glib::Vector2i gui::AbstractContainerWidget::GetValidSizeForChild() const {
+  return m_location.m_size;
+}
+
+
 void gui::AbstractContainerWidget::AddChild(AbstractWidget* child) {
   assert(child != nullptr);
 
@@ -46,18 +51,20 @@ gui::EventResult gui::AbstractContainerWidget::OnMouseButtonPressed(glib::Vector
   EventResult result = EventResult::NOT_PROCESSED;
   glib::Vector2i mouse_position_inside = local_mouse_position -
                                          m_location.m_position;
-  for (auto child_it =  m_children.begin();
-            child_it != m_children.end();
-            ++child_it) {
-    auto child_ptr = *child_it;
-    assert(child_ptr != nullptr);
-    if (child_ptr->IsPointInside(mouse_position_inside)) {
-      result = child_ptr->OnMouseButtonPressed(mouse_position_inside,
-                                               global_mouse_position,
-                                               button);
-    }
-    if (result == EventResult::PROCESSED) {
-      break;
+  if (button == MouseButton::LEFT) {
+    for (auto child_it =  m_children.begin();
+              child_it != m_children.end();
+              ++child_it) {
+      auto child_ptr = *child_it;
+      assert(child_ptr != nullptr);
+      if (child_ptr->IsPointInside(mouse_position_inside)) {
+        result = child_ptr->OnMouseButtonPressed(mouse_position_inside,
+                                                global_mouse_position,
+                                                button);
+      }
+      if (result == EventResult::PROCESSED) {
+        break;
+      }
     }
   }
   return result;
@@ -70,18 +77,20 @@ gui::EventResult gui::AbstractContainerWidget::OnMouseButtonReleased(glib::Vecto
   EventResult result = EventResult::NOT_PROCESSED;
   glib::Vector2i mouse_position_inside = local_mouse_position -
                                          m_location.m_position;
-  for (auto child_it =  m_children.begin();
-            child_it != m_children.end();
-            ++child_it) {
-    auto child_ptr = *child_it;
-    assert(child_ptr != nullptr);
-    if (child_ptr->IsPointInside(mouse_position_inside)) {
-      result = child_ptr->OnMouseButtonReleased(mouse_position_inside,
-                                                global_mouse_position,
-                                                button);
-    }
-    if (result == EventResult::PROCESSED) {
-      break;
+  if (button == MouseButton::LEFT) {
+    for (auto child_it =  m_children.begin();
+              child_it != m_children.end();
+              ++child_it) {
+      auto child_ptr = *child_it;
+      assert(child_ptr != nullptr);
+      if (child_ptr->IsPointInside(mouse_position_inside)) {
+        result = child_ptr->OnMouseButtonReleased(mouse_position_inside,
+                                                  global_mouse_position,
+                                                  button);
+      }
+      if (result == EventResult::PROCESSED) {
+        break;
+      }
     }
   }
   return result;

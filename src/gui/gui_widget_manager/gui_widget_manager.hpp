@@ -9,6 +9,8 @@
 #include "gui_title_bar.hpp"
 #include "gui_window.hpp"
 #include "gui_canvas.hpp"
+#include "gui_main_menu.hpp"
+#include "gui_main_window.hpp"
 
 
 namespace gui {
@@ -39,7 +41,8 @@ namespace gui {
 
     EventResult ProcessEvent(AbstractWidget* widget, const sf::Event& sf_event,
                              bool force = false);
-    EventResult GetAndProcessEvent(glib::RenderWindow* render_window, bool& is_pooled);
+    EventResult GetAndProcessEvent(glib::RenderWindow* render_window,
+                                   bool& is_pooled);
     EventResult ProcessMouseEventOnSignedWidget(glib::RenderWindow* render_window,
                                               const sf::Event& sf_event);
 
