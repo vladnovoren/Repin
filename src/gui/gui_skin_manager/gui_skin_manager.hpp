@@ -5,12 +5,15 @@
 #include "gui_button_skin.hpp"
 #include "gui_title_bar_skin.hpp"
 #include "gui_main_menu_skin.hpp"
+#include "gui_app_config.hpp"
 #include <cstring>
 
 
 namespace gui {
   class SkinManager {
    protected:
+    SkinManager(const char* folder_path);
+
     AbstractButtonSkin* m_minimize_button_skin = nullptr;
     AbstractButtonSkin* m_maximize_button_skin = nullptr;
     AbstractButtonSkin* m_close_button_skin    = nullptr;
@@ -19,8 +22,9 @@ namespace gui {
 
     glib::Font*         m_san_francisco_font   = nullptr;
    public:
-    SkinManager(const char* folder_path);
     ~SkinManager();
+
+    static SkinManager& GetInstance();
 
     void LoadSanFranciscoFont();
 

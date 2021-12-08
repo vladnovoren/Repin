@@ -19,7 +19,6 @@ namespace gui {
     WidgetManager();
 
     AbstractWidget* m_root = nullptr;
-    SkinManager   m_skin_manager;
 
     bool m_is_open = true;
 

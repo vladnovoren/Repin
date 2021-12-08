@@ -1,12 +1,21 @@
 #include "gui_main_menu.hpp"
 
 
-gui::MainMenu::MainMenu(const glib::IntRect& location):
-               AbstractContainerWidget(location) {}
+gui::MainMenu::MainMenu(int height) {
+  m_location.m_size.x = APP_WIDTH;
+  m_location.m_size.y = height;
+}
 
 
 gui::MainMenu::~MainMenu() {
   delete m_skin;
+}
+
+
+gui::MainMenu* gui::MainMenu::GetInstance() {
+  SkinManager& skin_manager = SkinManager::GetInstance();
+  static MainMenu* instance = new MainMenu(skin_manager.GetMainMenuSkin()->m_location.m_size.x);
+  return instance;
 }
 
 

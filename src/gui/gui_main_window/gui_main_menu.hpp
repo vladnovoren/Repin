@@ -5,16 +5,20 @@
 #include "glib.hpp"
 #include "gui_abstract_container_widget.hpp"
 #include "gui_main_menu_skin.hpp"
+#include "gui_app_config.hpp"
+#include "gui_skin_manager.hpp"
 
 
 namespace gui {
   class MainMenu: public AbstractContainerWidget {
    protected:
+    MainMenu(int height);
+
     MainMenuSkin* m_skin = nullptr;
    public:
-    MainMenu() = default;
-    MainMenu(const glib::IntRect& location);
     ~MainMenu();
+
+    static MainMenu* GetInstance();
 
     void SetSkin(MainMenuSkin* skin);
 

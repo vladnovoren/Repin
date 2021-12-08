@@ -1,14 +1,12 @@
 #include "gui_widget_manager.hpp"
 
 
-gui::WidgetManager::WidgetManager():
-                    m_skin_manager("Skins/aqua") {
-  m_skin_manager.LoadFromFolder("Skins/aqua");
+gui::WidgetManager::WidgetManager() {
+  MainMenu* main_menu = MainMenu::GetInstance();
+  SkinManager& skin_manager = SkinManager::GetInstance();
+  main_menu->SetSkin(skin_manager.GetMainMenuSkin());
 
-  MainMenu* main_menu = new MainMenu(glib::IntRect(glib::Vector2i(), glib::Vector2i(1200, 22)));
-  main_menu->SetSkin(m_skin_manager.GetMainMenuSkin());
-
-  glib::Text title_text("Serega Chernomyrdin", m_skin_manager.GetSanFranciscoFont());
+  glib::Text title_text("Serega Chernomyrdin", skin_manager.GetSanFranciscoFont());
   title_text.SetFontSize(14);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
@@ -24,14 +22,14 @@ gui::WidgetManager::WidgetManager():
 
   TitleBar* title_bar = new TitleBar;
   title_bar->SetMoveFunctor(window_move_functor);
-  title_bar->SetSkin(m_skin_manager.GetTitleBarSkin());
+  title_bar->SetSkin(skin_manager.GetTitleBarSkin());
   title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
 
   CloseWidgetFunctor* close_widget_functor = new CloseWidgetFunctor(window);
 
   Button* close_button = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
                                     close_widget_functor,
-                                    m_skin_manager.GetCloseButtonSkin());
+                                    skin_manager.GetCloseButtonSkin());
 
   MainWindow* main_window = MainWindow::GetInstance();
 

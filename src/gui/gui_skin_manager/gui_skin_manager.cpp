@@ -14,6 +14,12 @@ gui::SkinManager::~SkinManager() {
 }
 
 
+gui::SkinManager& gui::SkinManager::GetInstance() {
+  static SkinManager instance(AQUA_SKIN_FOLDER_PATH);
+  return instance;
+}
+
+
 char* gui::SkinManager::GetPath(const char* folder_path, const char* child_dir) {
   assert(folder_path != nullptr);
   assert(child_dir   != nullptr);
