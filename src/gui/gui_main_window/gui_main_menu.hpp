@@ -14,7 +14,7 @@ namespace gui {
    public:
     MainMenu() = default;
     MainMenu(const glib::IntRect& location);
-    ~MainMenu() = default;
+    ~MainMenu();
 
     void SetSkin(MainMenuSkin* skin);
 

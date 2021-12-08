@@ -27,7 +27,7 @@ gui::WidgetManager::WidgetManager():
   title_bar->SetSkin(m_skin_manager.GetTitleBarSkin());
   title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
 
-  CloseWidgetFunctor* close_widget_functor    = new CloseWidgetFunctor(window);
+  CloseWidgetFunctor* close_widget_functor = new CloseWidgetFunctor(window);
 
   Button* close_button = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
                                     close_widget_functor,

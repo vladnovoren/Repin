@@ -5,6 +5,11 @@ gui::MainMenu::MainMenu(const glib::IntRect& location):
                AbstractContainerWidget(location) {}
 
 
+gui::MainMenu::~MainMenu() {
+  delete m_skin;
+}
+
+
 void gui::MainMenu::SetSkin(MainMenuSkin* skin) {
   assert(skin != nullptr);
 

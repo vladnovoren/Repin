@@ -53,6 +53,7 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   delete m_maximize_button_skin;
   delete m_close_button_skin;
   delete m_title_bar_skin;
+  delete m_main_menu_skin;
 
   char* minimize_button_path = GetPath(folder_path, "/MinimizeButton");
   char* maximize_button_path = GetPath(folder_path, "/MaximizeButton");
