@@ -32,9 +32,10 @@ gui::AbstractContainerWidget::~AbstractContainerWidget() {
 }
 
 
-glib::Vector2i gui::AbstractContainerWidget::GetValidSizeForChild() const {
-  return m_location.m_size;
+glib::IntRect gui::AbstractContainerWidget::GetValidBoundsForContent() const {
+  return glib::IntRect(glib::Vector2i(), m_location.m_size);
 }
+
 
 
 void gui::AbstractContainerWidget::AddChild(AbstractWidget* child) {

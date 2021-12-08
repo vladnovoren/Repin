@@ -13,7 +13,7 @@ gui::WidgetManager::WidgetManager() {
   Canvas* canvas = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(800, 579)));
 
   Window* window = new Window;
-  window->SetLocation(glib::IntRect(glib::Vector2i(), glib::Vector2i(800, 600)));
+  window->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(800, 600)));
   MoveFunctor* window_move_functor = new MoveFunctor(window);
 
   Title* title = new Title;

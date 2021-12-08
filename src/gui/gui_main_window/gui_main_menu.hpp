@@ -11,6 +11,7 @@
 
 namespace gui {
   class MainMenu: public AbstractContainerWidget {
+    friend class MainWindow;
    protected:
     MainMenu(int height);
 

@@ -18,7 +18,7 @@ namespace gui {
     void DeleteMatched() override;
     void AddChild(AbstractWidget* child);
 
-    virtual glib::Vector2i GetValidSizeForChild() const;
+    virtual glib::IntRect GetValidBoundsForContent() const;
 
     EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
                                      glib::Vector2i global_mouse_position,

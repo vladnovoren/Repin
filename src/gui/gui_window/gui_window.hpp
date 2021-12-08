@@ -25,6 +25,9 @@ namespace gui {
     EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
                             glib::Vector2i new_global_mouse_position) override;
 
+    void Move(const glib::Vector2i& delta_position) override;
+
+
     void AddTitleBar(TitleBar* title_bar);
     void AddContent(AbstractWidget* content_widget);
 
