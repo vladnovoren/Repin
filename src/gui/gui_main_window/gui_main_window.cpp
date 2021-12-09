@@ -20,3 +20,17 @@ glib::IntRect gui::MainWindow::GetValidBoundsForContent() const {
   bounds.m_size.y -= m_main_menu->m_location.m_size.y;
   return bounds;
 }
+
+
+void gui::MainWindow::AddWindow(Window* window) {
+  assert(window != nullptr);
+
+  AddChild(window);
+}
+
+
+void gui::MainWindow::AddMainMenu(MainMenu* main_menu) {
+  assert(main_menu != nullptr);
+
+  AddChild(main_menu);
+}

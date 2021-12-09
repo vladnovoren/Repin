@@ -10,13 +10,14 @@ namespace gui {
   class AbstractContainerWidget: public AbstractWidget {
    protected:
     std::list<AbstractWidget*> m_children;
+
+    void AddChild(AbstractWidget* child);
    public:
     AbstractContainerWidget() = default;
     AbstractContainerWidget(const glib::IntRect& location);
     virtual ~AbstractContainerWidget() = 0;
 
     void DeleteMatched() override;
-    void AddChild(AbstractWidget* child);
 
     virtual glib::IntRect GetValidBoundsForContent() const;
 

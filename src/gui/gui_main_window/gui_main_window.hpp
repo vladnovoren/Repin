@@ -3,6 +3,7 @@
 
 
 #include "gui_abstract_container_widget.hpp"
+#include "gui_window.hpp"
 #include "gui_main_menu.hpp"
 #include "gui_app_config.hpp"
 
@@ -18,6 +19,9 @@ namespace gui {
     static MainWindow* GetInstance();
 
     glib::IntRect GetValidBoundsForContent() const override;
+
+    void AddWindow(Window* window);
+    void AddMainMenu(MainMenu* main_menu);
   };
 }
 

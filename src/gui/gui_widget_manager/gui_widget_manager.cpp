@@ -37,8 +37,8 @@ gui::WidgetManager::WidgetManager() {
   title_bar->AddTitle(title);
   window->AddTitleBar(title_bar);
   window->AddContent(canvas);
-  main_window->AddChild(window);
-  main_window->AddChild(main_menu);
+  main_window->AddWindow(window);
+  main_window->AddMainMenu(main_menu);
 
   m_root = main_window;
 }

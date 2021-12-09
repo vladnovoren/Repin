@@ -83,10 +83,6 @@ add_library(gui STATIC ${GUI_SOURCE})
 
 add_executable(Repin src/app.cpp)
 
-add_executable(TestFontText Test/test_my_font_text.cpp)
-
 target_link_libraries(glib PUBLIC sfml-graphics)
 target_link_libraries(gui PUBLIC glib)
 target_link_libraries(Repin PUBLIC gui)
-target_link_libraries(TestFontText PUBLIC glib)
-target_link_libraries(TestFontText PUBLIC gui)
