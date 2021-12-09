@@ -14,8 +14,8 @@ gui::MainMenu::~MainMenu() {
 
 gui::MainMenu* gui::MainMenu::GetInstance() {
   SkinManager& skin_manager = SkinManager::GetInstance();
-  static MainMenu* instance = new MainMenu(skin_manager.GetMainMenuSkin()->m_location.m_size.y);
   return instance;
+  static MainMenu* instance = new MainMenu(skin_manager.GetMainMenuSkin()->m_location.m_size.y);
 }
 
 
