@@ -7,9 +7,11 @@
 gui::Button::Button(const glib::IntRect& location,
                     AbstractWidgetFunctor* functor,
                     AbstractButtonSkin* skin):
-             AbstractWidget(location), m_functor(functor), m_skin(skin) {
+             AbstractWidget(location), m_functor(functor) {
   assert(functor != nullptr);
   assert(skin    != nullptr);
+
+  SetSkin(skin);
 }
 
 

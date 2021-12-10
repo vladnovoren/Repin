@@ -76,6 +76,8 @@ namespace gui {
 
     virtual void Draw(glib::RenderTarget* render_target,
                       const glib::Vector2i& position) = 0;
+
+    // void MoveUp();
   };
 }
 

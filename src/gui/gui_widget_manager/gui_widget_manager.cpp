@@ -6,38 +6,76 @@ gui::WidgetManager::WidgetManager() {
   SkinManager& skin_manager = SkinManager::GetInstance();
   main_menu->SetSkin(skin_manager.GetMainMenuSkin());
 
-  glib::Text title_text("Serega Chernomyrdin", skin_manager.GetSanFranciscoFont());
-  title_text.SetFontSize(14);
-  title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
-
-  Canvas* canvas = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(800, 579)));
-
-  Window* window = new Window;
-  window->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(800, 600)));
-  MoveFunctor* window_move_functor = new MoveFunctor(window);
-
-  Title* title = new Title;
-  title->SetLocation(glib::IntRect(glib::Vector2i(400, 0), glib::Vector2i()));
-  title->SetText(title_text);
-
-  TitleBar* title_bar = new TitleBar;
-  title_bar->SetMoveFunctor(window_move_functor);
-  title_bar->SetSkin(skin_manager.GetTitleBarSkin());
-  title_bar->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
-
-  CloseWidgetFunctor* close_widget_functor = new CloseWidgetFunctor(window);
-
-  Button* close_button = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
-                                    close_widget_functor,
-                                    skin_manager.GetCloseButtonSkin());
-
   MainWindow* main_window = MainWindow::GetInstance();
 
-  title_bar->AddCloseButton(close_button);
-  title_bar->AddTitle(title);
-  window->AddTitleBar(title_bar);
-  window->AddContent(canvas);
-  main_window->AddWindow(window);
+  glib::Text title_text1("Serega Chernomyrdin", skin_manager.GetSanFranciscoFont());
+  title_text1.SetFontSize(14);
+  title_text1.SetColor(glib::ColorRGBA(0, 0, 0, 1));
+
+  Canvas* canvas1 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(800, 579)));
+
+  Window* window1 = new Window;
+  window1->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(800, 600)));
+  MoveFunctor* window1_move_functor = new MoveFunctor(window1);
+
+  Title* title1 = new Title;
+  title1->SetLocation(glib::IntRect(glib::Vector2i(400, 0), glib::Vector2i()));
+  title1->SetText(title_text1);
+
+  TitleBar* title_bar1 = new TitleBar;
+  title_bar1->SetMoveFunctor(window1_move_functor);
+  title_bar1->SetSkin(skin_manager.GetTitleBarSkin());
+  title_bar1->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
+
+  CloseWidgetFunctor* close_widget_functor1 = new CloseWidgetFunctor(window1);
+
+  Button* close_button1 = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
+                                    close_widget_functor1,
+                                    skin_manager.GetCloseButtonSkin());
+
+
+  title_bar1->AddCloseButton(close_button1);
+  title_bar1->AddTitle(title1);
+  window1->AddTitleBar(title_bar1);
+  window1->AddContent(canvas1);
+
+
+
+  glib::Text title_text2("Miha Rogozin", skin_manager.GetSanFranciscoFont());
+  title_text2.SetFontSize(14);
+  title_text2.SetColor(glib::ColorRGBA(0, 0, 0, 1));
+
+  Canvas* canvas2 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(800, 579)));
+
+  Window* window2 = new Window;
+  window2->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(800, 600)));
+  MoveFunctor* window2_move_functor = new MoveFunctor(window2);
+
+  Title* title2 = new Title;
+  title2->SetLocation(glib::IntRect(glib::Vector2i(400, 0), glib::Vector2i()));
+  title2->SetText(title_text2);
+
+  TitleBar* title_bar2 = new TitleBar;
+  title_bar2->SetMoveFunctor(window2_move_functor);
+  title_bar2->SetSkin(skin_manager.GetTitleBarSkin());
+  title_bar2->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
+
+  CloseWidgetFunctor* close_widget_functor2 = new CloseWidgetFunctor(window2);
+
+  Button* close_button2 = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
+                                    close_widget_functor2,
+                                    skin_manager.GetCloseButtonSkin());
+
+
+  title_bar2->AddCloseButton(close_button2);
+  title_bar2->AddTitle(title2);
+  window2->AddTitleBar(title_bar2);
+  window2->AddContent(canvas2);
+
+
+  main_window->AddWindow(window1);
+  main_window->AddWindow(window2);
+
   main_window->AddMainMenu(main_menu);
 
   m_root = main_window;

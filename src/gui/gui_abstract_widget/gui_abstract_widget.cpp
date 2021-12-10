@@ -80,3 +80,11 @@ void gui::AbstractWidget::Move(const glib::Vector2i& delta_position) {
 gui::EventResult gui::AbstractWidget::OnUnknownEvent() {
   return gui::EventResult::PROCESSED;
 }
+
+
+// void gui::AbstractWidget::MoveUp() {
+//   AbstractContainerWidget* curr_parent = m_parent_widget;
+//   while (curr_parent != nullptr) {
+    
+//   }
+// }

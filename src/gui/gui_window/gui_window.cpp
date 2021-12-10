@@ -15,6 +15,8 @@ gui::EventResult gui::Window::OnMouseButtonPressed(glib::Vector2i local_mouse_po
     auto child_ptr = *child_it;
     assert(child_ptr != nullptr);
     if (child_ptr->IsPointInside(mouse_position_inside)) {
+      m_children.erase(child_it);
+      m_children.push_front(child_ptr);
       return child_ptr->OnMouseButtonPressed(mouse_position_inside,
                                              global_mouse_position,
                                              button);
@@ -80,8 +82,8 @@ void gui::Window::Draw(glib::RenderTarget* render_target,
 
   glib::Vector2i position_inside = position + m_location.m_position;
 
-  for (auto child_it =  m_children.begin();
-            child_it != m_children.end();
+  for (auto child_it =  m_children.rbegin();
+            child_it != m_children.rend();
             ++child_it) {
     auto child_ptr = *child_it;
     assert(child_ptr != nullptr);

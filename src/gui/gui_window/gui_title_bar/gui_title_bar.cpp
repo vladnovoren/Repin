@@ -17,6 +17,7 @@ gui::TitleBar::~TitleBar() {
 gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i local_mouse_position,
                                                      glib::Vector2i global_mouse_position,
                                                      MouseButton button) {
+  WidgetManager::GetInstance().AddMouseActiveWidget(this);
   glib::Vector2i mouse_position_inside = local_mouse_position - m_location.m_position;
   for (auto child_it =  m_children.begin();
             child_it != m_children.end();
@@ -24,6 +25,8 @@ gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i local_mouse_
     auto child_ptr = *child_it;
     assert(child_ptr != nullptr);
     if (child_ptr->IsPointInside(mouse_position_inside)) {
+      m_children.erase(child_it);
+      m_children.push_front(child_ptr);
       return child_ptr->OnMouseButtonPressed(mouse_position_inside,
                                              global_mouse_position,
                                              button);
@@ -33,7 +36,6 @@ gui::EventResult gui::TitleBar::OnMouseButtonPressed(glib::Vector2i local_mouse_
     m_is_dragging = true;
   }
   m_old_global_mouse_position = global_mouse_position;
-  WidgetManager::GetInstance().AddMouseActiveWidget(this);
   return EventResult::PROCESSED;
 }
 
