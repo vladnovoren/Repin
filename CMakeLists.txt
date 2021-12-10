@@ -77,6 +77,7 @@ list(LENGTH header_dir_list header_dir_list_count)
 message(STATUS "[INFO] Found ${header_dir_list_count} header directories: ${header_dir_list}.")
 include_directories(${header_dir_list})
 
+
 add_library(glib STATIC ${GLIB_SOURCE})
 add_library(gui STATIC ${GUI_SOURCE})
 
