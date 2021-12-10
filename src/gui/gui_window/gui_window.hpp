@@ -30,8 +30,6 @@ namespace gui {
 
     void AddTitleBar(TitleBar* title_bar);
     void AddContent(AbstractWidget* content_widget);
-
-    void Draw(glib::RenderTarget* render_target, const glib::Vector2i& position) override;
   };
 }
 

@@ -76,23 +76,6 @@ void gui::Window::AddContent(AbstractWidget* content_widget) {
 }
 
 
-void gui::Window::Draw(glib::RenderTarget* render_target,
-                       const glib::Vector2i& position) {
-  assert(render_target != nullptr);
-
-  glib::Vector2i position_inside = position + m_location.m_position;
-
-  for (auto child_it =  m_children.rbegin();
-            child_it != m_children.rend();
-            ++child_it) {
-    auto child_ptr = *child_it;
-    assert(child_ptr != nullptr);
-
-    child_ptr->Draw(render_target, position_inside);
-  }
-}
-
-
 void gui::Window::Move(const glib::Vector2i& delta_position) {
   glib::Vector2i left_up_corner = m_location.m_position + delta_position;
   glib::Vector2i right_down_corner = left_up_corner + m_location.m_size;
