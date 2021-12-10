@@ -14,7 +14,7 @@ namespace gui {
 
     bool m_is_drawing = false;
 
-    int m_thickness = 5;
+    int m_thickness = 3;
     glib::ColorRGBA m_color;
 
     glib::Vector2i m_prev_draw_point = glib::Vector2i(-1, -1);

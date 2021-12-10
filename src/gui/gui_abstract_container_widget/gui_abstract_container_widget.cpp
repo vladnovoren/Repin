@@ -37,7 +37,6 @@ glib::IntRect gui::AbstractContainerWidget::GetValidBoundsForContent() const {
 }
 
 
-
 void gui::AbstractContainerWidget::AddChild(AbstractWidget* child) {
   assert(child != nullptr);
 
