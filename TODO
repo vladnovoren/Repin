@@ -1,6 +1,7 @@
 разобраться с функциями по типу OnMouseButtonPressed и Draw класса
 AbstractContainerWidget и его производных
 
+
 сделать синглтоны для SkinManger, MainWindow, MainMenu
 
 более адекватный захват размеров виджетов (из скинов и gui_app_config.hpp)
