@@ -13,7 +13,9 @@ namespace gui {
 
   static const char* AQUA_SKIN_FOLDER_PATH = "Skins/aqua";
 
-  static const int WINDOW_SHADOW_THICKNESS = 3;
+  static const int WINDOW_SHADOW_THICKNESS = 2;
+  static const glib::Vector2i WINDOW_SHADOW_SIZE(WINDOW_SHADOW_THICKNESS,
+                                                 WINDOW_SHADOW_THICKNESS);
 }
 
 
