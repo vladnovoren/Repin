@@ -63,9 +63,7 @@ gui::EventResult gui::AbstractContainerWidget::OnMouseButtonPressed(glib::Vector
         result = child_ptr->OnMouseButtonPressed(mouse_position_inside,
                                                 global_mouse_position,
                                                 button);
-      }
-      if (result == EventResult::PROCESSED) {
-        break;
+        return result;
       }
     }
   }

@@ -16,6 +16,9 @@ namespace glib {
     Rect(const glib::Vector2<RectType>& position,
          const glib::Vector2<RectType>& size):
     m_position(position), m_size(size) {}
+    Rect(const RectType& position_x, const RectType& position_y,
+         const RectType& width, const RectType& height):
+    m_position(position_x, position_y), m_size(width, height) {}
     Rect(const Rect<float>& other):
     m_position(other.m_position), m_size(other.m_size) {}
 

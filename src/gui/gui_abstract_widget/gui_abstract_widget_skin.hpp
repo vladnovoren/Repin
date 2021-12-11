@@ -3,6 +3,7 @@
 
 
 #include "glib.hpp"
+#include "gui_app_config.hpp"
 #include <cstring>
 
 

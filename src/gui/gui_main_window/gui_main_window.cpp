@@ -2,8 +2,7 @@
 
 
 gui::MainWindow::MainWindow() {
-  SetLocation(glib::IntRect(glib::Vector2i(),
-                            glib::Vector2i(APP_WIDTH, APP_HEIGHT)));
+  SetLocation(glib::IntRect(0, 0, APP_WIDTH, APP_HEIGHT));
 }
 
 
