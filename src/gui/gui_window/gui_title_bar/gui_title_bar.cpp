@@ -2,15 +2,16 @@
 #include "gui_widget_manager.hpp"
 
 
-gui::TitleBar::TitleBar(TitleBarSkin* skin):
-               m_skin(skin) {
+gui::TitleBar::TitleBar(TitleBarSkin* skin) {
   assert(skin);
+
+  SetSkin(skin);
 }
 
 
 gui::TitleBar::~TitleBar() {
-  delete(m_skin);
-  delete(m_move_functor);
+  delete m_skin;
+  delete m_move_functor;
 }
 
 
@@ -102,7 +103,7 @@ void gui::TitleBar::Draw(glib::RenderTarget* render_target,
 void gui::TitleBar::SetSkin(TitleBarSkin* skin) {
   assert(skin != nullptr);
 
-  delete(m_skin);
+  delete m_skin;
   m_skin = new TitleBarSkin(*skin);
 }
 

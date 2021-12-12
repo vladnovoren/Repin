@@ -14,8 +14,10 @@ gui::WidgetManager::WidgetManager() {
 
   Canvas* canvas1 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(400, 279)));
 
+  WindowSkin* window_skin = skin_manager.GetWindowSkin();
   Window* window1 = new Window;
   window1->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(400, 300)));
+  window1->SetSkin(window_skin);
   MoveFunctor* window1_move_functor = new MoveFunctor(window1);
 
   Title* title1 = new Title;
@@ -71,7 +73,7 @@ gui::WidgetManager::WidgetManager() {
   title_bar2->AddTitle(title2);
   window2->AddTitleBar(title_bar2);
   window2->AddContent(canvas2);
-
+  window2->SetSkin(window_skin);
 
   main_window->AddWindow(window1);
   main_window->AddWindow(window2);

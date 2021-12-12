@@ -1,19 +1,21 @@
 #include "gui_window.hpp"
 
 
-gui::Window::Window() {
-  m_skin = new WindowSkin;
-}
-
-
 gui::Window::Window(const glib::IntRect& location):
              AbstractContainerWidget(location) {
-  m_skin = new WindowSkin;
 }
 
 
 gui::Window::~Window() {
   delete m_skin;
+}
+
+
+void gui::Window::SetSkin(WindowSkin* skin) {
+  assert(skin != nullptr);
+
+  delete m_skin;
+  m_skin = new WindowSkin(*skin);
 }
 
 
@@ -68,13 +70,16 @@ void gui::Window::Move(const glib::Vector2i& delta_position) {
 void gui::Window::Draw(glib::RenderTarget* render_target,
                        const glib::Vector2i& position) {
   assert(render_target != nullptr);
+  assert(m_title_bar != nullptr);
+  TitleBarSkin* title_bar_skin = m_title_bar->m_skin;
+  assert(title_bar_skin != nullptr);
   assert(m_skin != nullptr);
 
   if (m_needs_to_render) {
-    m_skin->Render(m_location.m_size);
+    m_skin->Render(m_location.m_size, *title_bar_skin);
     m_needs_to_render = false;
   }
-  glib::Vector2i position_to_copy = m_location.m_position + position - WINDOW_SHADOW_SIZE;
+  glib::Vector2i position_to_copy = m_location.m_position + position + title_bar_skin->m_left_all_location.m_position - title_bar_skin->m_left_origin_location.m_position;
   render_target->CopyTexture(m_skin->m_texture, position_to_copy);
 
   AbstractContainerWidget::Draw(render_target, position);

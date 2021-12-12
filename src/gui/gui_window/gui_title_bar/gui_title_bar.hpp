@@ -11,6 +11,7 @@
 
 namespace gui {
   class TitleBar: public AbstractContainerWidget {
+    friend class Window;
    protected:
     TitleBarSkin* m_skin = nullptr;
 

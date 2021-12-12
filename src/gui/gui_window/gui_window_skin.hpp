@@ -3,6 +3,7 @@
 
 
 #include "gui_abstract_widget_skin.hpp"
+#include "gui_title_bar_skin.hpp"
 #include "glib.hpp"
 
 
@@ -22,7 +23,10 @@ namespace gui {
     WindowSkin() = default;
     WindowSkin(const WindowSkin& other);
 
-    void Render(const glib::Vector2i& window_size);
+    glib::Vector2i GetAllSize(const glib::Vector2i& window_size) const;
+
+    void Render(const glib::Vector2i& window_size,
+                const TitleBarSkin& title_bar_skin);
     void CopyToRenderTarget(glib::RenderTarget* render_target,
                             const glib::Vector2i& window_position) const;
     

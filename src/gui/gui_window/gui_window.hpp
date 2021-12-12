@@ -15,11 +15,13 @@ namespace gui {
 
     WindowSkin* m_skin = nullptr;
    public:
-    Window();
+    Window() = default;
     Window(const glib::IntRect& location);
     ~Window();
 
     void Move(const glib::Vector2i& delta_position) override;
+
+    void SetSkin(WindowSkin* skin);
 
     void AddTitleBar(TitleBar* title_bar);
     void AddContent(AbstractWidget* content_widget);
