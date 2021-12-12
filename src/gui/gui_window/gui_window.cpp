@@ -40,12 +40,15 @@ void gui::Window::Move(const glib::Vector2i& delta_position) {
   glib::Vector2i right_down_corner = left_up_corner + m_location.m_size;
 
   glib::IntRect bounds = m_parent_widget->GetValidBoundsForContent();
+  glib::Vector2i delta(2 * m_title_bar->m_skin->m_left_all_location.m_size.x,
+                       m_title_bar->m_location.m_size.y);
+  bounds.m_size -= delta;
 
   if (bounds.IsPointInRect(left_up_corner) && bounds.IsPointInRect(right_down_corner)) {
     m_location.m_position = m_location.m_position + delta_position;
   } else {
     glib::Vector2i good_left_up_corner = bounds.m_position;
-    glib::Vector2i good_right_down_corner = good_left_up_corner + bounds.m_size;
+    glib::Vector2i good_right_down_corner = good_left_up_corner + bounds.m_size + m_location.m_size;
     if (left_up_corner.x < good_left_up_corner.x) {
       left_up_corner.x = good_left_up_corner.x;
       right_down_corner = left_up_corner + m_location.m_size;

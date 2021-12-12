@@ -47,24 +47,24 @@ gui::WidgetManager::WidgetManager() {
   title_text2.SetFontSize(14);
   title_text2.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
-  Canvas* canvas2 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(800, 579)));
+  Canvas* canvas2 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(400, 279)));
 
   Window* window2 = new Window;
-  window2->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(800, 600)));
+  window2->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(400, 300)));
   MoveFunctor* window2_move_functor = new MoveFunctor(window2);
 
   Title* title2 = new Title;
-  title2->SetLocation(glib::IntRect(glib::Vector2i(400, 0), glib::Vector2i()));
+  title2->SetLocation(glib::IntRect(glib::Vector2i(200, 0), glib::Vector2i()));
   title2->SetText(title_text2);
 
   TitleBar* title_bar2 = new TitleBar;
   title_bar2->SetMoveFunctor(window2_move_functor);
   title_bar2->SetSkin(skin_manager.GetTitleBarSkin());
-  title_bar2->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(800, 21)));
+  title_bar2->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(400, 21)));
 
   CloseWidgetFunctor* close_widget_functor2 = new CloseWidgetFunctor(window2);
 
-  Button* close_button2 = new Button(glib::IntRect(glib::Vector2i(781, 3), glib::Vector2i(14, 15)),
+  Button* close_button2 = new Button(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
                                     close_widget_functor2,
                                     skin_manager.GetCloseButtonSkin());
 
@@ -92,7 +92,7 @@ gui::WidgetManager::~WidgetManager() {
 void gui::WidgetManager::Draw(glib::RenderWindow* render_window) {
   assert(render_window != nullptr);
 
-  render_window->Clear();
+  render_window->Clear(glib::ColorRGBA(1, 1, 1, 1));
   if (m_root != nullptr) {
     m_root->Draw(render_window, glib::Vector2i(0, 0));
   }
