@@ -206,9 +206,9 @@ gui::AbstractButtonSkin* gui::SkinManager::LoadButtonSkinFromFolder(const char* 
   button_skin->m_source_texture.LoadFromFile(texture_path);
   free(texture_path);
 
-  GetIntRectFromText(map_carriage, &button_skin->m_idle_texture_location);
-  GetIntRectFromText(map_carriage, &button_skin->m_hovered_texture_location);
-  GetIntRectFromText(map_carriage, &button_skin->m_pressed_texture_location);
+  map_carriage = GetIntRectFromText(map_carriage, &button_skin->m_idle_texture_location);
+  map_carriage = GetIntRectFromText(map_carriage, &button_skin->m_hovered_texture_location);
+  map_carriage = GetIntRectFromText(map_carriage, &button_skin->m_pressed_texture_location);
 
   free(map);
 
