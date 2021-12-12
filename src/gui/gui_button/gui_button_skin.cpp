@@ -33,7 +33,7 @@ void gui::AbstractButtonSkin::Render(const glib::Vector2i& size) {
 
 
 void gui::AbstractButtonSkin::CopyToRenderTarget(glib::RenderTarget* render_target,
-                                   const glib::Vector2i& position) const {
+                                                 const glib::Vector2i& position) const {
   assert(render_target != nullptr);
 
   render_target->CopyTexture(m_texture, position);

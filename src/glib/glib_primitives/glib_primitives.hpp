@@ -70,9 +70,12 @@ namespace glib {
     Vector2<LineType> m_begin;
     Vector2<LineType> m_end;
 
+    LineType m_thickness;
+
     Line() = default;
-    Line(const Vector2<LineType>& begin, const Vector2<LineType>& end):
-    m_begin(begin), m_end(end) {}
+    Line(const Vector2<LineType>& begin, const Vector2<LineType>& end,
+         LineType thickness):
+    m_begin(begin), m_end(end), m_thickness(thickness) {}
   };
 
 

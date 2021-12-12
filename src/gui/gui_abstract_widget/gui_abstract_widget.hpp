@@ -30,6 +30,7 @@ namespace gui {
     friend class AbstractContainerWidget;
     friend class TitleBar;
     friend class Window;
+    friend class ToolBar;
 
     glib::IntRect m_location;
 

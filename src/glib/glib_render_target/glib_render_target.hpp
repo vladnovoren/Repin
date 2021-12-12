@@ -20,7 +20,7 @@ namespace glib {
 
     void Clear(const ColorRGBA& color = ColorRGBA());
 
-    void RenderLine(const IntLine& line, int thickness, const ColorRGBA& color);
+    void RenderLine(const IntLine& line, const ColorRGBA& color);
     void RenderRect(const IntRect& rect, const ColorRGBA& color);
     void RenderCircle(const IntCircle& circle, const ColorRGBA& color);
 

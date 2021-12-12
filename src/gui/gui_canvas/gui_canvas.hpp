@@ -18,12 +18,17 @@ namespace gui {
     glib::ColorRGBA m_color;
 
     glib::Vector2i m_prev_draw_point = glib::Vector2i(-1, -1);
+    glib::Vector2i m_curr_draw_point = glib::Vector2i(-1, -1);
    public:
     Canvas() = default;
     Canvas(const glib::IntRect& location);
     ~Canvas() = default;
 
     void SetLocation(const glib::IntRect& location) override;
+
+    bool IsDrawind() const;
+    glib::Vector2i GetPrevDrawPoint() const;
+    glib::Vector2i GetCurrDrawPoint() const;
 
     EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
                                      glib::Vector2i global_mouse_position,
@@ -34,8 +39,8 @@ namespace gui {
     EventResult OnMouseMove(glib::Vector2i new_local_mouse_position,
                             glib::Vector2i new_global_mouse_position) override;
 
-    void DrawPoint(glib::Vector2i point_position);
-    void DrawLine(glib::IntLine line);
+    void DrawPoint(glib::Vector2i point_position, glib::ColorRGBA color);
+    void DrawLine(glib::IntLine line, glib::ColorRGBA color);
 
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;

@@ -11,6 +11,8 @@
 #include "gui_canvas.hpp"
 #include "gui_main_menu.hpp"
 #include "gui_main_window.hpp"
+#include "gui_tool_bar.hpp"
+#include "gui_brush.hpp"
 
 
 namespace gui {

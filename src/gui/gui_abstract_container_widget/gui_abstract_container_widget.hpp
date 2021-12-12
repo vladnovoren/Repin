@@ -4,6 +4,7 @@
 
 #include "gui_abstract_widget.hpp"
 #include <list>
+#include <algorithm>
 
 
 namespace gui {

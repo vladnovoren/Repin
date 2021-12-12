@@ -33,3 +33,11 @@ void gui::MainWindow::AddMainMenu(MainMenu* main_menu) {
 
   AddChild(main_menu);
 }
+
+
+void gui::MainWindow::AddToolBar() {
+  ToolBar* tool_bar = ToolBar::GetInstance();
+  assert(tool_bar != nullptr);
+
+  AddChild(tool_bar);
+}

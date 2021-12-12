@@ -57,6 +57,10 @@ set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_main_window/gui_main_menu_skin.cpp
                src/gui/gui_window/gui_window_skin.cpp
                src/open_file/open_file.cpp
+               src/gui/gui_tool_bar/gui_tool_bar.cpp
+               src/gui/gui_tool_bar/gui_tool_bar_skin.cpp
+               src/gui/gui_tool_bar/gui_abstract_tool/gui_abstract_tool.cpp
+               src/gui/gui_tool_bar/gui_brush/gui_brush.cpp
 )
 
 

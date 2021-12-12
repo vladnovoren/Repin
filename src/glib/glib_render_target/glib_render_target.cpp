@@ -17,12 +17,11 @@ void glib::RenderTarget::Clear(const ColorRGBA& color) {
 
 
 void glib::RenderTarget::RenderLine(const glib::IntLine& line,
-                                    int thickness,
                                     const ColorRGBA& color) {
-  FloatLine float_line(line.m_begin, line.m_end);
+  FloatLine float_line(line.m_begin, line.m_end, line.m_thickness);
   glib::Vector2f normal = float_line.m_end - float_line.m_begin;
   normal.Rotate(M_PI / 2);
-  normal.Resize(thickness);
+  normal.Resize(line.m_thickness);
 
   glib::Vector2f v0 = float_line.m_begin + normal;
   glib::Vector2f v1 = float_line.m_begin - normal;

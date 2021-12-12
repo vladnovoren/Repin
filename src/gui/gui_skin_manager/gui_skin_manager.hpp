@@ -7,6 +7,7 @@
 #include "gui_main_menu_skin.hpp"
 #include "gui_app_config.hpp"
 #include "gui_window_skin.hpp"
+#include "gui_tool_bar_skin.hpp"
 #include "open_file.hpp"
 #include <cstring>
 
@@ -22,6 +23,7 @@ namespace gui {
     TitleBarSkin*       m_title_bar_skin       = nullptr;
     MainMenuSkin*       m_main_menu_skin       = nullptr;
     WindowSkin*         m_window_skin          = nullptr;
+    ToolBarSkin*        m_tool_bar_skin        = nullptr;
 
     glib::Font*         m_san_francisco_font   = nullptr;
    public:
@@ -45,6 +47,7 @@ namespace gui {
     TitleBarSkin*       LoadTitleBarSkinFromFolder(const char* folder_path);
     MainMenuSkin*       LoadMainMenuSkinFromFolder(const char* folder_path);
     WindowSkin*         LoadWindowSkinFromFolder(const char* folder_path);
+    ToolBarSkin*        LoadToolBarSkinFromFolder(const char* folder_path);
 
     AbstractButtonSkin* GetMinimizeButtonSkin() const;
     AbstractButtonSkin* GetMaximizeButtonSkin() const;
@@ -52,6 +55,7 @@ namespace gui {
     TitleBarSkin*       GetTitleBarSkin() const;
     MainMenuSkin*       GetMainMenuSkin() const;
     WindowSkin*         GetWindowSkin() const;
+    ToolBarSkin*        GetToolBarSkin() const;
 
     glib::Font*         GetSanFranciscoFont() const;
 

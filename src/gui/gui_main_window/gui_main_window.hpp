@@ -6,6 +6,7 @@
 #include "gui_window.hpp"
 #include "gui_main_menu.hpp"
 #include "gui_app_config.hpp"
+#include "gui_tool_bar.hpp"
 
 
 namespace gui {
@@ -22,6 +23,7 @@ namespace gui {
 
     void AddWindow(Window* window);
     void AddMainMenu(MainMenu* main_menu);
+    void AddToolBar();
   };
 }
 
