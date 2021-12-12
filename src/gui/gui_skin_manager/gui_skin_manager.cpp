@@ -31,24 +31,117 @@ char* gui::SkinManager::GetPath(const char* folder_path, const char* child_dir) 
 }
 
 
+char* gui::SkinManager::SkipSpaces(char* carriage) {
+  assert(carriage != nullptr);
+
+  while (isspace(*carriage) || *carriage == '\n') {
+    ++carriage;
+  }
+  return carriage;
+}
+
+
+char* gui::SkinManager::SkipComments(char* carriage) {
+  assert(carriage != nullptr);
+
+  if (*carriage != ';') {
+    return carriage;
+  }
+  char* strchr_res = strchr(carriage, '\n');
+  if (strchr_res == nullptr) {
+    printf("invalid map.txt");
+    return nullptr;
+  }
+  ++strchr_res;
+  return strchr_res;
+}
+
+
+char* gui::SkinManager::SkipTrash(char* carriage) {
+  assert(carriage != nullptr);
+
+  bool is_parsing = true;
+  while (is_parsing) {
+    bool spaces_skipped = false;
+    bool comments_skipped = false;
+    char* skip_spaces_res = SkipSpaces(carriage);
+    if (skip_spaces_res != carriage) {
+      spaces_skipped = true;
+    }
+    carriage = skip_spaces_res;
+    char* skip_comments_res = SkipComments(carriage);
+    if (skip_spaces_res != carriage) {
+      comments_skipped = true;
+    }
+    carriage = skip_comments_res;
+    if (!spaces_skipped && !comments_skipped) {
+      is_parsing = false;
+    }
+  }
+  return carriage;
+}
+
+
 void gui::SkinManager::LoadSanFranciscoFont() {
   m_san_francisco_font = new glib::Font("SanFrancisco/SF-Pro-Display-Bold.otf");
   assert(m_san_francisco_font != nullptr);
 }
 
 
-bool gui::SkinManager::LoadLocationFromFile(FILE* file, glib::IntRect* location) {
-  assert(file     != nullptr);
-  assert(location != nullptr);
-  
-  if (fscanf(file, "%d %d %d %d", &location->m_position.x,
-                                  &location->m_position.y,
-                                  &location->m_size.x,
-                                  &location->m_size.y) != 4) {
-    printf("invalid map.txt\n");
-    return false;
+char* gui::SkinManager::GetVector2iFromText(char* text, glib::Vector2i* vector) {
+  assert(text != nullptr);
+  assert(vector != nullptr);
+
+  text = SkipTrash(text);
+  unsigned n_scanned_chars = 0;
+  unsigned n_scanned_nums = sscanf(text, "%d%d%n", &vector->x, &vector->y, &n_scanned_chars);
+  if (n_scanned_nums != 2) {
+    printf("Unable to get glib::Vector2i from text\n");
+    return nullptr;
   }
-  return true;
+  return text + n_scanned_chars;
+}
+
+
+char* gui::SkinManager::GetIntRectFromText(char* text, glib::IntRect* rect) {
+  assert(text != nullptr);
+  assert(rect != nullptr);
+
+  text = GetVector2iFromText(text, &rect->m_position);
+  if (text == nullptr) {
+    return nullptr;
+  }
+  text = GetVector2iFromText(text, &rect->m_size);
+  return text;
+}
+
+
+char* gui::SkinManager::GetButtonTypeFromText(char* text, ButtonType* button_type) {
+  assert(text        != nullptr);
+  assert(button_type != nullptr);
+
+  text = SkipTrash(text);
+  char* button_type_str = (char*)calloc(20, sizeof(char));
+  unsigned n_scanned_chars = 0;
+  unsigned sscanf_res = sscanf(text, "%s%n", button_type_str, &n_scanned_chars);
+  text += n_scanned_chars;
+  if (sscanf_res == 1) {
+    if (strcmp(button_type_str, "circle") == 0) {
+      *button_type = ButtonType::CIRCLE;
+    } else if (strcmp(button_type_str, "rect") == 0) {
+      *button_type = ButtonType::RECT;
+    } else {
+      printf("invalid button type\n");
+      free(button_type_str);
+      return nullptr;
+    }
+  } else {
+    printf("invalid button type\n");
+    free(button_type_str);
+    return nullptr;
+  }
+  free(button_type_str);
+  return text;
 }
 
 
@@ -67,15 +160,11 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   char* title_bar_path       = GetPath(folder_path, "/TitleBar");
   char* main_menu_path       = GetPath(folder_path, "/MainMenu");
 
-  bool result = true;
-
-  if ((m_minimize_button_skin = LoadButtonSkinFromFolder(minimize_button_path)) == nullptr ||
-      (m_maximize_button_skin = LoadButtonSkinFromFolder(maximize_button_path)) == nullptr ||
-      (m_close_button_skin    = LoadButtonSkinFromFolder(close_button_path))    == nullptr ||
-      (m_title_bar_skin       = LoadTitleBarSkinFromFolder(title_bar_path))     == nullptr ||
-      (m_main_menu_skin       = LoadMainMenuSkinFromFolder(main_menu_path))     == nullptr) {
-    result = false;
-  }
+  m_minimize_button_skin = LoadButtonSkinFromFolder(minimize_button_path);
+  m_maximize_button_skin = LoadButtonSkinFromFolder(maximize_button_path);
+  m_close_button_skin    = LoadButtonSkinFromFolder(close_button_path);
+  m_title_bar_skin       = LoadTitleBarSkinFromFolder(title_bar_path);
+  m_main_menu_skin       = LoadMainMenuSkinFromFolder(main_menu_path);
 
   free(main_menu_path);
   free(minimize_button_path);
@@ -90,53 +179,35 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
 gui::AbstractButtonSkin* gui::SkinManager::LoadButtonSkinFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
-  char* texture_path = GetPath(folder_path, "/texture.png");
-  char* map_path     = GetPath(folder_path, "/map.txt");
+  char* map_path = GetPath(folder_path, "/map.txt");
 
-  FILE* map = fopen(map_path, "rb");
-  if (map == nullptr) {
-    printf("no map in path [%s]\n", map_path);
-    return nullptr;
-  }
+  size_t map_size = 0;
+  char* map = FileToStr(map_path, &map_size, "rb");
+  char* map_carriage = map;
+  free(map_path);
 
-  char* button_type = (char*)calloc(20, sizeof(char));
-  fscanf(map, "%s", button_type);
-
-  bool load_ok = true;
+  ButtonType button_type = ButtonType::RECT;
+  map_carriage = GetButtonTypeFromText(map_carriage, &button_type);
 
   AbstractButtonSkin* button_skin = nullptr;
-  if (strcmp(button_type, "circle") == 0) {
-    button_skin = new CircleButtonSkin;
-  } else if (strcmp(button_type, "rectangle") == 0) {
-    button_skin = new RectButtonSkin;
-  } else {
-    printf("invalid button type\n");
-    load_ok = false;
+  switch (button_type) {
+    case ButtonType::RECT:
+      button_skin = new RectButtonSkin;
+      break;
+    case ButtonType::CIRCLE:
+      button_skin = new CircleButtonSkin;
+      break;
   }
 
-  if (load_ok) {
-    if (!button_skin->m_source_texture.LoadFromFile(texture_path)) {
-      load_ok = false;
-    }
-  }
-
-  if (load_ok) {
-    if (!LoadLocationFromFile(map, &button_skin->m_idle_texture_location) ||
-        !LoadLocationFromFile(map, &button_skin->m_hovered_texture_location) ||
-        !LoadLocationFromFile(map, &button_skin->m_pressed_texture_location)) {
-      load_ok = false;
-    }
-  }
-
-  if (!load_ok) {
-    delete button_skin;
-    button_skin = nullptr;
-  }
-
-  fclose(map);
-  free(map_path);
+  char* texture_path = GetPath(folder_path, "/texture.png");
+  button_skin->m_source_texture.LoadFromFile(texture_path);
   free(texture_path);
-  free(button_type);
+
+  GetIntRectFromText(map_carriage, &button_skin->m_idle_texture_location);
+  GetIntRectFromText(map_carriage, &button_skin->m_hovered_texture_location);
+  GetIntRectFromText(map_carriage, &button_skin->m_pressed_texture_location);
+
+  free(map);
 
   return button_skin;
 }
@@ -145,77 +216,47 @@ gui::AbstractButtonSkin* gui::SkinManager::LoadButtonSkinFromFolder(const char* 
 gui::TitleBarSkin* gui::SkinManager::LoadTitleBarSkinFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
-  bool load_ok = true;
-
-  TitleBarSkin* title_bar_skin = new TitleBarSkin;
-  char* map_path = GetPath(folder_path, "/map.txt");
-  FILE* map = fopen(map_path, "rb");
-  if (map == nullptr) {
-    load_ok = false;
-  }
-
+  TitleBarSkin* skin = new TitleBarSkin;
   char* texture_path = GetPath(folder_path, "/texture.png");
-  if (load_ok) {
-    if (!title_bar_skin->m_source_texture.LoadFromFile(texture_path)) {
-      load_ok = false;
-    }
-  }
-
-  if (load_ok) {
-    if (!LoadLocationFromFile(map, &title_bar_skin->m_left_location) ||
-        !LoadLocationFromFile(map, &title_bar_skin->m_middle_location) ||
-        !LoadLocationFromFile(map, &title_bar_skin->m_right_location)) {
-      load_ok = false;
-    }
-  }
-
-  fclose(map);
-  free(map_path);
+  skin->m_source_texture.LoadFromFile(texture_path);
   free(texture_path);
 
-  if (!load_ok) {
-    delete title_bar_skin;
-    title_bar_skin = nullptr;
-  }
+  char* map_path = GetPath(folder_path, "/map.txt");
+  size_t map_size = 0;
+  char* map = FileToStr(map_path, &map_size, true);
+  char* map_carriage = map;
+  free(map_path);
 
-  return title_bar_skin;
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_left_origin_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_left_all_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_middle_origin_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_middle_all_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_right_origin_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_right_all_location);
+
+  free(map);
+
+  return skin;
 }
-
 
 gui::MainMenuSkin* gui::SkinManager::LoadMainMenuSkinFromFolder(const char* folder_path) {
   assert(folder_path != nullptr);
 
-  bool load_ok = true;
-
   MainMenuSkin* skin = new MainMenuSkin;
-  char* map_path = GetPath(folder_path, "/map.txt");
-  FILE* map = fopen(map_path, "rb");
-  if (map == nullptr) {
-    printf("wrong map path\n");
-    load_ok = false;
-  }
 
   char* texture_path = GetPath(folder_path, "/texture.png");
-  if (load_ok) {
-    if (!skin->m_source_texture.LoadFromFile(texture_path)) {
-      load_ok = false;
-    }
-  }
-
-  if (load_ok) {
-    if (!LoadLocationFromFile(map, &skin->m_location)) {
-      load_ok = false;
-    }
-  }
-
+  skin->m_source_texture.LoadFromFile(texture_path);
   free(texture_path);
-  fclose(map);
+
+  char* map_path = GetPath(folder_path, "/map.txt");
+  size_t map_size = 0;
+  char* map = FileToStr(map_path, &map_size, true);
+  char* map_carriage = map;
   free(map_path);
 
-  if (!load_ok) {
-    delete skin;
-    skin = nullptr;
-  }
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_location);
+
+  free(map);
 
   return skin;
 }
@@ -249,6 +290,3 @@ gui::MainMenuSkin* gui::SkinManager::GetMainMenuSkin() const {
 glib::Font* gui::SkinManager::GetSanFranciscoFont() const {
   return m_san_francisco_font;
 }
-
-
-

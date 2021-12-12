@@ -6,6 +6,7 @@
 #include "gui_title_bar_skin.hpp"
 #include "gui_main_menu_skin.hpp"
 #include "gui_app_config.hpp"
+#include "open_file.hpp"
 #include <cstring>
 
 
@@ -30,7 +31,14 @@ namespace gui {
 
     char*               GetPath(const char* folder_path, const char* child_dir);
 
-    bool                LoadLocationFromFile(FILE* file, glib::IntRect* location);
+    char*               SkipSpaces(char* carriage);
+    char*               SkipComments(char* carriage);
+    char*               SkipTrash(char* carriage);
+
+    char*               GetVector2iFromText(char* text, glib::Vector2i* vector);
+    char*               GetIntRectFromText(char* text, glib::IntRect* rect);
+    char*               GetButtonTypeFromText(char* text, ButtonType* button_type);
+
     AbstractButtonSkin* LoadButtonSkinFromFolder(const char* folder_path);
     TitleBarSkin*       LoadTitleBarSkinFromFolder(const char* folder_path);
     MainMenuSkin*       LoadMainMenuSkinFromFolder(const char* folder_path);

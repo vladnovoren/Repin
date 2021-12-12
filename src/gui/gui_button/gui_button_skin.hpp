@@ -6,6 +6,12 @@
 
 
 namespace gui {
+  enum class ButtonType {
+    CIRCLE,
+    RECT
+  };
+
+
   struct AbstractButtonSkin: AbstractWidgetSkin {
     glib::RenderTexture m_render_texture;
     glib::Texture       m_texture;

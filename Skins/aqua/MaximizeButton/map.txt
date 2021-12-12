@@ -1,4 +1,14 @@
 circle
- 0 0 14 15
-14 0 14 15
-28 0 14 15
+
+; idle
+ 0  0 ; position
+14 15 ; size
+
+; hovered
+14  0 ; position
+14 15 ; size
+
+; pressed
+28  0 ; position
+14 15 ; size
+

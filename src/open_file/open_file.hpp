@@ -4,15 +4,20 @@
 
 #include <cstdlib>
 #include <cstdio>
+#include <cstring>
+#include <cassert>
+#include <sys/stat.h>
 
 
-struct Str {
-  char* c_str;
-  size_t len;
+FILE*  OpenFile(const char* file_name, const char* mode);
 
-  ~Str();
-};
+size_t SizeOfFile(FILE* file);
 
+size_t SizeOfFile(const char* file_name);
+
+char*  FileToStr(FILE* src, size_t* size, bool new_line);
+
+char*  FileToStr(const char* src_name, size_t* size, bool new_line);
 
 
 #endif /* open_file.hpp */

@@ -10,16 +10,28 @@ namespace gui {
     glib::Texture       m_texture;
     glib::RenderTexture m_render_texture;
     glib::Texture       m_source_texture;
-    glib::IntRect       m_left_location;
-    glib::IntRect       m_middle_location;
-    glib::IntRect       m_right_location;
+
+    glib::IntRect       m_left_all_location;
+    glib::IntRect       m_left_origin_location;
+
+    glib::IntRect       m_middle_all_location;
+    glib::IntRect       m_middle_origin_location;
+
+    glib::IntRect       m_right_all_location;
+    glib::IntRect       m_right_origin_location;
 
     TitleBarSkin() = default;
     TitleBarSkin(const TitleBarSkin& other);
-    TitleBarSkin(const glib::Texture& source_texture, const glib::IntRect& left_location,
-                 const glib::IntRect& middle_location,
-                 const glib::IntRect& right_location);
+    TitleBarSkin(const glib::Texture& source_texture,
+                 const glib::IntRect& left_all_location,
+                 const glib::IntRect& left_origin_location,
+                 const glib::IntRect& middle_all_location,
+                 const glib::IntRect& middle_origin_location,
+                 const glib::IntRect& right_all_location,
+                 const glib::IntRect& right_origin_location);
     ~TitleBarSkin() override = default;
+
+    glib::Vector2i GetAllSize(glib::Vector2i origin_size);
 
     AbstractWidgetSkin* Copy() const override;
 

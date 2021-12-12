@@ -1,11 +1,6 @@
 #include "open_file.hpp"
 
 
-Str::~Str() {
-  free(c_str);
-}
-
-
 FILE* OpenFile(const char* file_name, const char* mode) {
 	assert(file_name);
 	assert(mode);
@@ -42,25 +37,26 @@ size_t SizeOfFile(const char* file_name) {
 }
 
 
-Str FileToStr(FILE* src, bool new_line) {
-	assert(src);
+char* FileToStr(FILE* src, size_t* size, bool new_line) {
+	assert(size != nullptr);
+	assert(src != nullptr);
 
 	size_t buf_size = SizeOfFile(src);
 	if (buf_size == 0) {
 		printf("Empty input file.\n");
-		return EMPTY_STR;
+		return nullptr;
 	}
 
 	char* buf = (char*)calloc(buf_size + 2, sizeof(char));
 	if (buf == NULL) {
 		printf("Too big input file size.\n");
-		return EMPTY_STR;
+		return nullptr;
 	}
 
 	size_t fread_cnt = fread(buf, sizeof(char), buf_size, src);
 	if (fread_cnt != buf_size) {
 		printf("Too big input file size.\n");
-		return EMPTY_STR;
+		return nullptr;
 	}
 
 	if (new_line && buf[buf_size - 1] != '\n') {
@@ -68,18 +64,22 @@ Str FileToStr(FILE* src, bool new_line) {
 		buf_size++;
 	}
 
-	return {buf, buf_size};
+	*size = buf_size;
+
+	return buf;
 }
 
 
-Str FileToStr(const char* src_name, bool new_line) {
-	assert(src_name);
+char* FileToStr(const char* src_name, size_t* size, bool new_line) {
+	assert(src_name != nullptr);
+	assert(size     != nullptr);
 
 	FILE* src = OpenFile(src_name, "rb");
-	if (src == NULL)
-		return EMPTY_STR;
+	if (src == NULL) {
+		return nullptr;
+	}
 
-	Str str = FileToStr(src, new_line);
+	char* str = FileToStr(src, size, new_line);
 	fclose(src);
 	return str;
 }

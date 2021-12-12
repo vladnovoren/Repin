@@ -11,6 +11,14 @@ namespace gui {
     glib::Texture       m_texture;
     glib::RenderTexture m_render_texture;
 
+    glib::Texture       m_source_texture;
+
+    glib::IntRect       m_left_edge_location;
+    glib::IntRect       m_left_bottom_angle_location;
+    glib::IntRect       m_bottom_location;
+    glib::IntRect       m_right_bottom_angle_location;
+    glib::IntRect       m_right_edge_location;
+
     WindowSkin() = default;
     WindowSkin(const WindowSkin& other);
 
