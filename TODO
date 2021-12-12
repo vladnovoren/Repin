@@ -1,3 +1,5 @@
+комментарии для скинов + скин для фоновой тени окна
+
 Make WindowSkin to draw shadow around window
 разобраться с функциями по типу OnMouseButtonPressed и Draw класса
 AbstractContainerWidget и его производных
