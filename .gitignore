@@ -3,3 +3,4 @@ build/
 Test/
 .idea/
 .cache/
+log.txt

@@ -5,6 +5,8 @@
 
 gui::ToolBar::ToolBar() {
   SetSkin(SkinManager::GetInstance().GetToolBarSkin());
+  m_brush = Brush::GetInstance();
+  
 }
 
 
@@ -20,11 +22,8 @@ gui::ToolBar* gui::ToolBar::GetInstance() {
 
 
 bool gui::ToolBar::SetActiveTool(AbstractTool* tool) {
-  auto found_it = std::find(m_children.begin(), m_children.end(), tool);
-  if (found_it == m_children.end()) {
-    printf("Unable to set tool as active: it doesn't belong to toolbar\n");
-    return false;
-  }
+  assert(tool != nullptr);
+
   m_active_tool = tool;
   return true;
 }
@@ -41,14 +40,6 @@ void gui::ToolBar::SetSkin(ToolBarSkin* skin) {
 
   delete m_skin;
   m_skin = new ToolBarSkin(*skin);
-}
-
-
-void gui::ToolBar::AddBrush(Brush* brush) {
-  assert(brush != nullptr);
-
-  brush->m_parent_widget = this;
-  AddChild(brush);
 }
 
 

@@ -7,10 +7,6 @@
 
 namespace gui {
   struct TitleBarSkin: AbstractWidgetSkin {
-    glib::Texture       m_texture;
-    glib::RenderTexture m_render_texture;
-    glib::Texture       m_source_texture;
-
     glib::IntRect       m_left_all_location;
     glib::IntRect       m_left_origin_location;
 
@@ -32,8 +28,6 @@ namespace gui {
     ~TitleBarSkin() override = default;
 
     glib::Vector2i GetAllSize(glib::Vector2i origin_size);
-
-    AbstractWidgetSkin* Copy() const override;
 
     void Render(const glib::Vector2i& size);
     void CopyToRenderTarget(glib::RenderTarget* render_target, const glib::Vector2i& position) const;

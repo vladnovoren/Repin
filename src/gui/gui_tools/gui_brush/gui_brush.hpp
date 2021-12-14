@@ -17,10 +17,9 @@ namespace gui {
     Brush(const glib::ColorRGBA& color, int thickness);
     ~Brush() = default;
 
-    void Apply(Canvas* canvas) override;
+    static Brush* GetInstance();
 
-    void Draw(glib::RenderTarget* render_target,
-              const glib::Vector2i& position) override;
+    void Apply(Canvas* canvas) override;
   };
 }
 

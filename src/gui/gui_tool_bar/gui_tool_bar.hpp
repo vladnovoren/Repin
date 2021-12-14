@@ -3,12 +3,13 @@
 
 
 #include "gui_abstract_container_widget.hpp"
-#include "gui_abstract_tool.hpp"
 #include "gui_tool_bar_skin.hpp"
+#include "gui_brush.hpp"
 
 
 namespace gui {
   class Brush;
+  class ColorPicker;
 
   class ToolBar: public AbstractContainerWidget {
    private:
@@ -16,7 +17,10 @@ namespace gui {
     ~ToolBar();
 
     AbstractTool* m_active_tool = nullptr;
-    
+
+    Brush*              m_brush = nullptr;
+    // ColorPicker* m_color_picker = nullptr;
+
     ToolBarSkin*  m_skin = nullptr;
    public:
     static ToolBar* GetInstance();
@@ -25,8 +29,6 @@ namespace gui {
     AbstractTool* GetActiveTool() const;
 
     void SetSkin(ToolBarSkin* skin);
-
-    void AddBrush(Brush* brush);
 
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position);

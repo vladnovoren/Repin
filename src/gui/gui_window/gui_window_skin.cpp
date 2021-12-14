@@ -2,7 +2,7 @@
 
 
 gui::WindowSkin::WindowSkin(const WindowSkin& other):
-                 m_source_texture(other.m_source_texture),
+                 AbstractWidgetSkin(other.m_source_texture),
                  m_left_edge_location(other.m_left_edge_location),
                  m_left_bottom_angle_location(other.m_left_bottom_angle_location),
                  m_bottom_location(other.m_bottom_location),
@@ -52,9 +52,4 @@ void gui::WindowSkin::CopyToRenderTarget(glib::RenderTarget* render_target,
   assert(render_target != nullptr);
 
   render_target->CopyRenderTexture(m_render_texture, window_position - glib::Vector2i(WINDOW_SHADOW_THICKNESS, WINDOW_SHADOW_THICKNESS));
-}
-
-
-gui::AbstractWidgetSkin* gui::WindowSkin::Copy() const {
-  return new WindowSkin(*this);
 }

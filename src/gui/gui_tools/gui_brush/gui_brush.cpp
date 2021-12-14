@@ -5,6 +5,12 @@ gui::Brush::Brush(const glib::ColorRGBA& color, int thickness):
             m_color(color), m_thickness(thickness) {}
 
 
+gui::Brush* gui::Brush::GetInstance() {
+  static Brush* instance = new Brush;
+  return instance;
+}
+
+
 void gui::Brush::Apply(Canvas* canvas) {
   assert(canvas != nullptr);
 
@@ -17,10 +23,4 @@ void gui::Brush::Apply(Canvas* canvas) {
     canvas->DrawLine(glib::IntLine(curr_draw_point, prev_draw_point, m_thickness),
                      m_color);
   }
-}
-
-
-void gui::Brush::Draw(glib::RenderTarget* render_target,
-                      const glib::Vector2i&) {
-  assert(render_target != nullptr);
 }

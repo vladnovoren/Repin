@@ -17,7 +17,7 @@ namespace gui {
 
   class CloseWidgetFunctor: public AbstractWidgetFunctor {
    protected:
-    AbstractWidget* m_widget;
+    AbstractWidget* m_widget = nullptr;
    public:
     CloseWidgetFunctor(AbstractWidget* widget);
 

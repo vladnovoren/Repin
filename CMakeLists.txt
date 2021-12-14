@@ -37,7 +37,8 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_font/glib_font.cpp
 )
 
-set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
+set(GUI_SOURCE src/open_file/open_file.cpp
+               src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget_functor.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget_skin.cpp
                src/gui/gui_button/gui_button.cpp
@@ -56,11 +57,16 @@ set(GUI_SOURCE src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_main_window/gui_main_menu.cpp
                src/gui/gui_main_window/gui_main_menu_skin.cpp
                src/gui/gui_window/gui_window_skin.cpp
-               src/open_file/open_file.cpp
+
+               src/gui/gui_tools/gui_abstract_tool.cpp
+
+               src/gui/gui_tools/gui_brush/gui_brush.cpp
+
                src/gui/gui_tool_bar/gui_tool_bar.cpp
                src/gui/gui_tool_bar/gui_tool_bar_skin.cpp
-               src/gui/gui_tool_bar/gui_abstract_tool/gui_abstract_tool.cpp
-               src/gui/gui_tool_bar/gui_brush/gui_brush.cpp
+
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_picker.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_picker_skin.cpp
 )
 
 

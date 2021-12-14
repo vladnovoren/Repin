@@ -7,17 +7,11 @@
 
 namespace gui {
   struct MainMenuSkin: AbstractWidgetSkin {
-    glib::Texture       m_texture;
-    glib::RenderTexture m_render_texture;
-
     glib::IntRect       m_location;
-    glib::Texture       m_source_texture;
 
     MainMenuSkin() = default;
     MainMenuSkin(const MainMenuSkin& other);
     ~MainMenuSkin() override = default;
-
-    AbstractWidgetSkin* Copy() const override;
 
     void Render(int length);
     void CopyToRenderTarget(glib::RenderTarget* render_target,

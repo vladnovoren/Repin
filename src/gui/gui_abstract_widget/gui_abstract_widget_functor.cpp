@@ -10,5 +10,7 @@ gui::CloseWidgetFunctor::CloseWidgetFunctor(AbstractWidget* widget): m_widget(wi
 
 
 void gui::CloseWidgetFunctor::operator()() {
+  assert(m_widget != nullptr);
+
   m_widget->OnClose();
 }

@@ -2,13 +2,8 @@
 
 
 gui::MainMenuSkin::MainMenuSkin(const MainMenuSkin& other):
-                   m_location(other.m_location),
-                   m_source_texture(other.m_source_texture) {}
-
-
-gui::AbstractWidgetSkin* gui::MainMenuSkin::Copy() const {
-  return new MainMenuSkin(*this);
-}
+                   AbstractWidgetSkin(other.m_source_texture),
+                   m_location(other.m_location) {}
 
 
 void gui::MainMenuSkin::Render(int length) {

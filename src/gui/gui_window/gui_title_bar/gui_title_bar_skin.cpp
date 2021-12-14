@@ -8,7 +8,7 @@ gui::TitleBarSkin::TitleBarSkin(const glib::Texture& source_texture,
                                 const glib::IntRect& middle_origin_location,
                                 const glib::IntRect& right_all_location,
                                 const glib::IntRect& right_origin_location):
-                   m_source_texture(source_texture),
+                   AbstractWidgetSkin(source_texture),
                    m_left_all_location(left_all_location),
                    m_left_origin_location(left_origin_location),
                    m_middle_all_location(middle_all_location),
@@ -18,7 +18,7 @@ gui::TitleBarSkin::TitleBarSkin(const glib::Texture& source_texture,
 
 
 gui::TitleBarSkin::TitleBarSkin(const TitleBarSkin& other):
-                   m_source_texture(other.m_source_texture),
+                   AbstractWidgetSkin(other.m_source_texture),
                    m_left_all_location(other.m_left_all_location),
                    m_left_origin_location(other.m_left_origin_location),
                    m_middle_all_location(other.m_middle_all_location),
@@ -62,9 +62,4 @@ void gui::TitleBarSkin::CopyToRenderTarget(glib::RenderTarget* render_target,
   assert(render_target != nullptr);
 
   render_target->CopyTexture(m_texture, position + m_left_all_location.m_position - m_left_origin_location.m_position);
-}
-
-
-gui::AbstractWidgetSkin* gui::TitleBarSkin::Copy() const {
-  return new TitleBarSkin(*this);
 }

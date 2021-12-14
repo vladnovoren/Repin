@@ -6,7 +6,7 @@ gui::ToolBarSkin::ToolBarSkin(const glib::IntRect& right_edge_location):
 
 
 gui::ToolBarSkin::ToolBarSkin(const ToolBarSkin& other):
-                  m_source_texture(other.m_source_texture),
+                  AbstractWidgetSkin(other.m_source_texture),
                   m_right_edge_location(other.m_right_edge_location) {}
 
 
@@ -33,9 +33,4 @@ void gui::ToolBarSkin::CopyToRenderTarget(glib::RenderTarget* render_target,
   assert(render_target);
 
   render_target->CopyTexture(m_texture, position);
-}
-
-
-gui::AbstractWidgetSkin* gui::ToolBarSkin::Copy() const {
-  return new ToolBarSkin(*this);
 }

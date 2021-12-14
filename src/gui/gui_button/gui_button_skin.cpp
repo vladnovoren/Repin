@@ -5,7 +5,7 @@ gui::AbstractButtonSkin::AbstractButtonSkin(const glib::Texture& source_texture,
                                             const glib::IntRect& idle_texture_location,
                                             const glib::IntRect& hovered_texture_location,
                                             const glib::IntRect& pressed_texture_location):
-                         m_source_texture(source_texture),
+                         AbstractWidgetSkin(source_texture),
                          m_curr_texture_location(idle_texture_location),
                          m_idle_texture_location(idle_texture_location),
                          m_hovered_texture_location(hovered_texture_location),
@@ -13,7 +13,7 @@ gui::AbstractButtonSkin::AbstractButtonSkin(const glib::Texture& source_texture,
 
 
 gui::AbstractButtonSkin::AbstractButtonSkin(const AbstractButtonSkin& other):
-                         m_source_texture(other.m_source_texture),
+                         AbstractWidgetSkin(other.m_source_texture),
                          m_curr_texture_location(other.m_curr_texture_location),
                          m_idle_texture_location(other.m_idle_texture_location),
                          m_hovered_texture_location(other.m_hovered_texture_location),
@@ -23,8 +23,8 @@ gui::AbstractButtonSkin::AbstractButtonSkin(const AbstractButtonSkin& other):
 gui::AbstractButtonSkin::~AbstractButtonSkin() = default;
 
 
-void gui::AbstractButtonSkin::Render(const glib::Vector2i& size) {
-  m_render_texture.Resize(size);
+void gui::AbstractButtonSkin::Render() {
+  m_render_texture.Resize(m_curr_texture_location.m_size);
   m_render_texture.Clear(glib::ColorRGBA(0, 0, 0, 0));
   m_render_texture.CopyTexture(m_source_texture, glib::Vector2f(), m_curr_texture_location);
   m_render_texture.Display();
@@ -70,7 +70,7 @@ bool gui::RectButtonSkin::IsPointInside(const glib::IntRect& location,
 }
 
 
-gui::AbstractWidgetSkin* gui::RectButtonSkin::Copy() const {
+gui::AbstractButtonSkin* gui::RectButtonSkin::Copy() const {
   return new RectButtonSkin(*this);
 }
 
@@ -91,6 +91,6 @@ bool gui::CircleButtonSkin::IsPointInside(const glib::IntRect& location,
 }
 
 
-gui::AbstractWidgetSkin* gui::CircleButtonSkin::Copy() const {
+gui::AbstractButtonSkin* gui::CircleButtonSkin::Copy() const {
   return new CircleButtonSkin(*this);
 }

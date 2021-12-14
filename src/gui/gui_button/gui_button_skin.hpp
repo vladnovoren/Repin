@@ -13,14 +13,10 @@ namespace gui {
 
 
   struct AbstractButtonSkin: AbstractWidgetSkin {
-    glib::RenderTexture m_render_texture;
-    glib::Texture       m_texture;
-
-    glib::Texture       m_source_texture;
-    glib::IntRect       m_curr_texture_location;
-    glib::IntRect       m_idle_texture_location;
-    glib::IntRect       m_hovered_texture_location;
-    glib::IntRect       m_pressed_texture_location;
+    glib::IntRect m_curr_texture_location;
+    glib::IntRect m_idle_texture_location;
+    glib::IntRect m_hovered_texture_location;
+    glib::IntRect m_pressed_texture_location;
 
     AbstractButtonSkin() = default;
     AbstractButtonSkin(const AbstractButtonSkin& other);
@@ -33,9 +29,11 @@ namespace gui {
     virtual bool IsPointInside(const glib::IntRect& location,
                                glib::Vector2i point) const = 0;
 
-    void Render(const glib::Vector2i& size);
+    void Render();
     void CopyToRenderTarget(glib::RenderTarget* render_target,
-              const glib::Vector2i& position) const;
+                            const glib::Vector2i& position) const;
+
+    virtual AbstractButtonSkin* Copy() const = 0;
 
     void SetIdle();
     void SetHovered();
@@ -54,7 +52,7 @@ namespace gui {
     bool IsPointInside(const glib::IntRect& location,
                        glib::Vector2i point) const override;
 
-    AbstractWidgetSkin* Copy() const override;
+    AbstractButtonSkin* Copy() const override;
   };
 
 
@@ -69,7 +67,7 @@ namespace gui {
     bool IsPointInside(const glib::IntRect& location,
                        glib::Vector2i point) const override;
 
-    AbstractWidgetSkin* Copy() const override;
+    AbstractButtonSkin* Copy() const override;
   };
 }
 

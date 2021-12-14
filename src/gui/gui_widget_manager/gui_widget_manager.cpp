@@ -81,9 +81,8 @@ gui::WidgetManager::WidgetManager() {
   main_window->AddMainMenu(main_menu);
 
   ToolBar* tool_bar = ToolBar::GetInstance();
-  tool_bar->SetLocation(glib::IntRect(0, 22, 150, 778));
+  tool_bar->SetLocation(glib::IntRect(0, 22, 147, 778));
   Brush* brush = new Brush(glib::ColorRGBA(), 3);
-  tool_bar->AddBrush(brush);
   tool_bar->SetActiveTool(brush);
   main_window->AddToolBar();
 

@@ -6,7 +6,7 @@
 
 
 namespace gui {
-  class AbstractTool: public AbstractWidget {
+  class AbstractTool {
    public:
     virtual ~AbstractTool() = 0;
 

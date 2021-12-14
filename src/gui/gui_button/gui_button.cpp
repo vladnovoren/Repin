@@ -30,7 +30,7 @@ void gui::Button::SetSkin(AbstractButtonSkin* skin) {
   assert(skin);
 
   delete(m_skin);
-  m_skin = reinterpret_cast<AbstractButtonSkin*>(skin->Copy());
+  m_skin = skin->Copy();
   m_skin->SetIdle();
 }
 
@@ -47,7 +47,7 @@ void gui::Button::Draw(glib::RenderTarget* render_target,
   assert(render_target);
 
   if (m_needs_to_render) {
-    m_skin->Render(m_location.m_size);
+    m_skin->Render();
     m_needs_to_render = false;
   }
   glib::Vector2i position_to_copy = position + m_location.m_position;

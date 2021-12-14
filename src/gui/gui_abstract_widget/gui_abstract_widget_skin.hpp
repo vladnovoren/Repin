@@ -10,9 +10,13 @@
 namespace gui {
   struct AbstractWidgetSkin {
     AbstractWidgetSkin() = default;
+    AbstractWidgetSkin(const glib::Texture& source_texture);
     virtual ~AbstractWidgetSkin() = default;
 
-    virtual AbstractWidgetSkin* Copy() const = 0;
+    glib::Texture       m_texture;
+    glib::RenderTexture m_render_texture;
+
+    glib::Texture       m_source_texture;
   };
 }
 
