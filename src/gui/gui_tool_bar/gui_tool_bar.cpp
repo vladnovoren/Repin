@@ -6,7 +6,6 @@
 gui::ToolBar::ToolBar() {
   SetSkin(SkinManager::GetInstance().GetToolBarSkin());
   m_brush = Brush::GetInstance();
-  
 }
 
 
@@ -53,4 +52,22 @@ void gui::ToolBar::Draw(glib::RenderTarget* render_target,
   }
   glib::Vector2i position_to_copy = position + m_location.m_position;
   m_skin->CopyToRenderTarget(render_target, position_to_copy);
+  AbstractContainerWidget::Draw(render_target, position);
 }
+
+
+void gui::ToolBar::AddTitle(Title* title) {
+  assert(title != nullptr);
+
+  AddChild(title);
+}
+
+
+void gui::ToolBar::AddColorPanel(ColorPanel* color_panel) {
+  assert(color_panel != nullptr);
+
+  AddChild(color_panel);
+}
+
+
+

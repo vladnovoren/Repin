@@ -3,6 +3,7 @@
 
 
 #include "gui_abstract_container_widget.hpp"
+#include "gui_color_select_button.hpp"
 #include "gui_color_panel_skin.hpp"
 
 
@@ -16,6 +17,8 @@ namespace gui {
     ~ColorPanel() override;
 
     static ColorPanel* GetInstance();
+
+    void AddColorSelectButton(ColorSelectButton* color_select_button);
   };
 };
 

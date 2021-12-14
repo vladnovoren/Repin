@@ -45,7 +45,9 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_button/gui_button_skin.cpp
                src/gui/gui_skin_manager/gui_skin_manager.cpp
                src/gui/gui_widget_manager/gui_widget_manager.cpp
-               src/gui/gui_window/gui_title_bar/gui_title.cpp
+
+               src/gui/gui_title/gui_title.cpp
+
                src/gui/gui_window/gui_title_bar/gui_title_bar.cpp
                src/gui/gui_window/gui_title_bar/gui_title_bar_skin.cpp
                src/gui/gui_window/gui_window.cpp
@@ -67,6 +69,8 @@ set(GUI_SOURCE src/open_file/open_file.cpp
 
                src/gui/gui_tool_bar/gui_color_picker/gui_color_picker.cpp
                src/gui/gui_tool_bar/gui_color_picker/gui_color_picker_skin.cpp
+
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_select_button_skin.cpp
 )
 
 

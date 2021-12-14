@@ -16,6 +16,3 @@ void gui::ColorSelectButtonSkin::Render(const glib::ColorRGBA& color) {
   m_render_texture.RenderRect(m_hit_area, color);
   m_texture = m_render_texture.GetTexture();
 }
-
-
-

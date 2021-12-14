@@ -80,10 +80,20 @@ gui::WidgetManager::WidgetManager() {
 
   main_window->AddMainMenu(main_menu);
 
+
+  glib::Text tool_bar_title_text("Tools", skin_manager.GetSanFranciscoFont());
+  tool_bar_title_text.SetFontSize(14);
+  tool_bar_title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
+
+  Title* tool_bar_title = new Title;
+  tool_bar_title->SetLocation(glib::IntRect(glib::Vector2i(75, 0), glib::Vector2i()));
+  tool_bar_title->SetText(tool_bar_title_text);
+
   ToolBar* tool_bar = ToolBar::GetInstance();
   tool_bar->SetLocation(glib::IntRect(0, 22, 147, 778));
   Brush* brush = new Brush(glib::ColorRGBA(), 3);
   tool_bar->SetActiveTool(brush);
+  tool_bar->AddTitle(tool_bar_title);
   main_window->AddToolBar();
 
   m_root = main_window;

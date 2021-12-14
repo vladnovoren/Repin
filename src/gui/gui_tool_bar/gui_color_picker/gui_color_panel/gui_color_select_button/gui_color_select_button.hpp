@@ -17,6 +17,8 @@ namespace gui {
     ColorSelectButton(const glib::IntRect& location,
                       const glib::ColorRGBA& color);
     ~ColorSelectButton();
+
+    void SetSkin(ColorSelectButtonSkin* skin);
   };
 }
 

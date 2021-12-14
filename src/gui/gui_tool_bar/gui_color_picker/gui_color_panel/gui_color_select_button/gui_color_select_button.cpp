@@ -11,4 +11,9 @@ gui::ColorSelectButton::~ColorSelectButton() {
 }
 
 
+void gui::ColorSelectButton::SetSkin(ColorSelectButtonSkin* skin) {
+  assert(skin != nullptr);
 
+  delete m_skin;
+  m_skin = skin;
+}

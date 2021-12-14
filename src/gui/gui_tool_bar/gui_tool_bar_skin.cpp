@@ -14,6 +14,7 @@ void gui::ToolBarSkin::Render(glib::Vector2i size) {
   glib::Vector2i texture_size = size;
   texture_size.x += m_right_edge_location.m_size.x / 2;
   m_render_texture.Resize(texture_size);
+  m_render_texture.Clear(glib::ColorRGBA(1, 1, 1, 1));
 
   glib::Vector2i curr_position;
   curr_position.x = size.x - m_right_edge_location.m_size.x / 2;

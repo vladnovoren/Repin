@@ -30,8 +30,8 @@ namespace gui {
                                glib::Vector2i point) const = 0;
 
     void Render();
-    void CopyToRenderTarget(glib::RenderTarget* render_target,
-                            const glib::Vector2i& position) const;
+    virtual void CopyToRenderTarget(glib::RenderTarget* render_target,
+                                    const glib::Vector2i& position) const;
 
     virtual AbstractButtonSkin* Copy() const = 0;
 

@@ -6,8 +6,8 @@ gui::ColorPicker::ColorPicker() {
 }
 
 
-gui::ColorPicker* gui::ColorPicker::GetInstance() {
-  static ColorPicker* instance = new ColorPicker;
+gui::ColorPicker& gui::ColorPicker::GetInstance() {
+  static ColorPicker instance;
   return instance;
 }
 
@@ -27,4 +27,3 @@ void gui::ColorPicker::SetColor(const glib::ColorRGBA& color) {
 glib::ColorRGBA gui::ColorPicker::GetColor() const {
   return m_curr_color;
 }
-

@@ -5,6 +5,8 @@
 #include "gui_abstract_container_widget.hpp"
 #include "gui_tool_bar_skin.hpp"
 #include "gui_brush.hpp"
+#include "gui_title.hpp"
+#include "gui_color_panel.hpp"
 
 
 namespace gui {
@@ -18,10 +20,9 @@ namespace gui {
 
     AbstractTool* m_active_tool = nullptr;
 
-    Brush*              m_brush = nullptr;
-    // ColorPicker* m_color_picker = nullptr;
+    Brush* m_brush = nullptr;
 
-    ToolBarSkin*  m_skin = nullptr;
+    ToolBarSkin* m_skin = nullptr;
    public:
     static ToolBar* GetInstance();
 
@@ -31,7 +32,10 @@ namespace gui {
     void SetSkin(ToolBarSkin* skin);
 
     void Draw(glib::RenderTarget* render_target,
-              const glib::Vector2i& position);
+              const glib::Vector2i& position) override;
+
+    void AddTitle(Title* title);
+    void AddColorPanel(ColorPanel* color_panel);
   };
 }
 

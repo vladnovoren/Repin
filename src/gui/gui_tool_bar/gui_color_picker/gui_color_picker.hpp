@@ -17,7 +17,7 @@ namespace gui {
    protected:
     ~ColorPicker() override = default;
 
-    static ColorPicker* GetInstance();
+    static ColorPicker& GetInstance();
 
     void SetSkin(ColorPickerSkin* skin);
 

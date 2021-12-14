@@ -3,6 +3,7 @@
 
 
 #include "gui_abstract_widget_functor.hpp"
+#include "gui_color_picker.hpp"
 
 
 namespace gui {
