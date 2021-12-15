@@ -1,9 +1,0 @@
-комментарии для скинов + скин для фоновой тени окна
-
-Make WindowSkin to draw shadow around window
-разобраться с функциями по типу OnMouseButtonPressed и Draw класса
-AbstractContainerWidget и его производных
-
-сделать синглтоны для SkinManger, MainWindow, MainMenu
-
-более адекватный захват размеров виджетов (из скинов и gui_app_config.hpp)

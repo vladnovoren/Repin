@@ -6,7 +6,7 @@ gui::AbstractWidget::AbstractWidget(const glib::IntRect& location):
                      m_location(location) {}
 
 
-gui::AbstractWidget::~AbstractWidget() {}
+gui::AbstractWidget::~AbstractWidget() = default;
 
 
 void gui::AbstractWidget::SetLocation(const glib::IntRect& location) {

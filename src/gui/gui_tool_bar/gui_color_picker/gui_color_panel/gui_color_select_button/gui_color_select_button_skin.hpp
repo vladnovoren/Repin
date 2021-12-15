@@ -2,13 +2,16 @@
 #define GUI_COLOR_SELECT_BUTTON_SKIN_HPP
 
 
-#include "gui_button_skin.hpp"
+#include "gui_abstract_button_skin.hpp"
 
 
 namespace gui {
+  class ColorSelectButton;
+
   struct ColorSelectButtonSkin: AbstractButtonSkin {
     glib::IntRect m_hit_area;
-
+    ColorSelectButton* m_owner = nullptr;
+  
     ColorSelectButtonSkin() = default;
     ColorSelectButtonSkin(const glib::Texture& source_texture,
                           const glib::IntRect& idle_texture_location,
@@ -21,7 +24,9 @@ namespace gui {
     bool IsPointInside(const glib::IntRect& location,
                        glib::Vector2i point) const override;
 
-    void Render(const glib::ColorRGBA& color);
+    void Render() override;
+
+    AbstractButtonSkin* Copy() const override;
   };
 }
 

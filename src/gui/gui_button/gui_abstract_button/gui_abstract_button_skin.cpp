@@ -1,4 +1,4 @@
-#include "gui_button_skin.hpp"
+#include "gui_abstract_button_skin.hpp"
 
 
 gui::AbstractButtonSkin::AbstractButtonSkin(const glib::Texture& source_texture,

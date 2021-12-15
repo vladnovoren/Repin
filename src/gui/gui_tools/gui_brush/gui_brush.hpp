@@ -5,16 +5,16 @@
 #include "glib_color.hpp"
 #include "gui_abstract_tool.hpp"
 #include "gui_canvas.hpp"
+#include "gui_color_picker.hpp"
 
 
 namespace gui {
   class Brush: public AbstractTool {
    protected:
-    glib::ColorRGBA m_color;
+    Brush() = default;
+
     int m_thickness = 3;
    public:
-    Brush() = default;
-    Brush(const glib::ColorRGBA& color, int thickness);
     ~Brush() = default;
 
     static Brush* GetInstance();

@@ -4,7 +4,7 @@
 
 #include "gui_abstract_widget.hpp"
 #include "gui_skin_manager.hpp"
-#include "gui_button.hpp"
+#include "gui_plain_button.hpp"
 #include "gui_events.hpp"
 #include "gui_title_bar.hpp"
 #include "gui_window.hpp"
@@ -13,6 +13,8 @@
 #include "gui_main_window.hpp"
 #include "gui_tool_bar.hpp"
 #include "gui_brush.hpp"
+#include "gui_color_select_button.hpp"
+#include "gui_color_panel.hpp"
 
 
 namespace gui {

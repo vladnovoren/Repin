@@ -154,21 +154,25 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   delete m_title_bar_skin;
   delete m_main_menu_skin;
 
-  char* minimize_button_path = GetPath(folder_path, "/MinimizeButton");
-  char* maximize_button_path = GetPath(folder_path, "/MaximizeButton");
-  char* close_button_path    = GetPath(folder_path, "/CloseButton");
-  char* title_bar_path       = GetPath(folder_path, "/TitleBar");
-  char* main_menu_path       = GetPath(folder_path, "/MainMenu");
-  char* window_path          = GetPath(folder_path, "/Window");
-  char* tool_bar_path        = GetPath(folder_path, "/ToolBar");
+  char* minimize_button_path     = GetPath(folder_path, "/MinimizeButton");
+  char* maximize_button_path     = GetPath(folder_path, "/MaximizeButton");
+  char* close_button_path        = GetPath(folder_path, "/CloseButton");
+  char* title_bar_path           = GetPath(folder_path, "/TitleBar");
+  char* main_menu_path           = GetPath(folder_path, "/MainMenu");
+  char* window_path              = GetPath(folder_path, "/Window");
+  char* tool_bar_path            = GetPath(folder_path, "/ToolBar");
+  char* color_select_button_path = GetPath(folder_path, "/ColorSelectButton");
+  char* brush_button_skin_path   = GetPath(folder_path, "/BrushButton");
 
-  m_minimize_button_skin = LoadButtonSkinFromFolder(minimize_button_path);
-  m_maximize_button_skin = LoadButtonSkinFromFolder(maximize_button_path);
-  m_close_button_skin    = LoadButtonSkinFromFolder(close_button_path);
-  m_title_bar_skin       = LoadTitleBarSkinFromFolder(title_bar_path);
-  m_main_menu_skin       = LoadMainMenuSkinFromFolder(main_menu_path);
-  m_window_skin          = LoadWindowSkinFromFolder(window_path);
-  m_tool_bar_skin        = LoadToolBarSkinFromFolder(tool_bar_path);
+  m_minimize_button_skin     = LoadButtonSkinFromFolder(minimize_button_path);
+  m_maximize_button_skin     = LoadButtonSkinFromFolder(maximize_button_path);
+  m_close_button_skin        = LoadButtonSkinFromFolder(close_button_path);
+  m_title_bar_skin           = LoadTitleBarSkinFromFolder(title_bar_path);
+  m_main_menu_skin           = LoadMainMenuSkinFromFolder(main_menu_path);
+  m_window_skin              = LoadWindowSkinFromFolder(window_path);
+  m_tool_bar_skin            = LoadToolBarSkinFromFolder(tool_bar_path);
+  m_color_select_button_skin = LoadSelectButtonSkinFromFolder(color_select_button_path);
+  m_brush_button_skin        = LoadButtonSkinFromFolder(brush_button_skin_path);
 
   free(window_path);
   free(main_menu_path);
@@ -177,6 +181,8 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   free(close_button_path);
   free(title_bar_path);
   free(tool_bar_path);
+  free(color_select_button_path);
+  free(brush_button_skin_path);
 
   return true;
 }
@@ -317,6 +323,31 @@ gui::ToolBarSkin* gui::SkinManager::LoadToolBarSkinFromFolder(const char* folder
 }
 
 
+gui::ColorSelectButtonSkin* gui::SkinManager::LoadSelectButtonSkinFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
+
+  ColorSelectButtonSkin* skin = new ColorSelectButtonSkin;
+
+  char* texture_path = GetPath(folder_path, "/texture.png");
+  skin->m_source_texture.LoadFromFile(texture_path);
+  free(texture_path);
+
+  char* map_path = GetPath(folder_path, "/map.txt");
+  size_t map_size = 0;
+  char* map = FileToStr(map_path, &map_size, true);
+  free(map_path);
+
+  char* map_carriage = map;
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_idle_texture_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_hovered_texture_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_pressed_texture_location);
+  map_carriage = GetIntRectFromText(map_carriage, &skin->m_hit_area);
+  free(map);
+
+  return skin;
+}
+
+
 gui::AbstractButtonSkin* gui::SkinManager::GetMinimizeButtonSkin() const {
   return m_minimize_button_skin;
 }
@@ -354,4 +385,9 @@ gui::WindowSkin* gui::SkinManager::GetWindowSkin() const {
 
 gui::ToolBarSkin* gui::SkinManager::GetToolBarSkin() const {
   return m_tool_bar_skin;
+}
+
+
+gui::ColorSelectButtonSkin* gui::SkinManager::GetColorSelectButtonSkin() const {
+  return m_color_select_button_skin;
 }

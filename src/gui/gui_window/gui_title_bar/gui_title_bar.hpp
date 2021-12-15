@@ -3,7 +3,7 @@
 
 
 #include "gui_abstract_container_widget.hpp"
-#include "gui_button.hpp"
+#include "gui_plain_button.hpp"
 #include "gui_title.hpp"
 #include "gui_title_bar_skin.hpp"
 #include "gui_move_functor.hpp"
@@ -40,9 +40,9 @@ namespace gui {
     void SetSkin(TitleBarSkin* skin);
     void SetMoveFunctor(MoveFunctor* move_functor);
 
-    void AddMinimizeButton(Button* minimize_button);
-    void AddMaximizeButton(Button* maximize_button);
-    void AddCloseButton   (Button* close_button);
+    void AddMinimizeButton(PlainButton* minimize_button);
+    void AddMaximizeButton(PlainButton* maximize_button);
+    void AddCloseButton   (PlainButton* close_button);
     void AddTitle         (Title* title);
   };
 }

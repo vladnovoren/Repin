@@ -31,9 +31,9 @@ gui::WidgetManager::WidgetManager() {
 
   CloseWidgetFunctor* close_widget_functor1 = new CloseWidgetFunctor(window1);
 
-  Button* close_button1 = new Button(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
-                                    close_widget_functor1,
-                                    skin_manager.GetCloseButtonSkin());
+  PlainButton* close_button1 = new PlainButton(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
+                                               close_widget_functor1,
+                                               skin_manager.GetCloseButtonSkin());
 
 
   title_bar1->AddCloseButton(close_button1);
@@ -64,9 +64,9 @@ gui::WidgetManager::WidgetManager() {
 
   CloseWidgetFunctor* close_widget_functor2 = new CloseWidgetFunctor(window2);
 
-  Button* close_button2 = new Button(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
-                                    close_widget_functor2,
-                                    skin_manager.GetCloseButtonSkin());
+  PlainButton* close_button2 = new PlainButton(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
+                                               close_widget_functor2,
+                                               skin_manager.GetCloseButtonSkin());
 
 
   title_bar2->AddCloseButton(close_button2);
@@ -77,7 +77,6 @@ gui::WidgetManager::WidgetManager() {
 
   main_window->AddWindow(window1);
   main_window->AddWindow(window2);
-
   main_window->AddMainMenu(main_menu);
 
 
@@ -89,11 +88,23 @@ gui::WidgetManager::WidgetManager() {
   tool_bar_title->SetLocation(glib::IntRect(glib::Vector2i(75, 0), glib::Vector2i()));
   tool_bar_title->SetText(tool_bar_title_text);
 
+  ColorPanel* color_panel = ColorPanel::GetInstance();
+  color_panel->SetLocation(glib::IntRect(0, 21, 147, 757));
+
+  ColorSelectButtonSkin* select_button_skin = skin_manager.GetColorSelectButtonSkin();
+
+  ColorSelectButton* red_select = new ColorSelectButton(glib::IntRect(5, 5, 30, 30),
+                                                        select_button_skin,
+                                                        glib::ColorRGBA(1, 0, 0, 1));
+  red_select->SetSkin(skin_manager.GetColorSelectButtonSkin());
+
+  color_panel->AddColorSelectButton(red_select);
+
   ToolBar* tool_bar = ToolBar::GetInstance();
   tool_bar->SetLocation(glib::IntRect(0, 22, 147, 778));
-  Brush* brush = new Brush(glib::ColorRGBA(), 3);
-  tool_bar->SetActiveTool(brush);
+  tool_bar->SetActiveTool(Brush::GetInstance());
   tool_bar->AddTitle(tool_bar_title);
+  tool_bar->AddColorPanel(color_panel);
   main_window->AddToolBar();
 
   m_root = main_window;

@@ -116,21 +116,21 @@ void gui::TitleBar::SetMoveFunctor(MoveFunctor* move_functor) {
 }
 
 
-void gui::TitleBar::AddMinimizeButton(Button* minimize_button) {
+void gui::TitleBar::AddMinimizeButton(PlainButton* minimize_button) {
   assert(minimize_button != nullptr);
 
   AddChild(minimize_button);
 }
 
 
-void gui::TitleBar::AddMaximizeButton(Button* maximize_button) {
+void gui::TitleBar::AddMaximizeButton(PlainButton* maximize_button) {
   assert(maximize_button != nullptr);
 
   AddChild(maximize_button);
 }
 
 
-void gui::TitleBar::AddCloseButton(Button* close_button) {
+void gui::TitleBar::AddCloseButton(PlainButton* close_button) {
   assert(close_button != nullptr);
 
   AddChild(close_button);

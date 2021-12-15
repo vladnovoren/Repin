@@ -41,8 +41,12 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget_functor.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget_skin.cpp
-               src/gui/gui_button/gui_button.cpp
-               src/gui/gui_button/gui_button_skin.cpp
+
+               src/gui/gui_button/gui_abstract_button/gui_abstract_button.cpp
+               src/gui/gui_button/gui_abstract_button/gui_abstract_button_skin.cpp
+               src/gui/gui_button/gui_select_button/gui_select_button.cpp
+               src/gui/gui_button/gui_plain_button/gui_plain_button.cpp
+
                src/gui/gui_skin_manager/gui_skin_manager.cpp
                src/gui/gui_widget_manager/gui_widget_manager.cpp
 
@@ -68,9 +72,14 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_tool_bar/gui_tool_bar_skin.cpp
 
                src/gui/gui_tool_bar/gui_color_picker/gui_color_picker.cpp
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_picker_skin.cpp
 
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_select_button_skin.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_panel.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_panel_skin.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_functor.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button_skin.cpp
+
+               src/gui/gui_tools/gui_brush/gui_set_brush_functor.cpp
 )
 
 

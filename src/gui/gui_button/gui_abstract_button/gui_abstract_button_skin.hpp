@@ -1,5 +1,5 @@
-#ifndef GUI_BUTTON_SKIN_HPP
-#define GUI_BUTTON_SKIN_HPP
+#ifndef GUI_ABSTRACT_BUTTON_SKIN_HPP
+#define GUI_ABSTRACT_BUTTON_SKIN_HPP
 
 
 #include "gui_abstract_widget_skin.hpp"
@@ -29,7 +29,7 @@ namespace gui {
     virtual bool IsPointInside(const glib::IntRect& location,
                                glib::Vector2i point) const = 0;
 
-    void Render();
+    virtual void Render();
     virtual void CopyToRenderTarget(glib::RenderTarget* render_target,
                                     const glib::Vector2i& position) const;
 
@@ -72,4 +72,4 @@ namespace gui {
 }
 
 
-#endif /* gui_button_skin.hpp */
+#endif /* gui_abstract_button_skin.hpp */

@@ -1,7 +1,6 @@
 #include "glib_render_target.hpp"
 #include "glib_render_window.hpp"
 #include "glib_render_texture.hpp"
-#include "app.hpp"
 
 
 glib::RenderTarget::~RenderTarget() = default;

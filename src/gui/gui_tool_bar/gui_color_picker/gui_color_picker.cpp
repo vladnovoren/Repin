@@ -1,21 +1,9 @@
 #include "gui_color_picker.hpp"
 
 
-gui::ColorPicker::ColorPicker() {
-  // AddChild()
-}
-
-
 gui::ColorPicker& gui::ColorPicker::GetInstance() {
   static ColorPicker instance;
   return instance;
-}
-
-
-void gui::ColorPicker::SetSkin(ColorPickerSkin* skin) {
-  assert(skin != nullptr);
-
-  m_skin = skin;
 }
 
 
