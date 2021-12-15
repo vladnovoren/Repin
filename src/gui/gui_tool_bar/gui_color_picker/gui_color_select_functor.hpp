@@ -8,6 +8,7 @@
 
 namespace gui {
   class ColorSelectFunctor: public AbstractWidgetFunctor {
+   protected:
     glib::ColorRGBA m_color;
    public:
     ColorSelectFunctor() = default;

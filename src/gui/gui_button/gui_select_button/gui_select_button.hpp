@@ -28,6 +28,8 @@ namespace gui {
     EventResult OnMouseButtonReleased(glib::Vector2i local_mouse_position,
                                       glib::Vector2i global_mouse_position,
                                       MouseButton button) override;
+
+    bool IsSelected() const;
   };
 }
 

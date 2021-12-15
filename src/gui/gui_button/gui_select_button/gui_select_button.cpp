@@ -69,3 +69,8 @@ gui::EventResult gui::SelectButton::OnMouseButtonReleased(glib::Vector2i local_m
   }
   return EventResult::PROCESSED;
 }
+
+
+bool gui::SelectButton::IsSelected() const {
+  return m_is_selected;
+}

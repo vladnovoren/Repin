@@ -30,6 +30,8 @@ namespace gui {
 
     void SetFunctor(AbstractWidgetFunctor* functor);
     virtual void SetSkin(AbstractButtonSkin* skin);
+
+    void SetIdle();
   };
 }
 

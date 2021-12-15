@@ -9,6 +9,7 @@
 
 namespace gui {
   class ColorPanel: public AbstractContainerWidget {
+    friend class ColorSelectButtonFunctor;
    protected:
     ColorPanel() = default;
 
