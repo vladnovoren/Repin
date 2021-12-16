@@ -2,112 +2,12 @@
 
 
 gui::WidgetManager::WidgetManager() {
-  MainMenu* main_menu = MainMenu::GetInstance();
-  SkinManager& skin_manager = SkinManager::GetInstance();
-  main_menu->SetSkin(skin_manager.GetMainMenuSkin());
-
-  MainWindow* main_window = MainWindow::GetInstance();
-
-  glib::Text title_text1("Serega Chernomyrdin", skin_manager.GetSanFranciscoFont());
-  title_text1.SetFontSize(14);
-  title_text1.SetColor(glib::ColorRGBA(0, 0, 0, 1));
-
-  Canvas* canvas1 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(400, 279)));
-
-  WindowSkin* window_skin = skin_manager.GetWindowSkin();
-  Window* window1 = new Window;
-  window1->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(400, 300)));
-  window1->SetSkin(window_skin);
-  MoveFunctor* window1_move_functor = new MoveFunctor(window1);
-
-  Title* title1 = new Title;
-  title1->SetLocation(glib::IntRect(glib::Vector2i(200, 0), glib::Vector2i()));
-  title1->SetText(title_text1);
-
-  TitleBar* title_bar1 = new TitleBar;
-  title_bar1->SetMoveFunctor(window1_move_functor);
-  title_bar1->SetSkin(skin_manager.GetTitleBarSkin());
-  title_bar1->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(400, 21)));
-
-  CloseWidgetFunctor* close_widget_functor1 = new CloseWidgetFunctor(window1);
-
-  PlainButton* close_button1 = new PlainButton(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
-                                               close_widget_functor1,
-                                               skin_manager.GetCloseButtonSkin());
-
-
-  title_bar1->AddCloseButton(close_button1);
-  title_bar1->AddTitle(title1);
-  window1->AddTitleBar(title_bar1);
-  window1->AddContent(canvas1);
-
-
-
-  glib::Text title_text2("Miha Rogozin", skin_manager.GetSanFranciscoFont());
-  title_text2.SetFontSize(14);
-  title_text2.SetColor(glib::ColorRGBA(0, 0, 0, 1));
-
-  Canvas* canvas2 = new Canvas(glib::IntRect(glib::Vector2i(0, 21), glib::Vector2i(400, 279)));
-
-  Window* window2 = new Window;
-  window2->SetLocation(glib::IntRect(glib::Vector2i(0, 22), glib::Vector2i(400, 300)));
-  MoveFunctor* window2_move_functor = new MoveFunctor(window2);
-
-  Title* title2 = new Title;
-  title2->SetLocation(glib::IntRect(glib::Vector2i(200, 0), glib::Vector2i()));
-  title2->SetText(title_text2);
-
-  TitleBar* title_bar2 = new TitleBar;
-  title_bar2->SetMoveFunctor(window2_move_functor);
-  title_bar2->SetSkin(skin_manager.GetTitleBarSkin());
-  title_bar2->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(400, 21)));
-
-  CloseWidgetFunctor* close_widget_functor2 = new CloseWidgetFunctor(window2);
-
-  PlainButton* close_button2 = new PlainButton(glib::IntRect(glib::Vector2i(381, 3), glib::Vector2i(14, 15)),
-                                               close_widget_functor2,
-                                               skin_manager.GetCloseButtonSkin());
-
-
-  title_bar2->AddCloseButton(close_button2);
-  title_bar2->AddTitle(title2);
-  window2->AddTitleBar(title_bar2);
-  window2->AddContent(canvas2);
-  window2->SetSkin(window_skin);
-
-  main_window->AddWindow(window1);
-  main_window->AddWindow(window2);
-  main_window->AddMainMenu(main_menu);
-
-
-  glib::Text tool_bar_title_text("Tools", skin_manager.GetSanFranciscoFont());
-  tool_bar_title_text.SetFontSize(14);
-  tool_bar_title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
-
-  Title* tool_bar_title = new Title;
-  tool_bar_title->SetLocation(glib::IntRect(glib::Vector2i(75, 0), glib::Vector2i()));
-  tool_bar_title->SetText(tool_bar_title_text);
-
-  ColorPanel* color_panel = ColorPanel::GetInstance();
-  color_panel->SetLocation(glib::IntRect(0, 21, 147, 757));
-
-  ColorSelectButtonSkin* select_button_skin = skin_manager.GetColorSelectButtonSkin();
-
-  ColorSelectButton* red_select = new ColorSelectButton(glib::IntRect(5, 5, 30, 30),
-                                                        select_button_skin,
-                                                        glib::ColorRGBA(1, 0, 0, 1));
-  red_select->SetSkin(skin_manager.GetColorSelectButtonSkin());
-
-  color_panel->AddColorSelectButton(red_select);
-
-  ToolBar* tool_bar = ToolBar::GetInstance();
-  tool_bar->SetLocation(glib::IntRect(0, 22, 147, 778));
-  tool_bar->SetActiveTool(Brush::GetInstance());
-  tool_bar->AddTitle(tool_bar_title);
-  tool_bar->AddColorPanel(color_panel);
-  main_window->AddToolBar();
-
-  m_root = main_window;
+  InitMainWindow();
+  InitMainMenu();
+  InitToolBar();
+  InitColorPanel();
+  InitContentWindow();
+  InitCanvases();
 }
 
 
@@ -262,4 +162,136 @@ gui::EventResult gui::WidgetManager::GetAndProcessEvent(glib::RenderWindow* rend
 
 bool gui::WidgetManager::IsOpen() const {
   return m_is_open;
+}
+
+
+void gui::WidgetManager::InitMainWindow() {
+  m_main_window = MainWindow::GetInstance();
+  m_main_window->SetLocation(glib::IntRect(0, 0, APP_WIDTH, APP_HEIGHT));
+  m_root = m_main_window;
+}
+
+
+void gui::WidgetManager::InitMainMenu() {
+  m_main_menu = MainMenu::GetInstance();
+  int main_menu_height = m_skin_manager.GetMainMenuSkin()->m_location.m_size.y;
+  m_main_menu->SetLocation(glib::IntRect(0, 0, APP_WIDTH, main_menu_height));
+  m_main_menu->SetSkin(m_skin_manager.GetInstance().GetMainMenuSkin());
+
+  assert(m_main_window != nullptr);
+  m_main_window->AddMainMenu();
+}
+
+
+void gui::WidgetManager::InitToolBar() {
+  m_tool_bar = ToolBar::GetInstance();
+  m_tool_bar->SetActiveTool(Brush::GetInstance());
+  glib::Text title_text("Tools", m_skin_manager.GetSanFranciscoFont());
+  title_text.SetFontSize(FONT_SIZE);
+  title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
+
+  Title* title = new Title;
+  title->SetLocation(glib::IntRect(glib::Vector2i(TOOL_BAR_WIDTH / 2, 0), glib::Vector2i()));
+  title->SetText(title_text);
+
+  m_tool_bar->AddTitle(title);
+
+  assert(m_main_window != nullptr);
+  assert(m_main_menu   != nullptr);
+
+  m_main_window->AddToolBar();
+
+  int tool_bar_pos_y = m_skin_manager.GetMainMenuSkin()->m_location.m_size.y;
+  int tool_bar_height = APP_HEIGHT - tool_bar_pos_y;
+
+  m_tool_bar->SetLocation(glib::IntRect(0, tool_bar_pos_y, TOOL_BAR_WIDTH, tool_bar_height));
+
+  m_content_pos = m_tool_bar->Location().m_position;
+  m_content_pos.x += m_tool_bar->Location().m_size.x;
+}
+
+
+void gui::WidgetManager::InitColorPanel() {
+  m_color_panel = ColorPanel::GetInstance();
+
+  ColorSelectButtonSkin*  button_skin = m_skin_manager.GetColorSelectButtonSkin();
+  int                           delta = 2 * button_skin->m_hit_area.m_position.x;
+  glib::Vector2i        curr_position = button_skin->m_hit_area.m_position;
+  glib::Vector2i          button_size = button_skin->m_hit_area.m_size;
+
+  int color_panel_size_y = 2 * delta + button_size.y;
+
+  for (size_t i = 0; i < N_COLORS; ++i) {
+    if (i % 5 == 0) {
+      curr_position.y += delta + button_size.y;
+      color_panel_size_y += delta + button_size.y;
+      curr_position.x = button_skin->m_hit_area.m_position.x;
+    }
+    ColorSelectButton* button = new ColorSelectButton;
+    button->SetLocation(glib::IntRect(curr_position, button_size));
+    button->SetSkin(button_skin);
+    button->SetColor(COLORS[i]);
+    m_color_panel->AddColorSelectButton(button);
+
+    curr_position.x += delta + button_size.x;
+  }
+  if (N_COLORS % 5 == 0) {
+    color_panel_size_y -= delta;
+  }
+  m_color_panel->SetLocation(glib::IntRect(0, 0, TOOL_BAR_WIDTH, color_panel_size_y));
+  m_tool_bar->AddColorPanel();
+}
+
+
+void gui::WidgetManager::InitContentWindow() {
+  m_content_main_window = ContentMainWindow::GetInstance();
+  m_content_main_window->SetLocation(glib::IntRect(m_content_pos.x,
+                                                   m_content_pos.y,
+                                                   APP_WIDTH - m_content_pos.x,
+                                                   APP_HEIGHT - m_content_pos.y));
+  m_main_window->AddContentWindow();
+}
+
+
+void gui::WidgetManager::InitCanvases() {
+  m_title_bar_height = m_skin_manager.GetTitleBarSkin()->m_left_origin_location.m_size.y;
+  m_canvas_window_size = glib::Vector2i(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT + m_title_bar_height);
+
+  glib::Text title_text1("Serega Chernomyrdin", m_skin_manager.GetSanFranciscoFont());
+  title_text1.SetFontSize(FONT_SIZE);
+  title_text1.SetColor(glib::ColorRGBA(0, 0, 0, 1));
+
+  Canvas* canvas1 = new Canvas(glib::IntRect(0, m_title_bar_height, CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT));
+
+  WindowSkin* window_skin = m_skin_manager.GetWindowSkin();
+  Window* window1 = new Window;
+  window1->SetLocation(glib::IntRect(glib::Vector2i(), m_canvas_window_size));
+  window1->SetSkin(window_skin);
+  MoveFunctor* window1_move_functor = new MoveFunctor(window1);
+
+  Title* title1 = new Title;
+  title1->SetLocation(glib::IntRect(glib::Vector2i(CANVAS_DEFAULT_WIDTH / 2, 0), glib::Vector2i()));
+  title1->SetText(title_text1);
+
+  TitleBar* title_bar1 = new TitleBar;
+  title_bar1->SetMoveFunctor(window1_move_functor);
+  title_bar1->SetSkin(m_skin_manager.GetTitleBarSkin());
+  title_bar1->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(CANVAS_DEFAULT_WIDTH, m_title_bar_height)));
+
+  CloseWidgetFunctor* close_widget_functor1 = new CloseWidgetFunctor(window1);
+
+  m_button_size     = m_skin_manager.GetCloseButtonSkin()->m_idle_texture_location.m_size;
+  m_button_start    = glib::Vector2i(CANVAS_DEFAULT_WIDTH - m_skin_manager.GetTitleBarSkin()->m_right_origin_location.m_size.x,
+                                     (m_title_bar_height - m_button_size.y) / 2);
+  m_button_start.x -= m_button_size.x;
+
+  PlainButton* close_button1 = new PlainButton(glib::IntRect(m_button_start,
+                                                             m_button_size),
+                                               close_widget_functor1,
+                                               m_skin_manager.GetCloseButtonSkin());
+  title_bar1->AddCloseButton(close_button1);
+  title_bar1->AddTitle(title1);
+  window1->AddTitleBar(title_bar1);
+  window1->AddContent(canvas1);
+  m_content_main_window->AddWindow(window1);
 }

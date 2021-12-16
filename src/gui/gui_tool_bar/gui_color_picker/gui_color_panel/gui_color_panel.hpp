@@ -4,7 +4,6 @@
 
 #include "gui_abstract_container_widget.hpp"
 #include "gui_color_select_button.hpp"
-#include "gui_color_panel_skin.hpp"
 
 
 namespace gui {
@@ -12,10 +11,8 @@ namespace gui {
     friend class ColorSelectButtonFunctor;
    protected:
     ColorPanel() = default;
-
-    ColorPanelSkin* m_skin = nullptr;
    public:
-    ~ColorPanel() override;
+    ~ColorPanel() override = default;
 
     static ColorPanel* GetInstance();
 

@@ -7,6 +7,7 @@
 #include "gui_main_menu.hpp"
 #include "gui_app_config.hpp"
 #include "gui_tool_bar.hpp"
+#include "gui_content_window.hpp"
 
 
 namespace gui {
@@ -14,15 +15,13 @@ namespace gui {
    protected:
     MainWindow();
     ~MainWindow() = default;
-
-    MainMenu* m_main_menu = MainMenu::GetInstance();
    public:
     static MainWindow* GetInstance();
 
     glib::IntRect GetValidBoundsForContent() const override;
 
-    void AddWindow(Window* window);
-    void AddMainMenu(MainMenu* main_menu);
+    void AddContentWindow();
+    void AddMainMenu();
     void AddToolBar();
   };
 }

@@ -13,6 +13,7 @@ namespace gui {
     bool m_is_selected = false;
    public:
     SelectButton() = default;
+    SelectButton(const glib::IntRect& location);
     SelectButton(const glib::IntRect& location,
                  AbstractButtonSkin* skin);
     SelectButton(const glib::IntRect& location,
@@ -30,6 +31,8 @@ namespace gui {
                                       MouseButton button) override;
 
     bool IsSelected() const;
+
+    void SetIdle() override;
   };
 }
 

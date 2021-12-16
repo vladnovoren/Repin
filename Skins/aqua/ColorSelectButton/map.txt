@@ -1,16 +1,16 @@
 ; idle
  0  0 ; position
-30 30 ; size
+25 25 ; size
 
 ; hovered
-30  0 ; position
-30 30 ; size
+25  0 ; position
+25 25 ; size
 
 ; pressed
-60  0 ; position
-30 30 ; size
+50  0 ; position
+25 25 ; size
 
 ; hit area
  5  5 ; position
-20 20 ; size
+15 15 ; size
 

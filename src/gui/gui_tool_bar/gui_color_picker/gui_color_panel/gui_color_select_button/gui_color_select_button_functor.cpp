@@ -21,16 +21,17 @@ void gui::ColorSelectButtonFunctor::operator()() {
     printf("bad ColorSelectButton\n");
     return;
   }
-  for (auto it =  color_panel->m_children.begin();
+  for (auto it  = color_panel->m_children.begin();
             it != color_panel->m_children.end();
             ++it) {
     auto child_ptr = *it;
     assert(child_ptr != nullptr);
     if (child_ptr != m_owner) {
-      auto casted_child_ptr = dynamic_cast<ColorSelectButton*>(child_ptr);
-      casted_child_ptr->
+      ColorSelectButton* casted_child_ptr = dynamic_cast<ColorSelectButton*>(child_ptr);
+      casted_child_ptr->SetIdle();
     }
   }
+  ColorPicker::GetInstance().SetColor(m_color);
 }
 
 

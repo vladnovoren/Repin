@@ -55,12 +55,14 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_window/gui_title_bar/gui_title_bar.cpp
                src/gui/gui_window/gui_title_bar/gui_title_bar_skin.cpp
                src/gui/gui_window/gui_window.cpp
+
                src/gui/gui_canvas/gui_canvas.cpp
                src/gui/gui_event_system/gui_events.cpp
                src/gui/gui_abstract_container_widget/gui_abstract_container_widget.cpp
                src/gui/gui_drag/gui_move_functor.cpp
                src/gui/gui_main_window/gui_main_window.cpp
                src/gui/gui_main_window/gui_main_menu.cpp
+               src/gui/gui_main_window/gui_content_window.cpp
                src/gui/gui_main_window/gui_main_menu_skin.cpp
                src/gui/gui_window/gui_window_skin.cpp
 
@@ -72,12 +74,14 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_tool_bar/gui_tool_bar_skin.cpp
 
                src/gui/gui_tool_bar/gui_color_picker/gui_color_picker.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_select_functor.cpp
+               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button_functor.cpp
+
 
                src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_panel.cpp
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_panel_skin.cpp
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_functor.cpp
                src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button.cpp
                src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button_skin.cpp
+
 
                src/gui/gui_tools/gui_brush/gui_set_brush_functor.cpp
 )
@@ -97,9 +101,10 @@ MACRO(HEADER_DIRECTORIES return_list)
     SET(${return_list} ${dir_list})
 ENDMACRO()
 
+
 HEADER_DIRECTORIES(header_dir_list)
 list(LENGTH header_dir_list header_dir_list_count)
-message(STATUS "[INFO] Found ${header_dir_list_count} header directories: ${header_dir_list}.")
+include_directories(${header_dir_list})
 include_directories(${header_dir_list})
 
 

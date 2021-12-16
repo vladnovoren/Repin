@@ -6,14 +6,14 @@ gui::ColorSelectButton::ColorSelectButton(const glib::IntRect& location,
                                           const glib::ColorRGBA& color):
                         SelectButton(location, skin) {
   SetColor(color);
-  skin->m_owner = this;
+  SetSkin(skin);
 }
 
 
 void gui::ColorSelectButton::SetColor(const glib::ColorRGBA& color) {
   m_color = color;
   delete m_functor;
-  ColorSelectFunctor* functor = new ColorSelectFunctor(color);
+  ColorSelectButtonFunctor* functor = new ColorSelectButtonFunctor(this, color);
   m_functor = functor;
 }
 

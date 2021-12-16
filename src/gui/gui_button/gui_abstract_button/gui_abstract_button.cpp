@@ -2,6 +2,10 @@
 #include "gui_widget_manager.hpp"
 
 
+gui::AbstractButton::AbstractButton(const glib::IntRect& location):
+                     AbstractWidget(location) {}
+
+
 gui::AbstractButton::AbstractButton(const glib::IntRect& location,
                                     AbstractButtonSkin* skin):
                      AbstractWidget(location) {
@@ -60,4 +64,10 @@ void gui::AbstractButton::Draw(glib::RenderTarget* render_target,
   }
   glib::Vector2i position_to_copy = position + m_location.m_position;
   m_skin->CopyToRenderTarget(render_target, position_to_copy);
+}
+
+
+void gui::AbstractButton::SetIdle() {
+  m_skin->SetIdle();
+  m_needs_to_render = true;
 }

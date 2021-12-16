@@ -16,6 +16,7 @@ namespace gui {
     AbstractButtonSkin* m_skin       = nullptr;
    public:
     AbstractButton() = default;
+    AbstractButton(const glib::IntRect& location);
     AbstractButton(const glib::IntRect& location,
                    AbstractButtonSkin* skin);
     AbstractButton(const glib::IntRect& location,
@@ -31,7 +32,7 @@ namespace gui {
     void SetFunctor(AbstractWidgetFunctor* functor);
     virtual void SetSkin(AbstractButtonSkin* skin);
 
-    void SetIdle();
+    virtual void SetIdle();
   };
 }
 

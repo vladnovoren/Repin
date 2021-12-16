@@ -15,6 +15,7 @@
 #include "gui_brush.hpp"
 #include "gui_color_select_button.hpp"
 #include "gui_color_panel.hpp"
+#include "gui_content_window.hpp"
 
 
 namespace gui {
@@ -27,6 +28,20 @@ namespace gui {
     bool m_is_open = true;
 
     AbstractWidget* m_mouse_active_widget = nullptr;
+
+    SkinManager&              m_skin_manager = SkinManager::GetInstance();
+    MainMenu*                    m_main_menu = nullptr;
+    ToolBar*                      m_tool_bar = nullptr;
+    ColorPicker*              m_color_picker = nullptr;
+    ColorPanel*                m_color_panel = nullptr;
+    MainWindow*                m_main_window = nullptr;
+    ContentMainWindow* m_content_main_window = nullptr;
+
+    glib::Vector2i m_content_pos;
+    glib::Vector2i m_canvas_window_size;
+    int            m_title_bar_height;
+    glib::Vector2i m_button_size;
+    glib::Vector2i m_button_start;
    public:
     ~WidgetManager();
 
@@ -50,6 +65,14 @@ namespace gui {
                                               const sf::Event& sf_event);
 
     bool IsOpen() const;
+
+
+    void InitMainWindow();
+    void InitMainMenu();
+    void InitToolBar();
+    void InitColorPanel();
+    void InitContentWindow();
+    void InitCanvases();
   };
 }
 

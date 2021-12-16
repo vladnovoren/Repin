@@ -2,10 +2,13 @@
 #include "gui_widget_manager.hpp"
 
 
+gui::SelectButton::SelectButton(const glib::IntRect& location):
+                   AbstractButton(location) {}
+
+
 gui::SelectButton::SelectButton(const glib::IntRect& location,
                                 AbstractButtonSkin* skin):
                    AbstractButton(location, skin) {}
-                   
 
 
 gui::SelectButton::SelectButton(const glib::IntRect& location,
@@ -73,4 +76,10 @@ gui::EventResult gui::SelectButton::OnMouseButtonReleased(glib::Vector2i local_m
 
 bool gui::SelectButton::IsSelected() const {
   return m_is_selected;
+}
+
+
+void gui::SelectButton::SetIdle() {
+  AbstractButton::SetIdle();
+  m_is_selected = false;
 }

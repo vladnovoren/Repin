@@ -4,3 +4,5 @@ Test/
 .idea/
 .cache/
 log.txt
+cmake-build-debug/
+

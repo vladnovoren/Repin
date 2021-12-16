@@ -14,21 +14,24 @@ gui::MainWindow* gui::MainWindow::GetInstance() {
 
 glib::IntRect gui::MainWindow::GetValidBoundsForContent() const {
   glib::IntRect bounds;
-  bounds.m_position.y = m_main_menu->m_location.m_size.y;
+  MainMenu* main_menu = MainMenu::GetInstance();
+  bounds.m_position.y = main_menu->m_location.m_size.y;
   bounds.m_size = m_location.m_size;
-  bounds.m_size.y -= m_main_menu->m_location.m_size.y;
+  bounds.m_size.y -= main_menu->m_location.m_size.y;
   return bounds;
 }
 
 
-void gui::MainWindow::AddWindow(Window* window) {
-  assert(window != nullptr);
+void gui::MainWindow::AddContentWindow() {
+  ContentMainWindow* content = ContentMainWindow::GetInstance();
+  assert(content != nullptr);
 
-  AddChild(window);
+  AddChild(content);
 }
 
 
-void gui::MainWindow::AddMainMenu(MainMenu* main_menu) {
+void gui::MainWindow::AddMainMenu() {
+  MainMenu* main_menu = MainMenu::GetInstance();
   assert(main_menu != nullptr);
 
   AddChild(main_menu);
