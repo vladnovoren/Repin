@@ -222,7 +222,7 @@ void gui::WidgetManager::InitColorPanel() {
   int color_panel_size_y = 2 * delta + button_size.y;
 
   for (size_t i = 0; i < N_COLORS; ++i) {
-    if (i % 5 == 0) {
+    if (i % 5 == 0 && i != 0) {
       curr_position.y += delta + button_size.y;
       color_panel_size_y += delta + button_size.y;
       curr_position.x = button_skin->m_hit_area.m_position.x;
@@ -234,11 +234,12 @@ void gui::WidgetManager::InitColorPanel() {
     m_color_panel->AddColorSelectButton(button);
 
     curr_position.x += delta + button_size.x;
+    curr_position.Print();
   }
   if (N_COLORS % 5 == 0) {
     color_panel_size_y -= delta;
   }
-  m_color_panel->SetLocation(glib::IntRect(0, 0, TOOL_BAR_WIDTH, color_panel_size_y));
+  m_color_panel->SetLocation(glib::IntRect(0, m_title_bar_height, TOOL_BAR_WIDTH, color_panel_size_y));
   m_tool_bar->AddColorPanel();
 }
 
@@ -254,7 +255,6 @@ void gui::WidgetManager::InitContentWindow() {
 
 
 void gui::WidgetManager::InitCanvases() {
-  m_title_bar_height = m_skin_manager.GetTitleBarSkin()->m_left_origin_location.m_size.y;
   m_canvas_window_size = glib::Vector2i(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT + m_title_bar_height);
 
   glib::Text title_text1("Serega Chernomyrdin", m_skin_manager.GetSanFranciscoFont());
@@ -280,9 +280,9 @@ void gui::WidgetManager::InitCanvases() {
 
   CloseWidgetFunctor* close_widget_functor1 = new CloseWidgetFunctor(window1);
 
-  m_button_size     = m_skin_manager.GetCloseButtonSkin()->m_idle_texture_location.m_size;
-  m_button_start    = glib::Vector2i(CANVAS_DEFAULT_WIDTH - m_skin_manager.GetTitleBarSkin()->m_right_origin_location.m_size.x,
-                                     (m_title_bar_height - m_button_size.y) / 2);
+  m_button_size  = m_skin_manager.GetCloseButtonSkin()->m_idle_texture_location.m_size;
+  m_button_start = glib::Vector2i(CANVAS_DEFAULT_WIDTH - m_skin_manager.GetTitleBarSkin()->m_right_origin_location.m_size.x,
+                                  (m_title_bar_height - m_button_size.y) / 2);
   m_button_start.x -= m_button_size.x;
 
   PlainButton* close_button1 = new PlainButton(glib::IntRect(m_button_start,

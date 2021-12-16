@@ -39,7 +39,7 @@ namespace gui {
 
     glib::Vector2i m_content_pos;
     glib::Vector2i m_canvas_window_size;
-    int            m_title_bar_height;
+    int            m_title_bar_height = m_skin_manager.GetTitleBarSkin()->m_left_origin_location.m_size.y;
     glib::Vector2i m_button_size;
     glib::Vector2i m_button_start;
    public:

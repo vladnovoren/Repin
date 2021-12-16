@@ -1,5 +1,6 @@
 #include "gui_color_select_button_functor.hpp"
 #include "gui_color_select_button.hpp"
+#include "gui_tool_bar.hpp"
 
 
 gui::ColorSelectButtonFunctor::ColorSelectButtonFunctor(ColorSelectButton* owner,
