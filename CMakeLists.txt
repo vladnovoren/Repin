@@ -75,16 +75,11 @@ set(GUI_SOURCE src/open_file/open_file.cpp
 
                src/gui/gui_tool_bar/gui_color_picker/gui_color_picker.cpp
                src/gui/gui_tool_bar/gui_color_picker/gui_color_select_functor.cpp
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button_functor.cpp
 
-
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_panel.cpp
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button.cpp
-               src/gui/gui_tool_bar/gui_color_picker/gui_color_panel/gui_color_select_button/gui_color_select_button_skin.cpp
-
+               src/gui/gui_tool_bar/gui_select_panel/gui_select_panel.cpp
 
                src/gui/gui_tools/gui_brush/gui_set_brush_functor.cpp
-)
+        src/gui/gui_tool_bar/gui_select_panel/gui_color_select_button_skin.cpp)
 
 
 find_package(SFML 2.5 COMPONENTS graphics REQUIRED)

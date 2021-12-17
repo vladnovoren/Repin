@@ -6,7 +6,7 @@
 #include "gui_tool_bar_skin.hpp"
 #include "gui_brush.hpp"
 #include "gui_title.hpp"
-#include "gui_color_panel.hpp"
+#include "gui_select_panel.hpp"
 
 
 namespace gui {

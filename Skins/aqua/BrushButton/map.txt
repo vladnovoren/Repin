@@ -2,13 +2,13 @@ circle
 
 ; idle
  0  0 ; position
-40 40 ; size
+30 30 ; size
 
 ; hovered
-40  0 ; position
-40 40 ; size
+30  0 ; position
+30 30 ; size
 
 ; pressed
-80  0 ; position
-40 40 ; size
+60  0 ; position
+30 30 ; size
 

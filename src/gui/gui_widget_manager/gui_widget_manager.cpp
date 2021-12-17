@@ -234,7 +234,6 @@ void gui::WidgetManager::InitColorPanel() {
     m_color_panel->AddColorSelectButton(button);
 
     curr_position.x += delta + button_size.x;
-    curr_position.Print();
   }
   if (N_COLORS % 5 == 0) {
     color_panel_size_y -= delta;

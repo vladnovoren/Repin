@@ -391,3 +391,8 @@ gui::ToolBarSkin* gui::SkinManager::GetToolBarSkin() const {
 gui::ColorSelectButtonSkin* gui::SkinManager::GetColorSelectButtonSkin() const {
   return m_color_select_button_skin;
 }
+
+
+gui::AbstractButtonSkin* gui::SkinManager::GetBrushButtonSkin() const {
+  return m_brush_button_skin;
+}

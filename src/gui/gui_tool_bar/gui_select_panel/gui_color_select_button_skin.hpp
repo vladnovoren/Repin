@@ -6,18 +6,17 @@
 
 
 namespace gui {
-  class ColorSelectButton;
-
   struct ColorSelectButtonSkin: AbstractButtonSkin {
     glib::IntRect m_hit_area;
-    ColorSelectButton* m_owner = nullptr;
-  
+    glib::ColorRGBA m_color;
+
     ColorSelectButtonSkin() = default;
     ColorSelectButtonSkin(const glib::Texture& source_texture,
                           const glib::IntRect& idle_texture_location,
                           const glib::IntRect& hovered_texture_location,
                           const glib::IntRect& pressed_texture_location,
-                          const glib::IntRect& hit_area);
+                          const glib::IntRect& hit_area,
+                          const glib::ColorRGBA& color);
     ColorSelectButtonSkin(const ColorSelectButtonSkin& other);
     ~ColorSelectButtonSkin() = default;
 
@@ -29,6 +28,7 @@ namespace gui {
     AbstractButtonSkin* Copy() const override;
   };
 }
+
 
 
 #endif /* gui_color_select_button_skin.hpp */
