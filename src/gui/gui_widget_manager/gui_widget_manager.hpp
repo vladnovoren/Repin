@@ -13,9 +13,10 @@
 #include "gui_main_window.hpp"
 #include "gui_tool_bar.hpp"
 #include "gui_brush.hpp"
-#include "gui_color_select_button.hpp"
-#include "gui_color_panel.hpp"
+#include "gui_select_button.hpp"
+#include "gui_select_panel.hpp"
 #include "gui_content_window.hpp"
+#include "gui_color_select_functor.hpp"
 
 
 namespace gui {
@@ -33,7 +34,8 @@ namespace gui {
     MainMenu*                    m_main_menu = nullptr;
     ToolBar*                      m_tool_bar = nullptr;
     ColorPicker*              m_color_picker = nullptr;
-    ColorPanel*                m_color_panel = nullptr;
+    SelectPanel*               m_color_panel = nullptr;
+    SelectPanel*               m_tools_panel = nullptr;
     MainWindow*                m_main_window = nullptr;
     ContentMainWindow* m_content_main_window = nullptr;
 

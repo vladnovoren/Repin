@@ -35,7 +35,7 @@ namespace gui {
               const glib::Vector2i& position) override;
 
     void AddTitle(Title* title);
-    void AddColorPanel();
+    void AddSelectPanel(SelectPanel* select_panel);
   };
 }
 

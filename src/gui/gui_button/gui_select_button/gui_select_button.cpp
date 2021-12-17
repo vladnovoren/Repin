@@ -1,5 +1,6 @@
 #include "gui_select_button.hpp"
 #include "gui_widget_manager.hpp"
+#include "gui_select_panel.hpp"
 
 
 gui::SelectButton::SelectButton(const glib::IntRect& location):
@@ -17,6 +18,16 @@ gui::SelectButton::SelectButton(const glib::IntRect& location,
                    AbstractButton(location, functor, skin) {
   assert(functor != nullptr);
   assert(skin != nullptr);
+}
+
+
+gui::SelectButton::SelectButton(const glib::IntRect &location,
+                                AbstractWidgetFunctor *functor,
+                                AbstractButtonSkin *skin, SelectPanel *owner):
+                   AbstractButton(location, functor, skin), m_owner(owner) {
+  assert(functor != nullptr);
+  assert(skin != nullptr);
+  assert(owner != nullptr);
 }
 
 
@@ -67,6 +78,8 @@ gui::EventResult gui::SelectButton::OnMouseButtonReleased(glib::Vector2i local_m
       m_needs_to_render = true;
     }
     if (IsPointInside(local_mouse_position) && m_is_selected) {
+      assert(m_functor != nullptr);
+      m_owner->SetActiveButton(this);
       m_functor->operator()();
     }
   }
@@ -82,4 +95,11 @@ bool gui::SelectButton::IsSelected() const {
 void gui::SelectButton::SetIdle() {
   AbstractButton::SetIdle();
   m_is_selected = false;
+}
+
+
+void gui::SelectButton::SetOwner(SelectPanel *owner) {
+  assert(owner != nullptr);
+
+  m_owner = owner;
 }

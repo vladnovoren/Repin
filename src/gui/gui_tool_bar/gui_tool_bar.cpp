@@ -63,9 +63,8 @@ void gui::ToolBar::AddTitle(Title* title) {
 }
 
 
-void gui::ToolBar::AddColorPanel() {
-  ColorPanel* color_panel = ColorPanel::GetInstance();
-  assert(color_panel != nullptr);
+void gui::ToolBar::AddSelectPanel(SelectPanel* select_panel) {
+  assert(select_panel != nullptr);
 
-  AddChild(color_panel);
+  AddChild(select_panel);
 }

@@ -212,7 +212,7 @@ void gui::WidgetManager::InitToolBar() {
 
 
 void gui::WidgetManager::InitColorPanel() {
-  m_color_panel = ColorPanel::GetInstance();
+  m_color_panel = new SelectPanel;
 
   ColorSelectButtonSkin*  button_skin = m_skin_manager.GetColorSelectButtonSkin();
   int                           delta = 2 * button_skin->m_hit_area.m_position.x;
@@ -227,11 +227,13 @@ void gui::WidgetManager::InitColorPanel() {
       color_panel_size_y += delta + button_size.y;
       curr_position.x = button_skin->m_hit_area.m_position.x;
     }
-    ColorSelectButton* button = new ColorSelectButton;
+    SelectButton* button = new SelectButton;
     button->SetLocation(glib::IntRect(curr_position, button_size));
+    button_skin->m_color = COLORS[i];
     button->SetSkin(button_skin);
-    button->SetColor(COLORS[i]);
-    m_color_panel->AddColorSelectButton(button);
+    button->SetFunctor(new ColorSelectFunctor(COLORS[i]));
+    button->SetOwner(m_color_panel);
+    m_color_panel->AddSelectButton(button);
 
     curr_position.x += delta + button_size.x;
   }
@@ -239,7 +241,7 @@ void gui::WidgetManager::InitColorPanel() {
     color_panel_size_y -= delta;
   }
   m_color_panel->SetLocation(glib::IntRect(0, m_title_bar_height, TOOL_BAR_WIDTH, color_panel_size_y));
-  m_tool_bar->AddColorPanel();
+  m_tool_bar->AddSelectPanel(m_color_panel);
 }
 
 

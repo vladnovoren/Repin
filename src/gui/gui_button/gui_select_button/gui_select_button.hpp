@@ -8,9 +8,12 @@
 
 
 namespace gui {
+  class SelectPanel;
+
   class SelectButton: public AbstractButton {
    protected:
-    bool m_is_selected = false;
+    bool    m_is_selected = false;
+    SelectPanel* m_owner = nullptr;
    public:
     SelectButton() = default;
     SelectButton(const glib::IntRect& location);
@@ -19,6 +22,10 @@ namespace gui {
     SelectButton(const glib::IntRect& location,
                  AbstractWidgetFunctor* functor,
                  AbstractButtonSkin* skin);
+    SelectButton(const glib::IntRect& location,
+                 AbstractWidgetFunctor* functor,
+                 AbstractButtonSkin* skin,
+                 SelectPanel* owner);
     ~SelectButton() = default;
 
     EventResult OnMouseButtonPressed(glib::Vector2i local_mouse_position,
@@ -33,6 +40,8 @@ namespace gui {
     bool IsSelected() const;
 
     void SetIdle() override;
+
+    void SetOwner(SelectPanel* owner);
   };
 }
 
