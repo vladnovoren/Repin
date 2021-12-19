@@ -18,6 +18,7 @@
 #include "gui_content_window.hpp"
 #include "gui_color_select_functor.hpp"
 #include "gui_tool_select_functor.hpp"
+#include "gui_fill_bucket.hpp"
 
 
 namespace gui {

@@ -163,6 +163,7 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   char* tool_bar_path            = GetPath(folder_path, "/ToolBar");
   char* color_select_button_path = GetPath(folder_path, "/ColorSelectButton");
   char* brush_button_skin_path   = GetPath(folder_path, "/BrushButton");
+  char* fill_bucket_button_path  = GetPath(folder_path, "/FillBucketButton");
 
   m_minimize_button_skin     = LoadButtonSkinFromFolder(minimize_button_path);
   m_maximize_button_skin     = LoadButtonSkinFromFolder(maximize_button_path);
@@ -173,7 +174,9 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   m_tool_bar_skin            = LoadToolBarSkinFromFolder(tool_bar_path);
   m_color_select_button_skin = LoadSelectButtonSkinFromFolder(color_select_button_path);
   m_brush_button_skin        = LoadButtonSkinFromFolder(brush_button_skin_path);
+  m_fill_bucket_button_skin  = LoadButtonSkinFromFolder(fill_bucket_button_path);
 
+  free(fill_bucket_button_path);
   free(window_path);
   free(main_menu_path);
   free(minimize_button_path);
@@ -396,3 +399,9 @@ gui::ColorSelectButtonSkin* gui::SkinManager::GetColorSelectButtonSkin() const {
 gui::AbstractButtonSkin* gui::SkinManager::GetBrushButtonSkin() const {
   return m_brush_button_skin;
 }
+
+
+gui::AbstractButtonSkin* gui::SkinManager::GetFillBucketButtonSkin() const {
+  return m_fill_bucket_button_skin;
+}
+

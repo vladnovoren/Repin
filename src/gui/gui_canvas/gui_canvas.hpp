@@ -40,6 +40,7 @@ namespace gui {
 
     void DrawPoint(glib::Vector2i point_position, glib::ColorRGBA color);
     void DrawLine(glib::IntLine line, glib::ColorRGBA color);
+    void Clear(glib::ColorRGBA color);
 
     void Draw(glib::RenderTarget* render_target,
               const glib::Vector2i& position) override;

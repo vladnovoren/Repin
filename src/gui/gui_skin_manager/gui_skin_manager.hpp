@@ -30,12 +30,15 @@ namespace gui {
     ToolBarSkin*           m_tool_bar_skin            = nullptr;
     ColorSelectButtonSkin* m_color_select_button_skin = nullptr;
     AbstractButtonSkin*    m_brush_button_skin        = nullptr;
+    AbstractButtonSkin*    m_fill_bucket_button_skin  = nullptr;
 
     glib::Font*            m_san_francisco_font       = nullptr;
    public:
     ~SkinManager();
 
     static SkinManager&    GetInstance();
+
+    bool                   LoadFromFolder(const char* folder_path);
 
     void                   LoadSanFranciscoFont();
 
@@ -65,10 +68,9 @@ namespace gui {
     ToolBarSkin*           GetToolBarSkin() const;
     ColorSelectButtonSkin* GetColorSelectButtonSkin() const;
     AbstractButtonSkin*    GetBrushButtonSkin() const;
+    AbstractButtonSkin*    GetFillBucketButtonSkin() const;
 
     glib::Font*            GetSanFranciscoFont() const;
-
-    bool                   LoadFromFolder(const char* folder_path);
   };
 }
 

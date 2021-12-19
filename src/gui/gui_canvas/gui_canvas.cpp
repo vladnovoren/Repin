@@ -93,6 +93,12 @@ void gui::Canvas::DrawLine(glib::IntLine line, glib::ColorRGBA color) {
 }
 
 
+void gui::Canvas::Clear(glib::ColorRGBA color) {
+  m_render_texture.Clear(color);
+  m_needs_to_render = true;
+}
+
+
 void gui::Canvas::Draw(glib::RenderTarget* render_target,
                        const glib::Vector2i& position) {
   assert(render_target != nullptr);

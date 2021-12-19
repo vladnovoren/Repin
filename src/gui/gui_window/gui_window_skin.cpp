@@ -36,8 +36,8 @@ void gui::WindowSkin::Render(const glib::Vector2i& window_size,
     m_render_texture.CopyTexture(m_source_texture, curr_position, m_bottom_location);
     ++curr_position.x;
   }
-  --curr_position.y;
   m_render_texture.CopyTexture(m_source_texture, curr_position, m_right_bottom_angle_location);
+  --curr_position.y;
   for (int i = 0; i < height_without_title_bar; ++i) {
     m_render_texture.CopyTexture(m_source_texture, curr_position, m_right_edge_location);
     --curr_position.y;

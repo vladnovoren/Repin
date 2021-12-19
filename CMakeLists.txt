@@ -35,7 +35,7 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_tools/glib_tools.cpp
                 src/glib/glib_text/glib_text.cpp
                 src/glib/glib_font/glib_font.cpp
-)
+        src/gui/gui_tools/gui_fill_bucket/gui_fill_bucket.cpp)
 
 set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget.cpp
@@ -69,7 +69,8 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_tools/gui_abstract_tool.cpp
 
                src/gui/gui_tools/gui_brush/gui_brush.cpp
-        src/gui/gui_tools/gui_tool_select_functor.cpp
+               src/gui/gui_tools/gui_fill_bucket/gui_fill_bucket.cpp
+               src/gui/gui_tools/gui_tool_select_functor.cpp
 
                src/gui/gui_tool_bar/gui_tool_bar.cpp
                src/gui/gui_tool_bar/gui_tool_bar_skin.cpp

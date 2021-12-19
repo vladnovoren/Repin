@@ -227,11 +227,18 @@ int gui::WidgetManager::InitToolPanel(const glib::Vector2i& position) {
 int gui::WidgetManager::InitToolButtons(const glib::Vector2i& position) {
   glib::Vector2i button_size = m_skin_manager.GetBrushButtonSkin()->m_idle_texture_location.m_size;
   glib::Vector2i curr_position = position;
+  curr_position.x += m_skin_manager.GetColorSelectButtonSkin()->m_hit_area.m_position.x;
   SelectButton* brush_button = new SelectButton;
   brush_button->SetLocation(glib::IntRect(curr_position, button_size));
   brush_button->SetSkin(m_skin_manager.GetBrushButtonSkin());
   brush_button->SetFunctor(new ToolSelectFunctor(Brush::GetInstance()));
   m_tool_panel->AddSelectButton(brush_button);
+  curr_position.x += button_size.x;
+  SelectButton* fill_bucket_button = new SelectButton;
+  fill_bucket_button->SetLocation(glib::IntRect(curr_position, button_size));
+  fill_bucket_button->SetSkin(m_skin_manager.GetFillBucketButtonSkin());
+  fill_bucket_button->SetFunctor(new ToolSelectFunctor(FillBucket::GetInstance()));
+  m_tool_panel->AddSelectButton(fill_bucket_button);
   return curr_position.y + button_size.y - position.y;
 }
 
