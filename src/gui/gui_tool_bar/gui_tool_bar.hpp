@@ -20,8 +20,6 @@ namespace gui {
 
     AbstractTool* m_active_tool = nullptr;
 
-    Brush* m_brush = nullptr;
-
     ToolBarSkin* m_skin = nullptr;
    public:
     static ToolBar* GetInstance();

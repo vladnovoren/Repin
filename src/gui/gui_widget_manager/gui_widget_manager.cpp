@@ -5,7 +5,6 @@ gui::WidgetManager::WidgetManager() {
   InitMainWindow();
   InitMainMenu();
   InitToolBar();
-  InitColorPanel();
   InitContentWindow();
   InitCanvases();
 }
@@ -195,32 +194,31 @@ void gui::WidgetManager::InitToolBar() {
   title_text.SetFontSize(FONT_SIZE);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
+
   Title* title = new Title;
   title->SetLocation(glib::IntRect(glib::Vector2i(TOOL_BAR_WIDTH / 2, 0),
-                                   glib::Vector2i()));
+                                   glib::Vector2i(TOOL_BAR_WIDTH, m_title_bar_height)));
   title->SetText(title_text);
-
   m_tool_bar->AddTitle(title);
 
   assert(m_main_window != nullptr);
   assert(m_main_menu   != nullptr);
 
+  glib::Vector2i curr_position(0, m_title_bar_height);
   m_main_window->AddToolBar();
-
-  int tool_bar_pos_y = m_skin_manager.GetMainMenuSkin()->m_location.m_size.y;
-  int tool_bar_height = APP_HEIGHT - tool_bar_pos_y;
-
-  m_tool_bar->SetLocation(glib::IntRect(0, tool_bar_pos_y,
-                                        TOOL_BAR_WIDTH, tool_bar_height));
-
-  m_content_pos = m_tool_bar->Location().m_position;
-  m_content_pos.x += m_tool_bar->Location().m_size.x;
+  m_tool_bar->SetLocation(glib::IntRect(0, m_main_menu->Size().y,
+                                        TOOL_BAR_WIDTH, APP_HEIGHT - m_main_menu->Size().y));
+  curr_position.y += InitToolPanel(curr_position);
+  curr_position.y += InitColorPanel(curr_position);
 }
 
 
 int gui::WidgetManager::InitToolPanel(const glib::Vector2i& position) {
   m_tool_panel = new SelectPanel;
   m_tool_panel->SetPosition(position);
+  glib::Vector2i curr_position = position;
+  curr_position.y += InitToolButtons(curr_position);
+  return curr_position.y - position.y;
 }
 
 
@@ -231,7 +229,8 @@ int gui::WidgetManager::InitToolButtons(const glib::Vector2i& position) {
   brush_button->SetLocation(glib::IntRect(curr_position, button_size));
   brush_button->SetSkin(m_skin_manager.GetBrushButtonSkin());
   brush_button->SetFunctor(new ToolSelectFunctor(Brush::GetInstance()));
-  return curr_position.y + button_size.y;
+  m_tool_panel->AddSelectButton(brush_button);
+  return curr_position.y + button_size.y - position.y;
 }
 
 
@@ -273,11 +272,12 @@ int gui::WidgetManager::InitColorPanel(const glib::Vector2i& position) {
 
 
 void gui::WidgetManager::InitContentWindow() {
+  m_content_window_pos = glib::Vector2i(TOOL_BAR_WIDTH, m_tool_bar->Position().y);
   m_content_main_window = ContentMainWindow::GetInstance();
-  m_content_main_window->SetLocation(glib::IntRect(m_content_pos.x,
-                                                   m_content_pos.y,
-                                                   APP_WIDTH - m_content_pos.x,
-                                                   APP_HEIGHT - m_content_pos.y));
+  m_content_main_window->SetLocation(glib::IntRect(m_content_window_pos.x,
+                                                   m_content_window_pos.y,
+                                                   APP_WIDTH  - m_content_window_pos.x,
+                                                   APP_HEIGHT - m_content_window_pos.y));
   m_main_window->AddContentWindow();
 }
 

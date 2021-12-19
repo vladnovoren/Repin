@@ -13,8 +13,7 @@ gui::EventResult gui::PlainButton::OnMouseButtonPressed(glib::Vector2i,
                                                         MouseButton button) {
   if (button == MouseButton::LEFT) {
     WidgetManager::GetInstance().AddMouseActiveWidget(this);
-    m_skin->SetPressed();
-    m_needs_to_render = true;
+    SetPressed();
     return EventResult::PROCESSED;
   }
   return EventResult::NOT_PROCESSED;
@@ -26,12 +25,12 @@ gui::EventResult gui::PlainButton::OnMouseMove(glib::Vector2i new_local_mouse_po
   WidgetManager& widget_manager = WidgetManager::GetInstance();
   if (IsPointInside(new_local_mouse_position)) {
     if (widget_manager.GetMouseActiveWidget() != this) {
-      m_skin->SetHovered();
-      m_needs_to_render = true;
+      SetHovered();
     }
   } else {
-    m_skin->SetIdle();
-    m_needs_to_render = true;
+    if (m_press_state != ButtonPressState::IDLE) {
+      SetIdle();
+    }
     if (widget_manager.GetMouseActiveWidget() == this) {
       widget_manager.RemoveMouseActiveWidget(this);
     }

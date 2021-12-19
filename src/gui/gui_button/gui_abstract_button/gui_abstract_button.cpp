@@ -70,4 +70,19 @@ void gui::AbstractButton::Draw(glib::RenderTarget* render_target,
 void gui::AbstractButton::SetIdle() {
   m_skin->SetIdle();
   m_needs_to_render = true;
+  m_press_state = ButtonPressState::IDLE;
+}
+
+
+void gui::AbstractButton::SetHovered() {
+  m_skin->SetHovered();
+  m_needs_to_render = true;
+  m_press_state = ButtonPressState::HOVERED;
+}
+
+
+void gui::AbstractButton::SetPressed() {
+  m_skin->SetPressed();
+  m_needs_to_render = true;
+  m_press_state = ButtonPressState::PRESSED;
 }

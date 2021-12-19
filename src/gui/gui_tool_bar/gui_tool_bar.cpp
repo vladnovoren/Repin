@@ -5,7 +5,6 @@
 
 gui::ToolBar::ToolBar() {
   SetSkin(SkinManager::GetInstance().GetToolBarSkin());
-  m_brush = Brush::GetInstance();
 }
 
 

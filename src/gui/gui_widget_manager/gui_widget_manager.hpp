@@ -40,11 +40,11 @@ namespace gui {
     MainWindow*                m_main_window = nullptr;
     ContentMainWindow* m_content_main_window = nullptr;
 
-    glib::Vector2i m_content_pos;
     glib::Vector2i m_canvas_window_size;
-    int            m_title_bar_height = m_skin_manager.GetTitleBarSkin()->m_left_origin_location.m_size.y;
+    int            m_title_bar_height = SkinManager::GetInstance().GetTitleBarSkin()->m_left_origin_location.m_size.y;
     glib::Vector2i m_button_size;
     glib::Vector2i m_button_start;
+    glib::Vector2i m_content_window_pos;
    public:
     ~WidgetManager();
 

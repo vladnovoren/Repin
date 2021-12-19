@@ -8,12 +8,21 @@
 
 
 namespace gui {
+  enum ButtonPressState {
+    IDLE,
+    HOVERED,
+    PRESSED
+  };
+
+
   class AbstractButton: public AbstractWidget {
    protected:
     glib::Vector2i m_curr_mouse_position;
 
     AbstractWidgetFunctor* m_functor = nullptr;
     AbstractButtonSkin* m_skin       = nullptr;
+
+    ButtonPressState m_press_state = ButtonPressState::IDLE;
    public:
     AbstractButton() = default;
     AbstractButton(const glib::IntRect& location);
@@ -33,6 +42,8 @@ namespace gui {
     virtual void SetSkin(AbstractButtonSkin* skin);
 
     virtual void SetIdle();
+    virtual void SetHovered();
+    virtual void SetPressed();
   };
 }
 
