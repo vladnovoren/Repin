@@ -69,6 +69,7 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_tools/gui_abstract_tool.cpp
 
                src/gui/gui_tools/gui_brush/gui_brush.cpp
+        src/gui/gui_tools/gui_tool_select_functor.cpp
 
                src/gui/gui_tool_bar/gui_tool_bar.cpp
                src/gui/gui_tool_bar/gui_tool_bar_skin.cpp
@@ -78,8 +79,8 @@ set(GUI_SOURCE src/open_file/open_file.cpp
 
                src/gui/gui_tool_bar/gui_select_panel/gui_select_panel.cpp
 
-               src/gui/gui_tools/gui_brush/gui_set_brush_functor.cpp
-        src/gui/gui_tool_bar/gui_select_panel/gui_color_select_button_skin.cpp)
+               src/gui/gui_tool_bar/gui_select_panel/gui_color_select_button_skin.cpp
+)
 
 
 find_package(SFML 2.5 COMPONENTS graphics REQUIRED)

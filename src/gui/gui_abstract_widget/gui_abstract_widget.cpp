@@ -19,6 +19,26 @@ glib::IntRect gui::AbstractWidget::Location() const {
 }
 
 
+void gui::AbstractWidget::SetPosition(const glib::Vector2i& position) {
+  m_location.m_position = position;
+}
+
+
+glib::Vector2i gui::AbstractWidget::Position() const {
+  return m_location.m_position;
+}
+
+
+void gui::AbstractWidget::SetSize(const glib::Vector2i& size) {
+  m_location.m_size = size;
+}
+
+
+glib::Vector2i gui::AbstractWidget::Size() const {
+  return m_location.m_size;
+}
+
+
 bool gui::AbstractWidget::IsPointInside(glib::Vector2i point) const {
   return m_location.IsPointInRect(point);
 }

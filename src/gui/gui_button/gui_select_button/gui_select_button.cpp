@@ -74,11 +74,13 @@ gui::EventResult gui::SelectButton::OnMouseButtonReleased(glib::Vector2i local_m
   if (button == MouseButton::LEFT) {
     WidgetManager& widget_manager = WidgetManager::GetInstance();
     if (this == widget_manager.GetMouseActiveWidget()) {
+      m_is_selected = false;
       widget_manager.RemoveMouseActiveWidget(this);
       m_needs_to_render = true;
     }
     if (IsPointInside(local_mouse_position) && m_is_selected) {
       assert(m_functor != nullptr);
+      m_is_selected = true;
       m_owner->SetActiveButton(this);
       m_functor->operator()();
     }

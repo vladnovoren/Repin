@@ -17,6 +17,7 @@
 #include "gui_select_panel.hpp"
 #include "gui_content_window.hpp"
 #include "gui_color_select_functor.hpp"
+#include "gui_tool_select_functor.hpp"
 
 
 namespace gui {
@@ -35,7 +36,7 @@ namespace gui {
     ToolBar*                      m_tool_bar = nullptr;
     ColorPicker*              m_color_picker = nullptr;
     SelectPanel*               m_color_panel = nullptr;
-    SelectPanel*               m_tools_panel = nullptr;
+    SelectPanel*                m_tool_panel = nullptr;
     MainWindow*                m_main_window = nullptr;
     ContentMainWindow* m_content_main_window = nullptr;
 
@@ -64,15 +65,16 @@ namespace gui {
     EventResult GetAndProcessEvent(glib::RenderWindow* render_window,
                                    bool& is_pooled);
     EventResult ProcessMouseEventOnSignedWidget(glib::RenderWindow* render_window,
-                                              const sf::Event& sf_event);
+                                                const sf::Event& sf_event);
 
     bool IsOpen() const;
-
 
     void InitMainWindow();
     void InitMainMenu();
     void InitToolBar();
-    void InitColorPanel();
+    int  InitToolPanel(const glib::Vector2i& position);
+    int  InitToolButtons(const glib::Vector2i& position);
+    int  InitColorPanel(const glib::Vector2i& position);
     void InitContentWindow();
     void InitCanvases();
   };

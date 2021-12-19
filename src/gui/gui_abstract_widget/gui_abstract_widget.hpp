@@ -43,10 +43,17 @@ namespace gui {
     AbstractWidget(const glib::IntRect& location);
     virtual ~AbstractWidget() = 0;
 
-
     virtual void SetLocation(const glib::IntRect& location);
 
     glib::IntRect Location() const;
+
+    void SetPosition(const glib::Vector2i& position);
+
+    glib::Vector2i Position() const;
+
+    glib::Vector2i Size() const;
+
+    void SetSize(const glib::Vector2i& size);
 
     virtual bool IsPointInside(glib::Vector2i point) const;
 

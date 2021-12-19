@@ -11,4 +11,3 @@ rect
 ; pressed
 60  0 ; position
 30 30 ; size
-

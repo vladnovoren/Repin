@@ -59,7 +59,7 @@ void gui::WidgetManager::DeleteMatched() {
 
 void gui::WidgetManager::RemoveMouseActiveWidget(AbstractWidget* widget) {
   assert(widget != nullptr);
-  
+
   if (widget == m_mouse_active_widget) {
     m_mouse_active_widget = nullptr;
   } else {
@@ -79,8 +79,8 @@ gui::AbstractWidget* gui::WidgetManager::GetMouseActiveWidget() {
 
 
 gui::EventResult gui::WidgetManager::ProcessEvent(AbstractWidget* widget,
-                                                const sf::Event& sf_event,
-                                                bool force) {
+                                                  const sf::Event& sf_event,
+                                                  bool force) {
   assert(widget != nullptr);
 
   MouseButton button = SFMLToGUIMouseButton(sf_event.mouseButton.button);
@@ -94,14 +94,18 @@ gui::EventResult gui::WidgetManager::ProcessEvent(AbstractWidget* widget,
 
     case sf::Event::MouseButtonPressed:
       if (widget->IsPointInside(local_mouse_position) || force) {
-        return widget->OnMouseButtonPressed(local_mouse_position, mouse_position, button);
+        return widget->OnMouseButtonPressed(local_mouse_position,
+                                            mouse_position,
+                                            button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
 
     case sf::Event::MouseButtonReleased:
       if (widget->IsPointInside(local_mouse_position) || force) {
-        return widget->OnMouseButtonReleased(local_mouse_position, mouse_position, button);
+        return widget->OnMouseButtonReleased(local_mouse_position,
+                                             mouse_position,
+                                             button);
       } else {
         return EventResult::NOT_PROCESSED;
       }
@@ -120,7 +124,7 @@ gui::EventResult gui::WidgetManager::ProcessEvent(AbstractWidget* widget,
 
 
 gui::EventResult gui::WidgetManager::ProcessMouseEventOnSignedWidget(glib::RenderWindow* render_window,
-                                                                 const sf::Event& sf_event) {
+                                                                     const sf::Event& sf_event) {
   assert(render_window != nullptr);
 
   if (m_mouse_active_widget != nullptr) {
@@ -151,7 +155,8 @@ gui::EventResult gui::WidgetManager::GetAndProcessEvent(glib::RenderWindow* rend
   }
 
   if (IsMouseEvent(sf_event)) {
-    if (ProcessMouseEventOnSignedWidget(render_window, sf_event) == EventResult::PROCESSED) {
+    if (ProcessMouseEventOnSignedWidget(render_window, sf_event) ==
+        EventResult::PROCESSED) {
       return EventResult::PROCESSED;
     }
   }
@@ -191,7 +196,8 @@ void gui::WidgetManager::InitToolBar() {
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
   Title* title = new Title;
-  title->SetLocation(glib::IntRect(glib::Vector2i(TOOL_BAR_WIDTH / 2, 0), glib::Vector2i()));
+  title->SetLocation(glib::IntRect(glib::Vector2i(TOOL_BAR_WIDTH / 2, 0),
+                                   glib::Vector2i()));
   title->SetText(title_text);
 
   m_tool_bar->AddTitle(title);
@@ -204,14 +210,32 @@ void gui::WidgetManager::InitToolBar() {
   int tool_bar_pos_y = m_skin_manager.GetMainMenuSkin()->m_location.m_size.y;
   int tool_bar_height = APP_HEIGHT - tool_bar_pos_y;
 
-  m_tool_bar->SetLocation(glib::IntRect(0, tool_bar_pos_y, TOOL_BAR_WIDTH, tool_bar_height));
+  m_tool_bar->SetLocation(glib::IntRect(0, tool_bar_pos_y,
+                                        TOOL_BAR_WIDTH, tool_bar_height));
 
   m_content_pos = m_tool_bar->Location().m_position;
   m_content_pos.x += m_tool_bar->Location().m_size.x;
 }
 
 
-void gui::WidgetManager::InitColorPanel() {
+int gui::WidgetManager::InitToolPanel(const glib::Vector2i& position) {
+  m_tool_panel = new SelectPanel;
+  m_tool_panel->SetPosition(position);
+}
+
+
+int gui::WidgetManager::InitToolButtons(const glib::Vector2i& position) {
+  glib::Vector2i button_size = m_skin_manager.GetBrushButtonSkin()->m_idle_texture_location.m_size;
+  glib::Vector2i curr_position = position;
+  SelectButton* brush_button = new SelectButton;
+  brush_button->SetLocation(glib::IntRect(curr_position, button_size));
+  brush_button->SetSkin(m_skin_manager.GetBrushButtonSkin());
+  brush_button->SetFunctor(new ToolSelectFunctor(Brush::GetInstance()));
+  return curr_position.y + button_size.y;
+}
+
+
+int gui::WidgetManager::InitColorPanel(const glib::Vector2i& position) {
   m_color_panel = new SelectPanel;
 
   ColorSelectButtonSkin*  button_skin = m_skin_manager.GetColorSelectButtonSkin();
@@ -240,8 +264,11 @@ void gui::WidgetManager::InitColorPanel() {
   if (N_COLORS % 5 == 0) {
     color_panel_size_y -= delta;
   }
-  m_color_panel->SetLocation(glib::IntRect(0, m_title_bar_height, TOOL_BAR_WIDTH, color_panel_size_y));
+  m_color_panel->SetLocation(glib::IntRect(position,
+                                           glib::Vector2i(TOOL_BAR_WIDTH,
+                                                         color_panel_size_y)));
   m_tool_bar->AddSelectPanel(m_color_panel);
+  return color_panel_size_y;
 }
 
 
@@ -256,13 +283,17 @@ void gui::WidgetManager::InitContentWindow() {
 
 
 void gui::WidgetManager::InitCanvases() {
-  m_canvas_window_size = glib::Vector2i(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT + m_title_bar_height);
+  m_canvas_window_size = glib::Vector2i(CANVAS_DEFAULT_WIDTH,
+                                        CANVAS_DEFAULT_HEIGHT + m_title_bar_height);
 
   glib::Text title_text1("Serega Chernomyrdin", m_skin_manager.GetSanFranciscoFont());
   title_text1.SetFontSize(FONT_SIZE);
   title_text1.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
-  Canvas* canvas1 = new Canvas(glib::IntRect(0, m_title_bar_height, CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT));
+  Canvas* canvas1 = new Canvas(glib::IntRect(0,
+                                             m_title_bar_height,
+                                             CANVAS_DEFAULT_WIDTH,
+                                             CANVAS_DEFAULT_HEIGHT));
 
   WindowSkin* window_skin = m_skin_manager.GetWindowSkin();
   Window* window1 = new Window;
@@ -271,18 +302,22 @@ void gui::WidgetManager::InitCanvases() {
   MoveFunctor* window1_move_functor = new MoveFunctor(window1);
 
   Title* title1 = new Title;
-  title1->SetLocation(glib::IntRect(glib::Vector2i(CANVAS_DEFAULT_WIDTH / 2, 0), glib::Vector2i()));
+  title1->SetLocation(glib::IntRect(glib::Vector2i(CANVAS_DEFAULT_WIDTH / 2, 0),
+                                    glib::Vector2i()));
   title1->SetText(title_text1);
 
   TitleBar* title_bar1 = new TitleBar;
   title_bar1->SetMoveFunctor(window1_move_functor);
   title_bar1->SetSkin(m_skin_manager.GetTitleBarSkin());
-  title_bar1->SetLocation(glib::IntRect(glib::Vector2i(0, 0), glib::Vector2i(CANVAS_DEFAULT_WIDTH, m_title_bar_height)));
+  title_bar1->SetLocation(glib::IntRect(glib::Vector2i(0, 0),
+                                        glib::Vector2i(CANVAS_DEFAULT_WIDTH,
+                                                       m_title_bar_height)));
 
   CloseWidgetFunctor* close_widget_functor1 = new CloseWidgetFunctor(window1);
 
   m_button_size  = m_skin_manager.GetCloseButtonSkin()->m_idle_texture_location.m_size;
-  m_button_start = glib::Vector2i(CANVAS_DEFAULT_WIDTH - m_skin_manager.GetTitleBarSkin()->m_right_origin_location.m_size.x,
+  m_button_start = glib::Vector2i(CANVAS_DEFAULT_WIDTH -
+                                  m_skin_manager.GetTitleBarSkin()->m_right_origin_location.m_size.x,
                                   (m_title_bar_height - m_button_size.y) / 2);
   m_button_start.x -= m_button_size.x;
 

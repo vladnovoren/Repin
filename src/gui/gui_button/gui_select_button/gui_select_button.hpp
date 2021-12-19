@@ -12,7 +12,7 @@ namespace gui {
 
   class SelectButton: public AbstractButton {
    protected:
-    bool    m_is_selected = false;
+    bool   m_is_selected = false;
     SelectPanel* m_owner = nullptr;
    public:
     SelectButton() = default;
