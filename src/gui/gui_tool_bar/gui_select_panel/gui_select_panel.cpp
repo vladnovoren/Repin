@@ -10,10 +10,12 @@ void gui::SelectPanel::AddSelectButton(SelectButton* select_button) {
 
   AddChild(select_button);
   m_select_buttons.push_front(select_button);
+  select_button->SetOwner(this);
 }
 
 
 void gui::SelectPanel::SetActiveButton(SelectButton *select_button) {
+  assert((void*)this != nullptr);
   assert(select_button != nullptr);
 
   auto found_it = std::find(m_select_buttons.begin(), m_select_buttons.end(), select_button);

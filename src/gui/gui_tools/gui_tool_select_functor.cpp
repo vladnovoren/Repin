@@ -23,6 +23,8 @@ void gui::ToolSelectFunctor::operator()() {
   ToolBar* tool_bar = ToolBar::GetInstance();
   assert(tool_bar != nullptr);
 
+  printf("affected\n");
+
   tool_bar->SetActiveTool(m_tool);
 }
 

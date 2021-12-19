@@ -194,7 +194,6 @@ void gui::WidgetManager::InitToolBar() {
   title_text.SetFontSize(FONT_SIZE);
   title_text.SetColor(glib::ColorRGBA(0, 0, 0, 1));
 
-
   Title* title = new Title;
   title->SetLocation(glib::IntRect(glib::Vector2i(TOOL_BAR_WIDTH / 2, 0),
                                    glib::Vector2i(TOOL_BAR_WIDTH, m_title_bar_height)));
@@ -217,8 +216,11 @@ int gui::WidgetManager::InitToolPanel(const glib::Vector2i& position) {
   m_tool_panel = new SelectPanel;
   m_tool_panel->SetPosition(position);
   glib::Vector2i curr_position = position;
-  curr_position.y += InitToolButtons(curr_position);
-  return curr_position.y - position.y;
+  curr_position.y += InitToolButtons(glib::Vector2i());
+  int height = curr_position.y - position.y;
+  m_tool_panel->SetSize(glib::Vector2i(TOOL_BAR_WIDTH, height));
+  m_tool_bar->AddSelectPanel(m_tool_panel);
+  return height;
 }
 
 
@@ -255,7 +257,6 @@ int gui::WidgetManager::InitColorPanel(const glib::Vector2i& position) {
     button_skin->m_color = COLORS[i];
     button->SetSkin(button_skin);
     button->SetFunctor(new ColorSelectFunctor(COLORS[i]));
-    button->SetOwner(m_color_panel);
     m_color_panel->AddSelectButton(button);
 
     curr_position.x += delta + button_size.x;
