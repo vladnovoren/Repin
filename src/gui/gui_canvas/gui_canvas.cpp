@@ -8,14 +8,35 @@ gui::Canvas::Canvas(const glib::IntRect& location) {
 }
 
 
-void gui::Canvas::SetLocation(const glib::IntRect& location) {
-  m_location = location;
-  m_render_texture.Resize(location.m_size);
-  m_render_texture.Clear(glib::ColorRGBA(1, 1, 1));
+gui::Canvas::~Canvas() {
+  delete m_skin;
 }
 
 
-bool gui::Canvas::IsDrawind() const {
+void gui::Canvas::SetLocation(const glib::IntRect& location) {
+  m_location.m_position = location.m_position;
+  SetSize(location.m_size);
+}
+
+
+void gui::Canvas::SetSize(const glib::Vector2i& size) {
+  m_location.m_size = size;
+  m_render_texture.Resize(size);
+  m_render_texture.Clear(glib::ColorRGBA(0, 0, 0, 0));
+  m_canvas_texture.Resize(size);
+  m_render_texture.Clear(glib::ColorRGBA(0, 0, 0, 0));
+  m_needs_to_render_background = true;
+}
+
+
+void gui::Canvas::SetSkin(CanvasSkin* skin) {
+  assert(skin != nullptr);
+
+  m_skin = new CanvasSkin(*skin);
+}
+
+
+bool gui::Canvas::IsDrawing() const {
   return m_is_drawing;
 }
 
@@ -78,23 +99,25 @@ gui::EventResult gui::Canvas::OnMouseButtonReleased(glib::Vector2i,
 }
 
 
-void gui::Canvas::DrawPoint(glib::Vector2i point_position, glib::ColorRGBA color) {
-  m_render_texture.RenderCircle(glib::IntCircle(point_position, m_thickness), color);
-  m_render_texture.Display();
+void gui::Canvas::DrawCircle(glib::IntCircle circle, glib::ColorRGBA color,
+                             glib::BlendMode blend_mode) {
+  m_canvas_texture.RenderCircle(circle, color, blend_mode);
+  m_canvas_texture.Display();
   m_needs_to_render = true;
 }
 
 
-void gui::Canvas::DrawLine(glib::IntLine line, glib::ColorRGBA color) {
-  m_render_texture.RenderLine(line, color);
-  DrawPoint(line.m_end, color);
+void gui::Canvas::DrawLine(glib::IntLine line, glib::ColorRGBA color,
+                           glib::BlendMode blend_mode) {
+  m_canvas_texture.RenderLine(line, color, blend_mode);
+  DrawCircle(glib::IntCircle(line.m_end, line.m_thickness), color, blend_mode);
   m_prev_draw_point = line.m_end;
   m_needs_to_render = true;
 }
 
 
 void gui::Canvas::Clear(glib::ColorRGBA color) {
-  m_render_texture.Clear(color);
+  m_canvas_texture.Clear(color);
   m_needs_to_render = true;
 }
 
@@ -105,7 +128,16 @@ void gui::Canvas::Draw(glib::RenderTarget* render_target,
 
   glib::Vector2i position_inside = position + m_location.m_position;
 
+  if (m_needs_to_render_background) {
+    m_skin->Render(m_location.m_size);
+    m_needs_to_render_background = false;
+  }
+
   if (m_needs_to_render) {
+    m_render_texture.CopyTexture(m_skin->m_texture, glib::Vector2i());
+    m_canvas_texture.Display();
+    m_render_texture.CopyRenderTexture(m_canvas_texture, glib::Vector2i());
+    m_render_texture.Display();
     m_texture = m_render_texture.GetTexture();
     m_needs_to_render = false;
   }

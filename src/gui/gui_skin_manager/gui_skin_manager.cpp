@@ -164,6 +164,8 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   char* color_select_button_path = GetPath(folder_path, "/ColorSelectButton");
   char* brush_button_skin_path   = GetPath(folder_path, "/BrushButton");
   char* fill_bucket_button_path  = GetPath(folder_path, "/FillBucketButton");
+  char* canvas_skin_path         = GetPath(folder_path, "/Canvas");
+  char* eraser_button_path       = GetPath(folder_path, "/Eraser");
 
   m_minimize_button_skin     = LoadButtonSkinFromFolder(minimize_button_path);
   m_maximize_button_skin     = LoadButtonSkinFromFolder(maximize_button_path);
@@ -175,7 +177,11 @@ bool gui::SkinManager::LoadFromFolder(const char* folder_path) {
   m_color_select_button_skin = LoadSelectButtonSkinFromFolder(color_select_button_path);
   m_brush_button_skin        = LoadButtonSkinFromFolder(brush_button_skin_path);
   m_fill_bucket_button_skin  = LoadButtonSkinFromFolder(fill_bucket_button_path);
+  m_canvas_skin              = LoadCanvasSkinFromFolder(canvas_skin_path);
+  m_eraser_button_skin       = LoadButtonSkinFromFolder(eraser_button_path);
 
+  free(eraser_button_path);
+  free(canvas_skin_path);
   free(fill_bucket_button_path);
   free(window_path);
   free(main_menu_path);
@@ -351,6 +357,27 @@ gui::ColorSelectButtonSkin* gui::SkinManager::LoadSelectButtonSkinFromFolder(con
 }
 
 
+gui::CanvasSkin* gui::SkinManager::LoadCanvasSkinFromFolder(const char* folder_path) {
+  assert(folder_path != nullptr);
+
+  CanvasSkin* skin = new CanvasSkin;
+
+  char* texture_path = GetPath(folder_path, "/texture.png");
+  skin->m_source_texture.LoadFromFile(texture_path);
+  free(texture_path);
+
+  char* map_path = GetPath(folder_path, "/map.txt");
+  size_t map_size = 0;
+  char* map = FileToStr(map_path, &map_size, true);
+  free(map_path);
+
+  GetIntRectFromText(map, &skin->m_location);
+  free(map);
+
+  return skin;
+}
+
+
 gui::AbstractButtonSkin* gui::SkinManager::GetMinimizeButtonSkin() const {
   return m_minimize_button_skin;
 }
@@ -405,3 +432,12 @@ gui::AbstractButtonSkin* gui::SkinManager::GetFillBucketButtonSkin() const {
   return m_fill_bucket_button_skin;
 }
 
+
+gui::CanvasSkin* gui::SkinManager::GetCanvasSkin() const {
+  return m_canvas_skin;
+}
+
+
+gui::AbstractButtonSkin* gui::SkinManager::GetEraserButtonSkin() const {
+  return m_eraser_button_skin;
+}

@@ -16,7 +16,8 @@ void glib::RenderTarget::Clear(const ColorRGBA& color) {
 
 
 void glib::RenderTarget::RenderLine(const glib::IntLine& line,
-                                    const ColorRGBA& color) {
+                                    const ColorRGBA& color,
+                                    BlendMode blend_mode) {
   FloatLine float_line(line.m_begin, line.m_end, line.m_thickness);
   glib::Vector2f normal = float_line.m_end - float_line.m_begin;
   normal.Rotate(M_PI / 2);
@@ -35,7 +36,14 @@ void glib::RenderTarget::RenderLine(const glib::IntLine& line,
   convex.setPoint(3, sf::Vector2f(v3.x, v3.y));
   convex.setFillColor(GLibToSFMLColor(color));
 
-  m_sf_render_target->draw(convex);
+  if (blend_mode == BlendMode::COPY) {
+    sf::RenderStates render_states(sf::BlendMode(sf::BlendMode::Factor::One,
+                                                 sf::BlendMode::Factor::Zero,
+                                                 sf::BlendMode::Equation::Add));
+    m_sf_render_target->draw(convex, render_states);
+  } else {
+    m_sf_render_target->draw(convex);
+  }
 }
 
 
@@ -49,13 +57,22 @@ void glib::RenderTarget::RenderRect(const glib::IntRect& rect,
 
 
 void glib::RenderTarget::RenderCircle(const glib::IntCircle& circle,
-                                      const ColorRGBA& color) {
+                                      const ColorRGBA& color,
+                                      BlendMode blend_mode) {
   sf::CircleShape sf_circle;
   sf_circle.setOrigin(sf::Vector2f(circle.m_radius, circle.m_radius));
   sf_circle.setRadius(circle.m_radius);
   sf_circle.setPosition(circle.m_center.x, circle.m_center.y);
   sf_circle.setFillColor(GLibToSFMLColor(color));
-  m_sf_render_target->draw(sf_circle);
+
+  if (blend_mode == BlendMode::COPY) {
+    sf::RenderStates render_states(sf::BlendMode(sf::BlendMode::Factor::One,
+                                                 sf::BlendMode::Factor::Zero,
+                                                 sf::BlendMode::Equation::Add));
+    m_sf_render_target->draw(sf_circle, render_states);
+  } else {
+    m_sf_render_target->draw(sf_circle);
+  }
 }
 
 

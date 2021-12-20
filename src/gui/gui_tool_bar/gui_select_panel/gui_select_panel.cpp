@@ -15,7 +15,6 @@ void gui::SelectPanel::AddSelectButton(SelectButton* select_button) {
 
 
 void gui::SelectPanel::SetActiveButton(SelectButton *select_button) {
-  assert((void*)this != nullptr);
   assert(select_button != nullptr);
 
   auto found_it = std::find(m_select_buttons.begin(), m_select_buttons.end(), select_button);
@@ -29,6 +28,9 @@ void gui::SelectPanel::SetActiveButton(SelectButton *select_button) {
     assert(button_ptr != nullptr);
     if (button_ptr != select_button) {
       button_ptr->SetIdle();
+    } else {
+      button_ptr->SetPressed();
+      button_ptr->m_is_selected = true;
     }
   }
 }

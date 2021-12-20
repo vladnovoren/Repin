@@ -35,7 +35,7 @@ set(GLIB_SOURCE src/glib/glib_clock/glib_clock.cpp
                 src/glib/glib_tools/glib_tools.cpp
                 src/glib/glib_text/glib_text.cpp
                 src/glib/glib_font/glib_font.cpp
-        src/gui/gui_tools/gui_fill_bucket/gui_fill_bucket.cpp)
+        src/gui/gui_tools/gui_fill_bucket/gui_fill_bucket.cpp src/gui/gui_tools/gui_eraser/gui_eraser.cpp)
 
 set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_abstract_widget/gui_abstract_widget.cpp
@@ -81,6 +81,7 @@ set(GUI_SOURCE src/open_file/open_file.cpp
                src/gui/gui_tool_bar/gui_select_panel/gui_select_panel.cpp
 
                src/gui/gui_tool_bar/gui_select_panel/gui_color_select_button_skin.cpp
+               src/gui/gui_canvas/gui_canvas_skin.cpp
 )
 
 

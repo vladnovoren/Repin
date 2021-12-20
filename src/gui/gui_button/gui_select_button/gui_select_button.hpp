@@ -11,6 +11,7 @@ namespace gui {
   class SelectPanel;
 
   class SelectButton: public AbstractButton {
+    friend class SelectPanel;
    protected:
     bool   m_is_selected = false;
     SelectPanel* m_owner = nullptr;

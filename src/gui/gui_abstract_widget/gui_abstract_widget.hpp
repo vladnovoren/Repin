@@ -53,7 +53,7 @@ namespace gui {
 
     glib::Vector2i Size() const;
 
-    void SetSize(const glib::Vector2i& size);
+    virtual void SetSize(const glib::Vector2i& size);
 
     virtual bool IsPointInside(glib::Vector2i point) const;
 

@@ -9,6 +9,11 @@
 
 
 namespace glib {
+  enum BlendMode {
+    ADD,
+    COPY
+  };
+
   class RenderTexture;
 
   class RenderTarget {
@@ -20,9 +25,11 @@ namespace glib {
 
     void Clear(const ColorRGBA& color = ColorRGBA());
 
-    void RenderLine(const IntLine& line, const ColorRGBA& color);
+    void RenderLine(const IntLine& line, const ColorRGBA& color,
+                    BlendMode blend_mode = BlendMode::ADD);
     void RenderRect(const IntRect& rect, const ColorRGBA& color);
-    void RenderCircle(const IntCircle& circle, const ColorRGBA& color);
+    void RenderCircle(const IntCircle& circle, const ColorRGBA& color,
+                      BlendMode blend_mode = BlendMode::ADD);
 
     void RenderText(Text* text, const Vector2i& position);
 

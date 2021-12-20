@@ -228,17 +228,29 @@ int gui::WidgetManager::InitToolButtons(const glib::Vector2i& position) {
   glib::Vector2i button_size = m_skin_manager.GetBrushButtonSkin()->m_idle_texture_location.m_size;
   glib::Vector2i curr_position = position;
   curr_position.x += m_skin_manager.GetColorSelectButtonSkin()->m_hit_area.m_position.x;
+
   SelectButton* brush_button = new SelectButton;
   brush_button->SetLocation(glib::IntRect(curr_position, button_size));
   brush_button->SetSkin(m_skin_manager.GetBrushButtonSkin());
   brush_button->SetFunctor(new ToolSelectFunctor(Brush::GetInstance()));
   m_tool_panel->AddSelectButton(brush_button);
+  m_tool_panel->SetActiveButton(brush_button);
   curr_position.x += button_size.x;
+
   SelectButton* fill_bucket_button = new SelectButton;
   fill_bucket_button->SetLocation(glib::IntRect(curr_position, button_size));
   fill_bucket_button->SetSkin(m_skin_manager.GetFillBucketButtonSkin());
   fill_bucket_button->SetFunctor(new ToolSelectFunctor(FillBucket::GetInstance()));
   m_tool_panel->AddSelectButton(fill_bucket_button);
+  curr_position.x += button_size.x;
+
+  SelectButton* eraser_button = new SelectButton;
+  eraser_button->SetLocation(glib::IntRect(curr_position, button_size));
+  eraser_button->SetSkin(m_skin_manager.GetEraserButtonSkin());
+  eraser_button->SetFunctor(new ToolSelectFunctor(Eraser::GetInstance()));
+  m_tool_panel->AddSelectButton(eraser_button);
+  curr_position.x += button_size.x;
+
   return curr_position.y + button_size.y - position.y;
 }
 
@@ -265,7 +277,9 @@ int gui::WidgetManager::InitColorPanel(const glib::Vector2i& position) {
     button->SetSkin(button_skin);
     button->SetFunctor(new ColorSelectFunctor(COLORS[i]));
     m_color_panel->AddSelectButton(button);
-
+    if (i == 0) {
+      m_color_panel->SetActiveButton(button);
+    }
     curr_position.x += delta + button_size.x;
   }
   if (N_COLORS % 5 == 0) {
@@ -302,6 +316,7 @@ void gui::WidgetManager::InitCanvases() {
                                              m_title_bar_height,
                                              CANVAS_DEFAULT_WIDTH,
                                              CANVAS_DEFAULT_HEIGHT));
+  canvas1->SetSkin(m_skin_manager.GetCanvasSkin());
 
   WindowSkin* window_skin = m_skin_manager.GetWindowSkin();
   Window* window1 = new Window;

@@ -13,7 +13,7 @@ namespace gui {
    protected:
     Brush() = default;
 
-    int m_thickness = 3;
+    int m_thickness = 1;
    public:
     ~Brush() = default;
 

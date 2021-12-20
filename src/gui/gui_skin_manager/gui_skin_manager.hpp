@@ -11,9 +11,8 @@
 #include "gui_app_config.hpp"
 #include "gui_window_skin.hpp"
 #include "gui_tool_bar_skin.hpp"
-
 #include "gui_color_select_button_skin.hpp"
-
+#include "gui_canvas_skin.hpp"
 
 
 namespace gui {
@@ -31,6 +30,8 @@ namespace gui {
     ColorSelectButtonSkin* m_color_select_button_skin = nullptr;
     AbstractButtonSkin*    m_brush_button_skin        = nullptr;
     AbstractButtonSkin*    m_fill_bucket_button_skin  = nullptr;
+    CanvasSkin*            m_canvas_skin              = nullptr;
+    AbstractButtonSkin*    m_eraser_button_skin       = nullptr;
 
     glib::Font*            m_san_francisco_font       = nullptr;
    public:
@@ -58,6 +59,7 @@ namespace gui {
     WindowSkin*            LoadWindowSkinFromFolder(const char* folder_path);
     ToolBarSkin*           LoadToolBarSkinFromFolder(const char* folder_path);
     ColorSelectButtonSkin* LoadSelectButtonSkinFromFolder(const char* folder_path);
+    CanvasSkin*            LoadCanvasSkinFromFolder(const char* folder_path);
 
     AbstractButtonSkin*    GetMinimizeButtonSkin() const;
     AbstractButtonSkin*    GetMaximizeButtonSkin() const;
@@ -69,6 +71,8 @@ namespace gui {
     ColorSelectButtonSkin* GetColorSelectButtonSkin() const;
     AbstractButtonSkin*    GetBrushButtonSkin() const;
     AbstractButtonSkin*    GetFillBucketButtonSkin() const;
+    CanvasSkin*            GetCanvasSkin() const;
+    AbstractButtonSkin*    GetEraserButtonSkin() const;
 
     glib::Font*            GetSanFranciscoFont() const;
   };
