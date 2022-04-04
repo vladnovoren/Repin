@@ -6,9 +6,11 @@ Graphics editor named after the great Russian artist.
 build:
 ```
 chmod +x build.sh
+./build.sh
 ```
 
-run (exec from project directory to correct work):
+run:
 ```
-./build/Repin 
+chomd +x run.sh
+./run.sh
 ```
